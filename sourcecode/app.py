@@ -4,7 +4,7 @@ import bcrypt
 
 app = Flask(__name__)
 app.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://cmbaumann:SeniorDesign2021@testcluster.sl9ku.mongodb.net/test")
+client = pymongo.MongoClient("mongodb+srv://codeusername:CodePassword@testcluster.sl9ku.mongodb.net/test")
 db = client.get_database('total_records')
 records = db.register
 
@@ -26,12 +26,24 @@ def register():
         
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
+
+        major = request.form.get("major")
         
         # user_found = records.find_one({"name": user})
         email_found = records.find_one({"email": email})
-        # if user_found:
-        #     message = 'There already is a user by that name'
-        #     return render_template('register.html', message=message)
+        
+        if first == "":
+            message = 'Please enter your first name'
+            return render_template('register.html', message=message)
+        if last == "":
+            message = 'Please enter your last name'
+            return render_template('register.html', message=message)
+        if email == "":
+            message = 'Please enter your email'
+            return render_template('register.html', message=message)
+        if major == "":
+            message = 'Please enter your major'
+            return render_template('register.html', message=message)
         if email_found:
             message = 'This email already exists in database'
             return render_template('register.html', message=message)
@@ -40,7 +52,7 @@ def register():
             return render_template('register.html', message=message)
         else:
             hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
-            user_input = {'firstname': first, 'lastname': last, 'email': email, 'password': hashed}
+            user_input = {'firstname': first, 'lastname': last, 'email': email, 'password': hashed, 'major': major}
             records.insert_one(user_input)
             
             user_data = records.find_one({"email": email})
