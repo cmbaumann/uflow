@@ -106,6 +106,14 @@ def logout():
     else:
         return render_template('index.html')
 
+@app.route("/flowchart", methods=['post', 'get'])
+def flowchar():
+    if "email" in session:
+        email = session["email"]
+        return render_template('flowchart.html', email=email)
+    else:
+        return redirect(url_for("login"))
+
 #end of code to run it
 if __name__ == "__main__":
   app.run(debug=True)
