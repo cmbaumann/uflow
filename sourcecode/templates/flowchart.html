@@ -11,12 +11,48 @@
         height: 110px;
         padding: 10px 10px 10px 10px;
         margin: 10px 10px 10px 10px;
+        text-align: center;
     }
+
+    .color {
+        border: 2px solid grey;
+        border-radius: 5px;
+        width: 110px;
+        height: 30px;
+        margin: 10px 10px 10px 10px;
+        padding: 2px 2px 2px 2px;
+        text-align: center;
+    }
+
 </style>
 
 <script>
-    function func() {
-        document.getElementById("try").style.backgroundColor="red";
+
+    let curColor = "white";
+
+    function color(id) {
+        if (id == ("taken")) {
+            curColor = "green";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("future").style.backgroundColor="white";
+        }
+        if (id == "inprogress") {
+            curColor = "blue";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("future").style.backgroundColor="white";
+        }
+        if (id == "future") {
+            curColor = "red";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+        }
+    }
+
+    function change(id) {
+        document.getElementById(id).style.backgroundColor=curColor;
     }
 </script>
 
@@ -24,62 +60,83 @@
 
 {% block content %}
 
-<p>Hello You have Logged in as {{ email }}</p>
+<form action="" method="post">
 
-<div class="container-fluid">
+    <div class="form-group">
+        <label for="FlowchartName">Flowchart Name</label>
+        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder="New Flowchart Name" style="width: 40%">
+        <small id="flowchartname" class="form-text text-muted"></small>
+  </div>
+
+<div class="container-fluid form-group">
     <div class="row">
-        <div class="column course" id="try" onclick="func()">EN 101</div>
-        <div class="column course">ENGR 103</div>
-        <div class="column course">MATH 125</div>
-        <div class="column course">CS 100</div>
-        <div class="column course">CS 121</div>
+        <div class="column form-check form-check-inline color" id="taken" onclick="color('taken')">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="taken" value="taken">
+            <label class="form-check-label" for="inlineRadio1">Taken</label>
+        </div>
+        <div class="column form-check form-check-inline color" id="inprogress" onclick="color('inprogress')">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inprogress" value="inprogress">
+            <label class="form-check-label" for="inlineRadio2">In Progress</label>
+        </div>
+        <div class="column form-check form-check-inline color" id="future" onclick="color('future')">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="future" value="future">
+            <label class="form-check-label" for="inlineRadio3">Future</label>
+        </div>
     </div>
     <div class="row">
-        <div class="column course">EN 102</div>
-        <div class="column course">HI/SB Elective</div>
-        <div class="column course">MATH 126</div>
-        <div class="column course">CS 101</div>
+        <div class="column course" id="1" onclick="change('1')">EN 101</div>
+        <div class="column course" id="2" onclick="change('2')">ENGR 103</div>
+        <div class="column course" id="3" onclick="change('3')">MATH 125</div>
+        <div class="column course" id="4" onclick="change('4')">CS 100</div>
+        <div class="column course" id="5" onclick="change('5')">CS 121</div>
     </div>
     <div class="row">
-        <div class="column course">HU/L/FA Elective #1 (sequence)</div>
-        <div class="column course">MATH 301</div>
-        <div class="column course">CS 200</div>
-        <div class="column course">ECE 380</div>
+        <div class="column course" id="6" onclick="change('6')">EN 102</div>
+        <div class="column course" id="7" onclick="change('7')">HI/SB Elective</div>
+        <div class="column course" id="8" onclick="change('8')">MATH 126</div>
+        <div class="column course" id="9" onclick="change('9')">CS 101</div>
     </div>
     <div class="row">
-        <div class="column course">HU/L/FA Elective #2 (sequence)</div>
-        <div class="column course">Nat Science Elective (N)</div>
-        <div class="column course">MATH 302</div>
-        <div class="column course">CS 201</div>
-        <div class="column course">ECE 383</div>
+        <div class="column course" id="10" onclick="change('10')">HU/L/FA Elective #1 (sequence)</div>
+        <div class="column course" id="11" onclick="change('11')">MATH 301</div>
+        <div class="column course" id="12" onclick="change('12')">CS 200</div>
+        <div class="column course" id="13" onclick="change('13')">ECE 380</div>
     </div>
     <div class="row">
-        <div class="column course">Free Elective</div>
-        <div class="column course">HI/SB Elective</div>
-        <div class="column course">GES 255/ MATH 355</div>
-        <div class="column course">CS 300</div>
-        <div class="column course">CS 301</div>
+        <div class="column course" id="14" onclick="change('14')">HU/L/FA Elective #2 (sequence)</div>
+        <div class="column course" id="15" onclick="change('15')">Nat Science Elective (N)</div>
+        <div class="column course" id="16" onclick="change('16')">MATH 302</div>
+        <div class="column course" id="17" onclick="change('17')">CS 201</div>
+        <div class="column course" id="18" onclick="change('18')">ECE 383</div>
     </div>
     <div class="row">
-        <div class="column course">Free Elective</div>
-        <div class="column course">HI/SB Elective</div>
-        <div class="column course">MATH 237</div>
-        <div class="column course">CS 403</div>
-        <div class="column course">CS 4xx</div>
+        <div class="column course" id="19" onclick="change('19')">Free Elective</div>
+        <div class="column course" id="20" onclick="change('20')">HI/SB Elective</div>
+        <div class="column course" id="21" onclick="change('21')">GES 255/ MATH 355</div>
+        <div class="column course" id="22" onclick="change('22')">CS 300</div>
+        <div class="column course" id="23" onclick="change('23')">CS 301</div>
     </div>
     <div class="row">
-        <div class="column course">Free Elective</div>
-        <div class="column course">HU/L/FA Elective</div>
-        <div class="column course">Nat Science #1 (sequence, N)</div>
-        <div class="column course">CS 470/475</div>
-        <div class="column course">CS 4xx</div>
+        <div class="column course" id="24" onclick="change('24')">Free Elective</div>
+        <div class="column course" id="25" onclick="change('25')">HI/SB Elective</div>
+        <div class="column course" id="26" onclick="change('26')">MATH 237</div>
+        <div class="column course" id="27" onclick="change('27')">CS 403</div>
+        <div class="column course" id="28" onclick="change('28')">CS 4xx</div>
     </div>
     <div class="row">
-        <div class="column course">Free Elective</div>
-        <div class="column course">Free Elective</div>
-        <div class="column course">Nat Science #2 (sequence, N)</div>
-        <div class="column course">CS 495</div>
+        <div class="column course" id="29" onclick="change('29')">Free Elective</div>
+        <div class="column course" id="30" onclick="change('30')">HU/L/FA Elective</div>
+        <div class="column course" id="31" onclick="change('31')">Nat Science #1 (sequence, N)</div>
+        <div class="column course" id="32" onclick="change('32')">CS 470/475</div>
+        <div class="column course" id="33" onclick="change('33')">CS 4xx</div>
+    </div>
+    <div class="row">
+        <div class="column course" id="34" onclick="change('34')">Free Elective</div>
+        <div class="column course" id="35" onclick="change('35')">Free Elective</div>
+        <div class="column course" id="36" onclick="change('36')">Nat Science #2 (sequence, N)</div>
+        <div class="column course" id="37" onclick="change('37')">CS 495</div>
     </div>
 </div>
 
+</form>
 {% endblock %}
