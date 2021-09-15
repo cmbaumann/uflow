@@ -4,36 +4,19 @@
 {% block head %}
 <style>
     
-    #course {
+    .course {
         border: 2px solid grey;
         border-radius: 5px;
-        padding: 5px;
-        z-index: 2;
+        width: 110px;
+        height: 110px;
+        padding: 10px 10px 10px 10px;
+        margin: 10px 10px 10px 10px;
     }
 </style>
+
 <script>
-    function dragStart(ev) {
-        ev.dataTransfer.effectAllowed='move';
-        ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
-        ev.dataTransfer.setDragImage(ev.target,0,0);
-        return true;
-    }
-
-    function dragEnter(ev) {
-        event.preventDefault();
-        return true;
-    
-    }
-
-    function dragOver(ev) {
-        return false;
-    }
-
-    function dragDrop(ev) {
-        var src = ev.dataTransfer.getData("Text");
-        ev.target.appendChild(document.getElementById(src));
-        ev.stopPropagation();
-        return false;
+    function func() {
+        document.getElementById("try").style.backgroundColor="red";
     }
 </script>
 
@@ -43,18 +26,59 @@
 
 <p>Hello You have Logged in as {{ email }}</p>
 
-<div class="container-fluid" style=" position: absolute; bottom: 0px; top: 0px; left: 0px; right: 0px;">
-    <div class="row" style="height: 100%; position: relative;">
-        <div class="col-xs-3" style="background-color: #9acfea; width: 25%; position: absolute; top: 0px; bottom: 0px; left: 0px;">
-            <h2>Courses</h2>
-            <h3 id="course" draggable="true" ondragstart="return dragStart(event)">CS 100</h3>
-            <h3 id="course" draggable="true" ondragstart="return dragStart(event)">CS 101</h3>
-            <h3 id="course" draggable="true" ondragstart="return dragStart(event)">CS 121</h3>
-        </div>
-        <div class="col-xs-9 bin" style="background-color: beige; width: 75%; position: absolute; top: 0px; bottom: 0px; right: 0px">
-            <h2>Flowchart</h2>
-            <div ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)" style="border: 2px solid grey; width: 400px; height: 400px;"></div>
-        </div>    
+<div class="container-fluid">
+    <div class="row">
+        <div class="column course" id="try" onclick="func()">EN 101</div>
+        <div class="column course">ENGR 103</div>
+        <div class="column course">MATH 125</div>
+        <div class="column course">CS 100</div>
+        <div class="column course">CS 121</div>
+    </div>
+    <div class="row">
+        <div class="column course">EN 102</div>
+        <div class="column course">HI/SB Elective</div>
+        <div class="column course">MATH 126</div>
+        <div class="column course">CS 101</div>
+    </div>
+    <div class="row">
+        <div class="column course">HU/L/FA Elective #1 (sequence)</div>
+        <div class="column course">MATH 301</div>
+        <div class="column course">CS 200</div>
+        <div class="column course">ECE 380</div>
+    </div>
+    <div class="row">
+        <div class="column course">HU/L/FA Elective #2 (sequence)</div>
+        <div class="column course">Nat Science Elective (N)</div>
+        <div class="column course">MATH 302</div>
+        <div class="column course">CS 201</div>
+        <div class="column course">ECE 383</div>
+    </div>
+    <div class="row">
+        <div class="column course">Free Elective</div>
+        <div class="column course">HI/SB Elective</div>
+        <div class="column course">GES 255/ MATH 355</div>
+        <div class="column course">CS 300</div>
+        <div class="column course">CS 301</div>
+    </div>
+    <div class="row">
+        <div class="column course">Free Elective</div>
+        <div class="column course">HI/SB Elective</div>
+        <div class="column course">MATH 237</div>
+        <div class="column course">CS 403</div>
+        <div class="column course">CS 4xx</div>
+    </div>
+    <div class="row">
+        <div class="column course">Free Elective</div>
+        <div class="column course">HU/L/FA Elective</div>
+        <div class="column course">Nat Science #1 (sequence, N)</div>
+        <div class="column course">CS 470/475</div>
+        <div class="column course">CS 4xx</div>
+    </div>
+    <div class="row">
+        <div class="column course">Free Elective</div>
+        <div class="column course">Free Elective</div>
+        <div class="column course">Nat Science #2 (sequence, N)</div>
+        <div class="column course">CS 495</div>
     </div>
 </div>
 
