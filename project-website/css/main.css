@@ -79,6 +79,7 @@ section {
 .hero-img {
   width: 70%;
   margin-top: 3em;
+  margin-bottom: -4em;
 }
 
 .project-goals {
@@ -87,5 +88,44 @@ section {
   line-height: 3em;
   display: -ms-grid;
   display: grid;
+}
+
+nav.menu-btn {
+  display: block;
+}
+
+nav {
+  position: fixed;
+  z-index: 999;
+  width: 66%;
+  right: 0;
+  top: 0;
+  background: red;
+  height: 100vh;
+  padding: 1em;
+}
+
+nav ul.primary-nav {
+  margin-top: 5em;
+}
+
+nav li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 0.5em;
+  font-size: 1.3em;
+  text-align: right;
+}
+
+nav li:hover {
+  font-weight: bold;
+}
+
+.mobile-menu-exit {
+  float: right;
+  margin: 0.5em;
+  cursor: pointer;
+  width: 10%;
 }
 /*# sourceMappingURL=main.css.map */
