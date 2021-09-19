@@ -171,4 +171,50 @@ nav {
     .project-goals {
         font-size: 1.4em;
     }
+
+    .hero-img {
+        width: 50%;
+    }
+}
+
+
+@media only screen and (min-width: 1080px) {
+    .container {
+        width: 1080px;
+        margin: 0 auto;
+    }
+
+    section {
+        padding: 10em 4em;
+    }
+
+    .hero .container {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .left-col {
+        margin: 3em 3em 0 5em;
+        .subhead {
+            font-size: 1.5em;
+        }
+        h1 {
+            font-size: 8em;
+            width: 90%;
+            
+        }
+        .hero-cta {
+            font-size: 1.2em;
+        }
+    }
+    .hero-img {
+        width: 40%;
+        margin-right: 8em;
+    }
+
+    .project-goals {
+        margin-top: 0.1em;
+        font-size: 2em;
+    }
 }
