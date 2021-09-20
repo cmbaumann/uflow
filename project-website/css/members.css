@@ -50,12 +50,28 @@ section {
   padding: 5em 2em;
 }
 
-.project-links {
+.members .container {
   text-align: center;
   margin: 0;
   line-height: 3em;
   display: -ms-grid;
   display: grid;
+}
+
+.members .container h2 {
+  font-size: 2em;
+  margin-top: -2.1em;
+}
+
+.members .container h3 {
+  text-align: left;
+  margin-top: -1.1em;
+}
+
+.members .container p {
+  text-align: left;
+  margin-top: -3em;
+  font-size: 0.75em;
 }
 
 nav.menu-btn {
@@ -136,7 +152,7 @@ nav li:hover {
   .navbar nav li.current a {
     font-weight: bold;
   }
-  .project-links {
+  .members {
     font-size: 1.4em;
   }
 }
@@ -146,7 +162,7 @@ nav li:hover {
     width: 1080px;
     margin: 0 auto;
   }
-  .project-links {
+  .members {
     margin-top: 0.1em;
     font-size: 2em;
   }

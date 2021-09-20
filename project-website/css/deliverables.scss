@@ -50,6 +50,23 @@ section {
 }
 
 .project-links {
+    .container {
+        h2 {
+            font-size: 2em; 
+            margin-top: -2.1em;  
+        }
+        ul {
+            text-align: center;
+            margin-top: -3em;
+            font-size: 0.75em;
+        }
+        text-align: center;
+        margin: 0;
+        //padding-left: 0.1em;
+        line-height: 3em;
+        display: grid;
+        //font-size: 1.4em;
+    }
     text-align: center;
     margin: 0;
     //padding-left: 0.1em;

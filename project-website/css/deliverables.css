@@ -58,6 +58,25 @@ section {
   display: grid;
 }
 
+.project-links .container {
+  text-align: center;
+  margin: 0;
+  line-height: 3em;
+  display: -ms-grid;
+  display: grid;
+}
+
+.project-links .container h2 {
+  font-size: 2em;
+  margin-top: -2.1em;
+}
+
+.project-links .container ul {
+  text-align: center;
+  margin-top: -3em;
+  font-size: 0.75em;
+}
+
 nav.menu-btn {
   display: block;
 }
