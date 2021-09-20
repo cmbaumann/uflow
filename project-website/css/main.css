@@ -198,13 +198,19 @@ nav li:hover {
   }
   .left-col .subhead {
     font-size: 1.5em;
+    text-align: center;
+    line-height: 1em;
   }
   .left-col h1 {
+    line-height: 1em;
     font-size: 8em;
+    text-align: center;
     width: 90%;
   }
   .left-col .hero-cta {
+    line-height: 1em;
     font-size: 1.2em;
+    text-align: center;
   }
   .hero-img {
     width: 40%;

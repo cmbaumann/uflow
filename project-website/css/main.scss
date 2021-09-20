@@ -198,16 +198,22 @@ nav {
         margin: 3em 3em 0 5em;
         .subhead {
             font-size: 1.5em;
+            text-align: center;
+            line-height: 1em;
         }
         h1 {
+            line-height: 1em;
             font-size: 8em;
+            text-align: center;
             width: 90%;
-            
         }
         .hero-cta {
+            line-height: 1em;
             font-size: 1.2em;
+            text-align: center;
         }
     }
+
     .hero-img {
         width: 40%;
         margin-right: 8em;
