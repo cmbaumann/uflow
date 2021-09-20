@@ -108,6 +108,57 @@ def logout():
 
 @app.route("/flowchart", methods=['post', 'get'])
 def flowchar():
+    if request.method == "POST":
+        name = request.form.get("flowchartname")
+        d1 = request.form.get("d1")
+        d2 = request.form.get("d2")
+        d3 = request.form.get("d3")
+        d4 = request.form.get("d4")
+        d5 = request.form.get("d5")
+        d6 = request.form.get("d6")
+        d7 = request.form.get("d7")
+        d8 = request.form.get("d8")
+        d9 = request.form.get("d9")
+        d10 = request.form.get("d10")
+        d11 = request.form.get("d11")
+        d12 = request.form.get("d12")
+        d13 = request.form.get("d13")
+        d14 = request.form.get("d14")
+        d15 = request.form.get("d15")
+        d16 = request.form.get("d16")
+        d17 = request.form.get("d17")
+        d18 = request.form.get("d18")
+        d19 = request.form.get("d19")
+        d20 = request.form.get("d20")
+        d21 = request.form.get("d21")
+        d22 = request.form.get("d22")
+        d23 = request.form.get("d23")
+        d24 = request.form.get("d24")
+        d25 = request.form.get("d25")
+        d26 = request.form.get("d26")
+        d27 = request.form.get("d27")
+        d28 = request.form.get("d28")
+        d29 = request.form.get("d29")
+        d30 = request.form.get("d30")
+        d31 = request.form.get("d31")
+        d32 = request.form.get("d32")
+        d33 = request.form.get("d33")
+        d34 = request.form.get("d34")
+        d35 = request.form.get("d35")
+        d36 = request.form.get("d36")
+        d37 = request.form.get("d37")
+        if (name == ""):
+            message = 'Please enter a name for your flowchart'
+            return render_template('flowchart.html', message=message)
+        else: 
+            email = session["email"]
+            fieldname = "flowchart1"
+            records.update_one(
+                {"email": email},
+                {"$set": {fieldname: [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27,d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]}}
+            )
+            message = 'Your flowchart has been saved'
+            return render_template('flowchart.html', message=message)
     if "email" in session:
         email = session["email"]
         return render_template('flowchart.html', email=email)
