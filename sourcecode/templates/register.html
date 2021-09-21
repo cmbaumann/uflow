@@ -39,8 +39,10 @@
   <div class="form-group">
     <label for="InputMajor">Major</label>
     <select name = "major" class="form-select" aria-label="Default select example">
-      <option selected></option>
-      <option value="1">Computer Science</option>
+      <!-- <option selected></option> -->
+      {% for major in majors %}
+      <option value="{{major}}" selected>{{major}}</option>
+      {% endfor %}
     </select>
   </div>
 

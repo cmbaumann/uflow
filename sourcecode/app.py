@@ -8,6 +8,11 @@ client = pymongo.MongoClient("mongodb+srv://codeusername:CodePassword@testcluste
 db = client.get_database('total_records')
 records = db.register
 
+majors = ['Aerospace Engineering', 'Architecural Engineering', 'Chemical Engineering', 'Civil Engineering',
+         'Computer Engineering', 'Computer Science', 'Construction Engineering', 'Cyber Security', 
+         'Electircal Engineering', 'Environmental Engineering', 'Mechanical Engineering', 'Metallurgical Engineering',
+         'Musical Audio Engineering']
+
 @app.route('/', methods=['post', 'get'])
 def index():
     if request.method == "POST":
@@ -16,6 +21,7 @@ def index():
 
 @app.route("/register", methods=['post', 'get'])
 def register():
+    global majors 
     message = ''
     if "email" in session:
         return redirect(url_for("logged_in"))
@@ -59,7 +65,7 @@ def register():
             new_email = user_data['email']
    
             return render_template('logged_in.html', email=new_email)
-    return render_template('register.html')
+    return render_template('register.html', majors=majors)
 
 @app.route('/logged_in')
 def logged_in():
