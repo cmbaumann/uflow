@@ -12,6 +12,7 @@ majors = ['Aerospace Engineering', 'Architecural Engineering', 'Chemical Enginee
          'Computer Engineering', 'Computer Science', 'Construction Engineering', 'Cyber Security', 
          'Electircal Engineering', 'Environmental Engineering', 'Mechanical Engineering', 'Metallurgical Engineering',
          'Musical Audio Engineering']
+# majors = majors.reverse()
 
 @app.route('/', methods=['post', 'get'])
 def index():
@@ -22,6 +23,7 @@ def index():
 @app.route("/register", methods=['post', 'get'])
 def register():
     global majors 
+    majors.reverse()
     message = ''
     if "email" in session:
         return redirect(url_for("logged_in"))
