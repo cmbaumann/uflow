@@ -43,19 +43,19 @@ def register():
         if first == "":
             message = 'Please enter your first name'
             return render_template('register.html', message=message)
-        if last == "":
+        elif last == "":
             message = 'Please enter your last name'
             return render_template('register.html', message=message)
-        if email == "":
+        elif email == "":
             message = 'Please enter your email'
             return render_template('register.html', message=message)
-        if major == "":
+        elif major == "":
             message = 'Please enter your major'
             return render_template('register.html', message=message)
-        if email_found:
+        elif email_found:
             message = 'This email already exists in database'
             return render_template('register.html', message=message)
-        if password1 != password2:
+        elif password1 != password2:
             message = 'Passwords should match!'
             return render_template('register.html', message=message)
         else:
@@ -113,6 +113,68 @@ def logout():
         return render_template("signout.html")
     else:
         return render_template('index.html')
+
+@app.route("/flowchart", methods=['post', 'get'])
+def flowchar():
+    if request.method == "POST":
+        name = request.form.get("flowchartname")
+        d1 = request.form.get("d1")
+        d2 = request.form.get("d2")
+        d3 = request.form.get("d3")
+        d4 = request.form.get("d4")
+        d5 = request.form.get("d5")
+        d6 = request.form.get("d6")
+        d7 = request.form.get("d7")
+        d8 = request.form.get("d8")
+        d9 = request.form.get("d9")
+        d10 = request.form.get("d10")
+        d11 = request.form.get("d11")
+        d12 = request.form.get("d12")
+        d13 = request.form.get("d13")
+        d14 = request.form.get("d14")
+        d15 = request.form.get("d15")
+        d16 = request.form.get("d16")
+        d17 = request.form.get("d17")
+        d18 = request.form.get("d18")
+        d19 = request.form.get("d19")
+        d20 = request.form.get("d20")
+        d21 = request.form.get("d21")
+        d22 = request.form.get("d22")
+        d23 = request.form.get("d23")
+        d24 = request.form.get("d24")
+        d25 = request.form.get("d25")
+        d26 = request.form.get("d26")
+        d27 = request.form.get("d27")
+        d28 = request.form.get("d28")
+        d29 = request.form.get("d29")
+        d30 = request.form.get("d30")
+        d31 = request.form.get("d31")
+        d32 = request.form.get("d32")
+        d33 = request.form.get("d33")
+        d34 = request.form.get("d34")
+        d35 = request.form.get("d35")
+        d36 = request.form.get("d36")
+        d37 = request.form.get("d37")
+        name_found = records.find_one({name: {"$exists": True}}) 
+        if (name == ""):
+            message = 'Please enter a name for your flowchart'
+            return render_template('flowchart.html', message=message)
+        elif name_found:
+            message = 'You already have a flowchart named ' + name
+            return render_template('flowchart.html', message=message, namefound=name_found)
+        else: 
+            email = session["email"]
+            records.update_one(
+                {"email": email},
+                {"$set": {name: [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27,d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]}}
+            )
+            message = 'Your flowchart has been saved'
+            return render_template('flowchart.html', message=message)
+    if "email" in session:
+        email = session["email"]
+        return render_template('flowchart.html', email=email)
+    else:
+        return redirect(url_for("login"))
 
 #end of code to run it
 if __name__ == "__main__":
