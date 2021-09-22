@@ -189,7 +189,10 @@
     </div>
     <div class="row">
         <div class="column course" id="10" onclick="change('10')">
-            HU/L/FA Elective #1 (sequence)<br>
+            <script>
+                var elective = window.prompt("HU/L/FA Elective #1")
+            </script><br>
+            <!-- HU/L/FA Elective #1 (sequence)<br> -->
             <select hidden name="d10" class="form-select form-select-sm" id="d10" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
