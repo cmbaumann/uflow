@@ -453,5 +453,11 @@
     </div>
 </div>
 
+{% if new %}
+    <input hidden class="form-check-input" type="radio" name="newflowchart" id="newflowchart" checked>
+{% else %}
+    <input hidden class="form-check-input" type="radio" name="newflowchart" id="newflowchart">
+{% endif %}
+
 </form>
 {% endblock %}

@@ -107,7 +107,7 @@ def logout():
         return render_template('index.html')
 
 @app.route("/flowchart", methods=['post', 'get'])
-def flowchar():
+def flowchart():
     if request.method == "POST":
         name = request.form.get("flowchartname")
         d1 = request.form.get("d1")
@@ -147,25 +147,31 @@ def flowchar():
         d35 = request.form.get("d35")
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
-        name_found = records.find_one({name: {"$exists": True}}) 
+        new = request.form.get("newflowchart")
+        name_found = records.find_one({name: {"$exists": True}})
         if (name == ""):
             message = 'Please enter a name for your flowchart'
             return render_template('flowchart.html', message=message)
-        elif name_found:
+        elif (name_found and (new == True)):
             message = 'You already have a flowchart named ' + name
             return render_template('flowchart.html', message=message, namefound=name_found)
         else: 
             email = session["email"]
-            records.update_one(
-                {"email": email},
-                {"$set": {name: [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27,d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]}}
-            )
+            if (new == True):
+                records.update_one(
+                    {"email": email},
+                    {"$set": {name: [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27,d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]}}
+                )
+            else:
+                records.update_one(
+                    {"email": email},
+                    {"$set": {name: [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27,d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]}}
+                )
             message = 'Your flowchart has been saved'
             return render_template('flowchart.html', message=message)
-    if "email" in session:
-        email = session["email"]
-        return render_template('flowchart.html', email=email)
-    else:
+    if "email" in session: # GET
+        return render_template('flowchart.html', new=True)
+    else: #GET
         return redirect(url_for("login"))
 
 #end of code to run it
