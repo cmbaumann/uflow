@@ -168,10 +168,23 @@ def flowchart():
                     {"$set": {name: [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27,d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]}}
                 )
             message = 'Your flowchart has been saved'
+            # mapfunction = "function() { for (var myKey in this) { emit(myKey, null); }}"
+            # reducefunction = "function(myKey, s) { return null; }"
+            # array = db.runCommand({
+            #     "mapreduce" : "records",
+            #     "map" : mapfunction,
+            #     "reduce" : reducefunction,
+            #     "out": "records_keys"
+            # })
             return render_template('flowchart.html', message=message)
     if "email" in session: # GET
-        return render_template('flowchart.html', new=True)
-    else: #GET
+        email = session["email"]
+        array = records.find_one({"email": email}, {"_id": 0, "firstname": 0, "lastname": 0, "email": 0, "password": 0, "major": 0})
+        array1 = 0
+        for item in array: 
+            array1 += 1
+        return render_template('flowchart.html', new=True, array=array, array1=array1)
+    else:
         return redirect(url_for("login"))
 
 #end of code to run it
