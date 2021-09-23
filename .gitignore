@@ -1,2 +1,5 @@
 # ignore project folder b/c has virtual env folder
 project/
+
+# do not track any automatically generated files
+app.cpython-39.pyc
