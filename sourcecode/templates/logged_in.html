@@ -1,8 +1,34 @@
 
 {% extends "base.html" %}
-{% block title %}Youv'e logged in {% endblock %}
+{% block title %}You've logged in {% endblock %}
 
 {% block content %}
 <p>Hello You have Logged in as {{ email }}</p>
+
+<br><h3>Flowchart #1</h3>
+<form action="/flowchart">
+    <p><input type="submit" value="Edit">
+        <span><input type="button" onclick=del_alert() value="Delete"></span>
+    </p>
+</form>
+<br><h3>Flowchart #2</h3>
+<form action="/flowchart">
+    <p><input type="submit" value="Edit">
+        <span><input type="button" onclick=del_alert() value="Delete"></span>
+    </p>
+</form>
+<br><h3>Flowchart #3</h3>
+<form action="/flowchart">
+    <p><input type="submit" value="Edit">
+        <span><input type="button" onclick=del_alert() value="Delete"></span>
+    </p>
+</form>
+
+<script>
+function del_alert() {
+    alert("You just deleted the flowchart!\nExcept not really! Functionality to add later.");
+}
+</script>
+<!--Placeholders. When finished there should be a list of flowcharts that you have saved, each with an edit and delete button.-->
 
 {% endblock %}
