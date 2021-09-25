@@ -175,25 +175,73 @@ def flowchart():
                     {"email": email},
                     {"$push": {
                         "flowcharts": {
-                            "$each": [ 50, 60, 70 ],
+                            "$each": [{ "name": name, 
+                                        "1": d1, "2": d2, "3": d3, "4": d4, "5": d5,
+                                        "6": d6, "7": d7, "8": d8, "9": d9, 
+                                        "10": d10, "11": d11, "12": d12, "13": d13,
+                                        "14": d14, "15": d15, "16": d16, "17": d17, "18": d18,
+                                        "19": d19, "20": d20, "21": d21, "22": d22, "23": d23,
+                                        "24": d24, "25": d25, "26": d26, "27": d27, "28": d28,
+                                        "29": d29, "30": d30, "31": d31, "32": d32, "33": d33,
+                                        "34": d34, "35": d35, "36": d36, "37": d37}],
                             "$position": 0
                         }
                     }
                     })
             else:
+                entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+                newData = []
+                len = 0
+                for item in entry:
+                    for thing in item['flowcharts']:
+                        len += 1
+                    for i in range(len):
+                        if (item['flowcharts'][i]["name"] == name):
+                            item['flowcharts'][i]["1"] = d1
+                            item['flowcharts'][i]["2"] = d2
+                            item['flowcharts'][i]["3"] = d3
+                            item['flowcharts'][i]["4"] = d4
+                            item['flowcharts'][i]["5"] = d5
+                            item['flowcharts'][i]["6"] = d5
+                            item['flowcharts'][i]["7"] = d6
+                            item['flowcharts'][i]["8"] = d7
+                            item['flowcharts'][i]["9"] = d8
+                            item['flowcharts'][i]["10"] = d9
+                            item['flowcharts'][i]["11"] = d10
+                            item['flowcharts'][i]["12"] = d11
+                            item['flowcharts'][i]["13"] = d12
+                            item['flowcharts'][i]["14"] = d13
+                            item['flowcharts'][i]["15"] = d14
+                            item['flowcharts'][i]["16"] = d15
+                            item['flowcharts'][i]["17"] = d16
+                            item['flowcharts'][i]["18"] = d17
+                            item['flowcharts'][i]["19"] = d18
+                            item['flowcharts'][i]["10"] = d19
+                            item['flowcharts'][i]["20"] = d20
+                            item['flowcharts'][i]["21"] = d21
+                            item['flowcharts'][i]["22"] = d22
+                            item['flowcharts'][i]["23"] = d23
+                            item['flowcharts'][i]["24"] = d24
+                            item['flowcharts'][i]["25"] = d25
+                            item['flowcharts'][i]["26"] = d26
+                            item['flowcharts'][i]["27"] = d27
+                            item['flowcharts'][i]["28"] = d28
+                            item['flowcharts'][i]["29"] = d29
+                            item['flowcharts'][i]["30"] = d30
+                            item['flowcharts'][i]["31"] = d31
+                            item['flowcharts'][i]["32"] = d32
+                            item['flowcharts'][i]["33"] = d33
+                            item['flowcharts'][i]["34"] = d34
+                            item['flowcharts'][i]["35"] = d35
+                            item['flowcharts'][i]["36"] = d36
+                            item['flowcharts'][i]["37"] = d37
+                        newData.append(item['flowcharts'][i])
+
                 records.update_one(
                     {"email": email},
-                    {"$set": {name: [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27,d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]}}
+                    {"$set": {"flowcharts": newData}}
                 )
             message = 'Your flowchart has been saved'
-            # mapfunction = "function() { for (var myKey in this) { emit(myKey, null); }}"
-            # reducefunction = "function(myKey, s) { return null; }"
-            # array = db.runCommand({
-            #     "mapreduce" : "records",
-            #     "map" : mapfunction,
-            #     "reduce" : reducefunction,
-            #     "out": "records_keys"
-            # })
             return render_template('flowchart.html', message=message)
     if "email" in session: # GET
         email = session["email"]
