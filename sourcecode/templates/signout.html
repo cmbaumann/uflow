@@ -3,6 +3,28 @@
 {% block title %}Register System{% endblock %}
 
 {% block content %}
-<h1>You are signed out!</h1>
+
+<head>
+    <meta http-equiv="refresh" content="5; URL=/" />
+</head>
+
+<style>
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    section {
+        text-align: center;
+        font-weight: bold;
+        font-size: small;
+        width: auto;
+    }
+</style>
+
+<body>
+    <h1>You are signed out</h1>
+    <section>If you are not redirected in five seconds, <a href="/">click here</a> to go back to the homepage</section>
+</body>
 
 {% endblock %}

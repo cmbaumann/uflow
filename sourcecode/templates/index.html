@@ -3,10 +3,69 @@
 
 {% block content %}
 
-<h1>Website Home Page</h1>
+<style>
+    .home_greeting {
+        text-align: center;
+        font-size: 5em;
+        font-weight: bold;
+        margin: 30px 0 10px 0;
+    }
+    .home_subtext {
+        text-align: center;
+        color:grey;
+        margin: 0 0 40px 0;
+        letter-spacing: 0.3em;
+        font-weight:bold;
+    }
+    .btn-row {
+        display: flex;
+        justify-content: center;
+    }
+    .logged-in-row {
+        text-align: center;
+    }
+    .btn {
+        margin: 0 20px 0 0;
+        padding: 10px 20px 10px 20px;
+        border-radius: 30px;
+        transition: none;
+    }
+    .btn-primary {
+        background-color: #990f0f;
+        border-color: #990f0f;
+    }
+    .btn-secondary a {
+        text-decoration: none;
+        color:white;
+    }
+    .btn:hover {
+        background-color: grey;
+        border-color: grey;
+    }
+    .login-msg {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
 
-<form method="post">
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+<body>
+    <section class="home_greeting">U<span>Flow</span></section>
+    <section class="home_subtext">SEE YOUR FUTURE</section>
+    {% if session["email"] %}
+    <div class="logged-in-row">
+        <section class="login-msg">You are logged in as {{session["email"]}}</section>
+        <button class="btn btn-secondary"><a href="/logout">Log out</a></button>
+    </div>
+    {%else%}
+    <div class="btn-row">
+        <form method="post">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <button class="btn btn-secondary"><a href="/login">Log in</a></button>
+    </div>
+    {%endif%}
+</body>
+
 
 {% endblock %}
