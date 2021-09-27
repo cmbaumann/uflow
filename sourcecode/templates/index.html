@@ -3,10 +3,51 @@
 
 {% block content %}
 
-<h1>Website Home Page</h1>
+<style>
+    .home_greeting {
+        text-align: center;
+        font-size: 5em;
+        font-weight: bold;
+        margin: 30px 0 10px 0;
+    }
+    .home_subtext {
+        text-align: center;
+        color:grey;
+        margin: 0 0 40px 0;
+        letter-spacing: 0.3em;
+        font-weight:bold;
+    }
+    .btn_row {
+        display: flex;
+        justify-content: center;
+    }
+    .btn {
+        margin: 0 20px 0 0;
+        padding: 10px 20px 10px 20px;
+        border-radius: 30px;
+        transition: none;
+    }
+    .btn-primary {
+        background-color: #990f0f;
+        border-color: #990f0f;
+    }
+    .btn:hover {
+        background-color: grey;
+        border-color: grey;
+    }
+</style>
 
-<form method="post">
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+<body>
+    <section class="home_greeting">U<span>Flow</span></section>
+    <section class="home_subtext">SEE YOUR FUTURE</section>
+
+    <div class="btn_row">
+        <form method="post">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <button class="btn btn-secondary">Log in</button>
+    </div>
+</body>
+
 
 {% endblock %}
