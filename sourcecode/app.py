@@ -157,8 +157,10 @@ def flowchar():
         d37 = request.form.get("d37")
         name_found = records.find_one({name: {"$exists": True}}) 
         if (name == ""):
-            message = 'Please enter a name for your flowchart'
-            return render_template('flowchart.html', message=message)
+            # FIXME: just doing this to test the script
+            pass
+            # message = 'Please enter a name for your flowchart'
+            # return render_template('flowchart.html', message=message)
         elif name_found:
             message = 'You already have a flowchart named ' + name
             return render_template('flowchart.html', message=message, namefound=name_found)
