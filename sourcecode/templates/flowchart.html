@@ -6,7 +6,16 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <!-- FIXME: get js script to work -->
-<script src="javascript/fill_out_elective.js"></script>
+<!-- Ultimately: have arg so this can be done for any elective -->
+<script>
+    function clickSubmit() {
+        document.getElementById("7Submit").style.visibility = "hidden";
+        document.getElementById("7ElectiveHelp").style.visibility = "hidden";
+        var elective_name = document.getElementById("fillOutElective").value;
+        document.getElementById("7OutputElective").innerHTML = elective_name;
+        document.getElementById("7Edit").style.visibility = "visible"
+    }
+</script>
 
 <style>
     
@@ -173,12 +182,23 @@
                 <!-- if no elective has been filled out yet (checking the database)-->
                 <textarea class="form-control" id="fillOutElective" rows="1"></textarea>
                 <small id="7ElecitveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="submit" class="btn btn-primary btn-block mb-4" id="7Submit">Submit</button>                
+                <button type="button" class="btn btn-primary btn-block mb-4" id="7Submit" onclick="clickSubmit()">Submit</button>                
                 
                 <h3 id="7OutputElective"></h3>
 
                 <!-- else if elective information exists / has been submitted: offer an edit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4" id="7Edit" hidden>Edit Elective</button>                
+                <button type="button" class="btn btn-primary btn-block mb-4" id="7Edit" hidden>Edit Elective</button>                
+            
+                <!-- <script>
+                    function clickSubmit() {
+                        document.getElementById("7Submit").style.visibility = "hidden";
+                        document.getElementById("7ElectiveHelp").style.visibility = "hidden";
+                        var elective_name = document.getElementById("fillOutElective").value;
+                        document.getElementById("7OutputElective").innerHTML = elective_name;
+                        document.getElementById("7Edit").style.visibility = "visible"
+                    }
+                </script> -->
+            
             </div>
             <select hidden name="d7" class="form-select form-select-sm" id="d7" aria-label=".form-select-sm example">
                 <option selected></option>
