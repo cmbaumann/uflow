@@ -4,13 +4,29 @@
 
 {% block content %}
 
+<style>
+  form {
+    width: 300px;
+    margin: 20px 0 0 20px; /*margin positions: top right bottom left*/
+  }
+  .btn {
+    transition: none;
+    background-color: #990f0f;
+    border-color: #990f0f;
+    }
+  .btn:hover {
+    background-color: grey;
+    border-color: grey;
+  }
+</style>
+
 {% if message  %}
     <div class="alert alert-secondary" role="alert">
         <p>{{ message }}</p>
     </div>
 {% endif %}
 
-<form action="" method="post">
+<form class="reg-form" action="" method="post">
   <div class="form-group">
         <label for="Firstname">First name</label>
         <input name="firstname" class="form-control" id="inputFirstName" aria-describedby="emailHelp" placeholder="Enter full name">
