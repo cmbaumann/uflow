@@ -116,8 +116,8 @@ def logout():
     else:
         return render_template('index.html')
 
-@app.route("/flowchart", methods=['post', 'get'])
-def flowchart():
+@app.route("/flowchart/<new>", methods=['post', 'get'])
+def flowchart(new):
     if request.method == "POST":
         name = request.form.get("flowchartname")
         d1 = request.form.get("d1")
@@ -157,21 +157,22 @@ def flowchart():
         d35 = request.form.get("d35")
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
-        new = request.form.get("newflowchart")
+        save_new = request.form.get("newflowchart")
         name_found = records.find_one({name: {"$exists": True}})
         if (name == ""):
             message = 'Please enter a name for your flowchart'
-            return render_template('flowchart.html', message=message)
+            return render_template('flowchart.html', new=True, message=message)
         elif (name_found and (new == True)):
             message = 'You already have a flowchart named ' + name
-            return render_template('flowchart.html', message=message, namefound=name_found)
+            return render_template('flowchart.html', new=True, message=message)
         else: 
             email = session["email"]
-            if (new == True):
-                # records.update_one(
-                #     {"email": email},
-                #     {"$set": {name: [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27,d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]}}
-                # )
+            len = 0
+            entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+            for item in entry:
+                for thing in item['flowcharts']:
+                    len += 1
+            if (save_new == True):
                 records.update_one(
                     {"email": email},
                     {"$push": {
@@ -185,7 +186,7 @@ def flowchart():
                                         "24": d24, "25": d25, "26": d26, "27": d27, "28": d28,
                                         "29": d29, "30": d30, "31": d31, "32": d32, "33": d33,
                                         "34": d34, "35": d35, "36": d36, "37": d37}],
-                            "$position": 0
+                            "$position": len
                         }
                     }
                     })
@@ -243,14 +244,10 @@ def flowchart():
                     {"$set": {"flowcharts": newData}}
                 )
             message = 'Your flowchart has been saved'
-            return render_template('flowchart.html', message=message)
+            new = False
+            return render_template('flowchart.html', message=message, new=False)
     if "email" in session: # GET
-        email = session["email"]
-        array = records.find_one({"email": email}, {"_id": 0, "firstname": 0, "lastname": 0, "email": 0, "password": 0, "major": 0})
-        array1 = 0
-        for item in array: 
-            array1 += 1
-        return render_template('flowchart.html', new=True, array=array, array1=array1)
+        return render_template('flowchart.html', new=new)
     else:
         return redirect(url_for("login"))
 
