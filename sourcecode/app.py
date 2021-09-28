@@ -158,11 +158,25 @@ def flowchart(new):
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
         save_new = request.form.get("newflowchart")
-        name_found = records.find_one({name: {"$exists": True}})
+
+        #checking if name is found
+        email = session["email"]
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        len = 0
+        for item in entry:
+            for thing in item['flowcharts']:
+                len += 1
+                for i in range(len):
+                    if (item['flowcharts'][i]["name"] == name):
+                        name_found = True
+                        break
+                    else:
+                        name_found = False
+
         if (name == ""):
             message = 'Please enter a name for your flowchart'
             return render_template('flowchart.html', new=True, message=message)
-        elif (name_found and (new == True)):
+        elif (name_found and new):
             message = 'You already have a flowchart named ' + name
             return render_template('flowchart.html', new=True, message=message)
         else: 
