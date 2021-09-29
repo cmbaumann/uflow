@@ -119,7 +119,6 @@ def logout():
 @app.route("/flowchart-new", methods=['post', 'get'])
 def flowchart1():
     if request.method == "POST":
-        print("post")
         name = request.form.get("flowchartname")
         d1 = request.form.get("d1")
         d2 = request.form.get("d2")
@@ -163,6 +162,7 @@ def flowchart1():
         email = session["email"]
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         len = 0
+        name_found = False
         for item in entry:
             for thing in item['flowcharts']:
                 len += 1
@@ -170,9 +170,6 @@ def flowchart1():
                     if (item['flowcharts'][i]["name"] == name):
                         name_found = True
                         break
-                    else:
-                        name_found = False
-        print("name_found: ", name_found)
 
         if (name == ""):
             message = 'Please enter a name for your flowchart'
@@ -181,15 +178,12 @@ def flowchart1():
             message = 'You already have a flowchart named ' + name
             return render_template('flowchart-new.html', message=message)
         else: 
-            print("writing to database")
             email = session["email"]
             len = 0
             entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
             for item in entry:
                 for thing in item['flowcharts']:
                     len += 1
-            print("length: ", len)
-            print("new entry")
             records.update_one(
                 {"email": email},
                 {"$push": {
@@ -217,8 +211,7 @@ def flowchart1():
 @app.route("/flowchart-edit/<name>", methods=['post', 'get'])
 def flowchart2(name):
     if request.method == "POST":
-        print("post")
-        name = request.form.get("flowchartname")
+        print("name: ", name)
         d1 = request.form.get("d1")
         d2 = request.form.get("d2")
         d3 = request.form.get("d3")
@@ -257,11 +250,7 @@ def flowchart2(name):
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
 
-        print("writing to database")
         email = session["email"]
-        len = 0
-        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
-        print("update entry")
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         newData = []
         len = 0
@@ -308,16 +297,105 @@ def flowchart2(name):
                     item['flowcharts'][i]["35"] = d35
                     item['flowcharts'][i]["36"] = d36
                     item['flowcharts'][i]["37"] = d37
-                    newData.append(item['flowcharts'][i])
-                print(newData)
-                records.update_one(
-                    {"email": email},
-                    {"$set": {"flowcharts": newData}}
-                )
-            message = 'Your flowchart has been saved'
-            return render_template('flowchart-edit.html', message=message, name=name)
+                newData.append(item['flowcharts'][i])
+        data = []
+        data.append(name)
+        data.append(d1)
+        data.append(d2)
+        data.append(d3)
+        data.append(d4)
+        data.append(d5)
+        data.append(d6)
+        data.append(d7)
+        data.append(d8)
+        data.append(d19)
+        data.append(d10)
+        data.append(d11)
+        data.append(d12)
+        data.append(d13)
+        data.append(d14)
+        data.append(d15)
+        data.append(d16)
+        data.append(d16)
+        data.append(d17)
+        data.append(d18)
+        data.append(d19)
+        data.append(d20)
+        data.append(d21)
+        data.append(d22)
+        data.append(d23)
+        data.append(d24)
+        data.append(d25)
+        data.append(d26)
+        data.append(d27)
+        data.append(d28)
+        data.append(d29)
+        data.append(d30)
+        data.append(d31)
+        data.append(d32)
+        data.append(d33)
+        data.append(d34)
+        data.append(d35)
+        data.append(d36)
+        data.append(d37)
+        print("data: ", data)
+        records.update_one(
+            {"email": email},
+            {"$set": {"flowcharts": newData}}
+        )
+        message = 'Your flowchart has been saved'
+        return render_template('flowchart-edit.html', message=message, name=name, data=data)
     if "email" in session: # GET
-        return render_template('flowchart-edit.html')
+        print("edit name: ", name)
+        email = session["email"]
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        data = []
+        len = 0
+        for item in entry:
+            for thing in item['flowcharts']:
+                len += 1
+            for i in range(len):
+                if (item['flowcharts'][i]["name"] == name):
+                    data.append(name)
+                    data.append(item['flowcharts'][i]["1"])
+                    data.append(item['flowcharts'][i]["2"])
+                    data.append(item['flowcharts'][i]["3"])
+                    data.append(item['flowcharts'][i]["4"])
+                    data.append(item['flowcharts'][i]["5"])
+                    data.append(item['flowcharts'][i]["6"])
+                    data.append(item['flowcharts'][i]["7"])
+                    data.append(item['flowcharts'][i]["8"])
+                    data.append(item['flowcharts'][i]["9"])
+                    data.append(item['flowcharts'][i]["10"])
+                    data.append(item['flowcharts'][i]["11"])
+                    data.append(item['flowcharts'][i]["12"])
+                    data.append(item['flowcharts'][i]["13"])
+                    data.append(item['flowcharts'][i]["14"])
+                    data.append(item['flowcharts'][i]["15"])
+                    data.append(item['flowcharts'][i]["16"])
+                    data.append(item['flowcharts'][i]["17"])
+                    data.append(item['flowcharts'][i]["18"])
+                    data.append(item['flowcharts'][i]["19"])
+                    data.append(item['flowcharts'][i]["10"])
+                    data.append(item['flowcharts'][i]["20"])
+                    data.append(item['flowcharts'][i]["21"])
+                    data.append(item['flowcharts'][i]["22"])
+                    data.append(item['flowcharts'][i]["23"])
+                    data.append(item['flowcharts'][i]["24"])
+                    data.append(item['flowcharts'][i]["25"])
+                    data.append(item['flowcharts'][i]["26"])
+                    data.append(item['flowcharts'][i]["27"])
+                    data.append(item['flowcharts'][i]["28"])
+                    data.append(item['flowcharts'][i]["29"])
+                    data.append(item['flowcharts'][i]["30"])
+                    data.append(item['flowcharts'][i]["31"])
+                    data.append(item['flowcharts'][i]["32"])
+                    data.append(item['flowcharts'][i]["33"])
+                    data.append(item['flowcharts'][i]["34"])
+                    data.append(item['flowcharts'][i]["35"])
+                    data.append(item['flowcharts'][i]["36"])
+                    data.append(item['flowcharts'][i]["37"])
+        return render_template('flowchart-edit.html', data=data)
     else:
         return redirect(url_for("login"))
 
