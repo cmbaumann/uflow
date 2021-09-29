@@ -56,16 +56,6 @@
 
     function change(id) {
         document.getElementById(id).style.backgroundColor=curColor;
-        // newid = "picker c" + id
-        // if (curColor == "green") {
-        //     document.getElementById(newid).value="#008000";
-        // }
-        // if (curColor == "blue") {
-        //     document.getElementById(newid).value="#0000FF";
-        // }
-        // if (curColor == "red") {
-        //     document.getElementById(newid).value="#FF0000";
-        // }
         newid = "d" + id
         if (curColor == "green") {
             document.getElementById(newid).value="taken";
@@ -77,6 +67,39 @@
             document.getElementById(newid).value="future";
         }
     }
+
+    function initial_color() {
+        console.log("initial_color")
+        document.getElementById('1').backgroundColor="purple";
+        for (let i = 1; i < 38; i++) {
+            newid = "d" + id
+            if ("{{data[i]}}" == "taken") {
+                document.getElementById(i).backgroundColor="green";
+                document.getElementById(newid).value="taken";
+            }
+            if ("{{data[i]}}" == "in progress") {
+                document.getElementById(i).backgroundColor="blue";
+                document.getElementById(newid).value="inprogress";
+            }
+            if ("{{data[i]}}" == "future") {
+                document.getElementById(i).backgroundColor="red";
+                document.getElementById(newid).value="future";
+            }
+        }
+    }
+
+    winow.addEventListner("DOMContentLoaded", function() {initial_color();});
+
+    // if (document.readyState == 'complete') {
+    //     initial_color();
+    // } 
+    // else {
+    //     document.onreadystatechange = function () {
+    //     if (document.readyState === "complete") {
+    //         initial_color();
+    //     }
+    // }
+// }
 
 </script>
 

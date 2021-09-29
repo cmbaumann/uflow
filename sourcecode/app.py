@@ -4,7 +4,8 @@ import bcrypt
 
 app = Flask(__name__)
 app.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://codeusername:CodePassword@testcluster.sl9ku.mongodb.net/test")
+client = pymongo.MongoClient("mongodb+srv://codeusername:CodePassword@testcluster.sl9ku.mongodb.net/test?ssl=true&ssl_cert_reqs=CERT_NONE")
+
 db = client.get_database('total_records')
 records = db.register
 
