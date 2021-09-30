@@ -178,6 +178,19 @@ def flowchar():
     else:
         return redirect(url_for("login"))
 
+
+@app.route("/edit_elective", methods=["POST", "GET"])
+def edit_elective():
+    if request.method == "POST":
+        pass
+    else: 
+        """ method == "GET" 
+        FIXME: don't want this to happen 
+        possible to not include this?
+        """
+        pass
+
+
 #end of code to run it
 if __name__ == "__main__":
   app.run(debug=True)
