@@ -1,32 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Flowchart Editor{% endblock %}
 
-
 {% block head %}
 <!--include jquery to be used: don't need right now-->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
-<!-- FIXME: get js script to work -->
-<!-- Ultimately: have arg so this can be done for any elective -->
-<!-- <script>
-    function clickSubmit() {
-        document.getElementById("7Submit").style.visibility = "hidden";
-        document.getElementById("7ElectiveHelp").style.visibility = "hidden";
-        var elective_name = document.getElementById("fillOutElective").value;
-        document.getElementById("7OutputElective").innerHTML = elective_name;
-        alert("input" + elective_name)
-        document.getElementById("7Edit").style.visibility = "visible"
-    }
-</script> -->
-
 
 <style>
     
     .course {
         border: 2px solid grey;
         border-radius: 5px;
-        width: 250px;
-        height: 250px;
+        width: 110px;
+        height: 110px;
         padding: 10px 10px 10px 10px;
         margin: 10px 10px 10px 10px;
         text-align: center;
@@ -71,16 +56,6 @@
 
     function change(id) {
         document.getElementById(id).style.backgroundColor=curColor;
-        // newid = "picker c" + id
-        // if (curColor == "green") {
-        //     document.getElementById(newid).value="#008000";
-        // }
-        // if (curColor == "blue") {
-        //     document.getElementById(newid).value="#0000FF";
-        // }
-        // if (curColor == "red") {
-        //     document.getElementById(newid).value="#FF0000";
-        // }
         newid = "d" + id
         if (curColor == "green") {
             document.getElementById(newid).value="taken";
@@ -92,6 +67,39 @@
             document.getElementById(newid).value="future";
         }
     }
+
+    function initial_color() {
+        console.log("initial_color")
+        document.getElementById('1').backgroundColor="purple";
+        for (let i = 1; i < 38; i++) {
+            newid = "d" + id
+            if ("{{data[i]}}" == "taken") {
+                document.getElementById(i).backgroundColor="green";
+                document.getElementById(newid).value="taken";
+            }
+            if ("{{data[i]}}" == "in progress") {
+                document.getElementById(i).backgroundColor="blue";
+                document.getElementById(newid).value="inprogress";
+            }
+            if ("{{data[i]}}" == "future") {
+                document.getElementById(i).backgroundColor="red";
+                document.getElementById(newid).value="future";
+            }
+        }
+    }
+
+    winow.addEventListner("DOMContentLoaded", function() {initial_color();});
+
+    // if (document.readyState == 'complete') {
+    //     initial_color();
+    // } 
+    // else {
+    //     document.onreadystatechange = function () {
+    //     if (document.readyState === "complete") {
+    //         initial_color();
+    //     }
+    // }
+// }
 
 </script>
 
@@ -109,7 +117,7 @@
 
     <div class="form-group">
         <label for="FlowchartName">Flowchart Name</label>
-        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder="New Flowchart Name" style="width: 40%">
+        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder={{data[0]}} style="width: 40%" disabled>
         <small id="flowchartname" class="form-text text-muted"></small>
         <button type="submit" class="btn btn-primary" onclick="enable()">Save</button>
   </div>
@@ -178,21 +186,7 @@
               </select>
         </div>
         <div class="column course" id="7" onclick="change('7')">
-            <!--create text area box to fill out elective-->
-            <div class="form-outline w-100 mb-4" id="7Box">                
-                <label for="fillOutElective">HI/SB Elective</label>
-            
-                <!-- if no elective has been filled out yet (checking the database)-->
-                <textarea class="form-control" id="fillOutElective" rows="1"></textarea>
-                <small id="7ElecitveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" class="btn btn-primary btn-block mb-4" id="7Submit">Submit</button>                
-                
-                <h3 id="7OutputElective"></h3>
-
-                <!-- else if elective information exists / has been submitted: offer an edit button -->
-                <button type="button" class="btn btn-primary btn-block mb-4" id="7Edit" hidden>Edit Elective</button>                
-            
-            </div>
+            HI/SB Elective<br>
             <select hidden name="d7" class="form-select form-select-sm" id="d7" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
