@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Flowchart Editor{% endblock %}
 
-<script type="text/javascript" src="javascript/fill_out_elective.js"></script>
 
 {% block head %}
 <!--include jquery to be used: don't need right now-->
@@ -192,16 +191,6 @@
 
                 <!-- else if elective information exists / has been submitted: offer an edit button -->
                 <button type="button" class="btn btn-primary btn-block mb-4" id="7Edit" hidden>Edit Elective</button>                
-            
-                <!-- <script>
-                    function clickSubmit() {
-                        document.getElementById("7Submit").style.visibility = "hidden";
-                        document.getElementById("7ElectiveHelp").style.visibility = "hidden";
-                        var elective_name = document.getElementById("fillOutElective").value;
-                        document.getElementById("7OutputElective").innerHTML = elective_name;
-                        document.getElementById("7Edit").style.visibility = "visible"
-                    }
-                </script> -->
             
             </div>
             <select hidden name="d7" class="form-select form-select-sm" id="d7" aria-label=".form-select-sm example">
