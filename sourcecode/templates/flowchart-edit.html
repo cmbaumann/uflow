@@ -45,12 +45,32 @@
             document.getElementById(id).style.backgroundColor=curColor;
             document.getElementById("taken").style.backgroundColor="white";
             document.getElementById("future").style.backgroundColor="white";
+            document.getElementById("future2").style.backgroundColor="white";
+            document.getElementById("future3").style.backgroundColor="white";
         }
         if (id == "future") {
             curColor = "red";
             document.getElementById(id).style.backgroundColor=curColor;
             document.getElementById("taken").style.backgroundColor="white";
             document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("future2").style.backgroundColor="white";
+            document.getElementById("future3").style.backgroundColor="white";
+        }
+        if (id == "future2") {
+            curColor = "purple";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("future").style.backgroundColor="white";
+            document.getElementById("future3").style.backgroundColor="white";
+        }
+        if (id == "future3") {
+            curColor = "yellow";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("future").style.backgroundColor="white";
+            document.getElementById("future2").style.backgroundColor="white";
         }
     }
 
@@ -127,6 +147,8 @@
         <div class="column color" id="taken" onclick="color('taken')">Taken</div>
         <div class="column color" id="inprogress" onclick="color('inprogress')">In Progress</div>
         <div class="column color" id="future" onclick="color('future')">Future</div>
+        <div class="column color" id="future2" onclick="color('future2')">Future2</div>
+        <div class="column color" id="future3" onclick="color('future3')">Future3</div>
     </div>
     <div class="row">
         <div class="column course" id="1" onclick="change('1')">
