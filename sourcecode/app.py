@@ -61,7 +61,7 @@ def register():
             return render_template('register.html', message=message)
         else:
             hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
-            user_input = {'firstname': first, 'lastname': last, 'email': email, 'password': hashed, 'major': major}
+            user_input = {'firstname': first, 'lastname': last, 'email': email, 'password': hashed, 'major': major, 'flowcharts': []}
             records.insert_one(user_input)
             
             user_data = records.find_one({"email": email})
