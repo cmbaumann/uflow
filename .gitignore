@@ -2,4 +2,4 @@
 project/
 
 # do not track any automatically generated files
-app.cpython-39.pyc
+sourcecode/__pycache__/
