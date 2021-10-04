@@ -166,13 +166,13 @@
                 <label for="fillOutElective">HI/SB Elective</label>
                 
                 <!-- if no elective has been filled out yet (checking the database)-->
-                <textarea class="form-control" id="fillOutElective" rows="1"></textarea>
-                <small id="7ElecitveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="submit" name="7Submit" value="7Submit" class="btn btn-primary btn-block mb-4" id="7Submit">Submit</button>                
+                <textarea class="form-control" id="electiveText" rows="1"></textarea>
+                <small id="7ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
+                <button type="button" name="7Submit" value="7Submit" class="btn btn-primary btn-block mb-4" id="7Submit" onclick="click_submit()">Submit</button>                
                 
                 <!-- else if elective information exists / has been submitted: offer an edit button -->
                 <h3 id="7OutputElective"></h3>
-                <button type="submit" name="7Edit" value="7Edit" class="btn btn-primary btn-block mb-4" id="7Edit" hidden>Edit Elective</button>               
+                <button type="button" name="7Edit" value="7Edit" class="btn btn-primary btn-block mb-4" id="7Edit" hidden>Edit Elective</button>               
             </div>
             <select hidden name="d7" class="form-select form-select-sm" id="d7" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -467,4 +467,26 @@
 </div>
 
 </form>
+
+<!--including javascript-->
+<!-- <script type="text/javascript" src="/Users/bradywachs/Documents/School/Senior Year/CS495/uflow/sourcecode/templates/javascriptedit_elective.js"></script> -->
+
+<script>
+    function click_submit() {
+        var elective_textarea = document.getElementById("electiveText");
+        var elective_name = elective_textarea.value; 
+        var submit_button = document.getElementById("7Submit");
+        var submit_info = document.getElementById("7ElectiveHelp");
+        var edit_button = document.getElementById("7Edit");
+
+        // alert("first alert");
+        submit_button.style.visibility = "hidden";
+        submit_info.style.visibility = "hidden";
+        document.getElementById("7OutputElective").innerHTML = elective_name;
+        edit_button.style.visibility = "visible";
+        // alert('button has been clicked - after all instructions');
+    }
+</script>
+
 {% endblock %}
+
