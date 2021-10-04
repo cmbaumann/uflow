@@ -171,17 +171,19 @@
             <!--create text area box to fill out elective-->
             <div class="form-outline w-100 mb-4" id="7Box">                
                 <label for="fillOutElective">HI/SB Elective</label>
-            
-                <!-- if no elective has been filled out yet (checking the database)-->
-                <textarea class="form-control" id="fillOutElective" rows="1"></textarea>
-                <small id="7ElecitveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="submit" name="7Submit" value="7Submit" class="btn btn-primary btn-block mb-4" id="7Submit">Submit</button>                
-                
-                <h3 id="7OutputElective"></h3>
 
-                <!-- else if elective information exists / has been submitted: offer an edit button -->
-                <button type="submit" name="7Edit" value="7Edit" class="btn btn-primary btn-block mb-4" id="7Edit" hidden>Edit Elective</button>                
-            
+                {% if {{info_dict[show_submit]}} == True %}
+                    <!-- if no elective has been filled out yet (checking the database)-->
+                    <textarea class="form-control" id="fillOutElective" rows="1"></textarea>
+                    <small id="7ElecitveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
+                    <button type="submit" name="7Submit" value="7Submit" class="btn btn-primary btn-block mb-4" id="7Submit">Submit</button>                
+                    
+                    <h3 id="7OutputElective"></h3>
+                {% elif {{info_dict[show_edit]}} == True %}
+                    <!-- else if elective information exists / has been submitted: offer an edit button -->
+                    <button type="submit" name="7Edit" value="7Edit" class="btn btn-primary btn-block mb-4" id="7Edit" hidden>Edit Elective</button>                
+            {% endif %}
+
             </div>
             <select hidden name="d7" class="form-select form-select-sm" id="d7" aria-label=".form-select-sm example">
                 <option selected></option>
