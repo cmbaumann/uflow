@@ -477,12 +477,13 @@
 <script>
     function click_button() {
         var elective_textarea = document.getElementById("electiveText");
-        var elective_name = elective_textarea.value; 
         var button = document.getElementById("7Button");
         var submit_info = document.getElementById("7ElectiveHelp");
 
         if (button.innerHTML == "Submit") {
+            var elective_name = elective_textarea.value; 
             button.innerHTML = "Edit Elective";
+            document.getElementById("7OutputElective").style.visibility = "visible"
             submit_info.style.visibility = "hidden";
             elective_textarea.style.visibility = "hidden";
             document.getElementById("7OutputElective").innerHTML = elective_name;
