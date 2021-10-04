@@ -406,13 +406,18 @@ def flowchart2(name):
 @app.route("/edit_elective", methods=["POST", "GET"])
 def edit_elective():
     if request.method == "POST":
-        pass
-    else: 
-        """ method == "GET" 
-        FIXME: don't want this to happen 
-        possible to not include this?
-        """
-        pass
+        if request.form.get("7Submit"):
+            info_dict = {
+                'show_submit': True,
+                'show_edit': False
+            }
+            return render_template('flowchart-new.html', info_dict=info_dict)
+        elif request.form.get("7Edit"):
+            info_dict = {
+                'show_submit': False,
+                'show_edit': True
+            }
+            return render_template('flowchart-new.html', info_dict=info_dict)
 
 
 #end of code to run it
