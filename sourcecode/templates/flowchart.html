@@ -168,11 +168,14 @@
                 <!-- if no elective has been filled out yet (checking the database)-->
                 <textarea class="form-control" id="electiveText" rows="1"></textarea>
                 <small id="7ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="7Submit" value="7Submit" class="btn btn-primary btn-block mb-4" id="7Submit" onclick="click_submit()">Submit</button>                
+                <button type="button" name="7Button" value="7Button" class="btn btn-primary btn-block mb-4" id="7Button" onclick="click_button()">Submit</button>                
                 
                 <!-- else if elective information exists / has been submitted: offer an edit button -->
                 <h3 id="7OutputElective"></h3>
-                <button type="button" name="7Edit" value="7Edit" class="btn btn-primary btn-block mb-4" id="7Edit" hidden>Edit Elective</button>               
+                <!-- <button type="button" name="7Edit" value="7Edit" class="btn btn-primary btn-block mb-4" id="7Edit">Edit Elective</button>               
+                <script>
+                    document.getElementById("7Edit").style.visibility = "hidden"
+                </script> -->
             </div>
             <select hidden name="d7" class="form-select form-select-sm" id="d7" aria-label=".form-select-sm example">
                 <option selected></option>
