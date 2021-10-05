@@ -13,7 +13,6 @@ majors = ['Aerospace Engineering', 'Architecural Engineering', 'Chemical Enginee
          'Computer Engineering', 'Computer Science', 'Construction Engineering', 'Cyber Security', 
          'Electircal Engineering', 'Environmental Engineering', 'Mechanical Engineering', 'Metallurgical Engineering',
          'Musical Audio Engineering']
-# majors = majors.reverse()
 
 @app.route('/', methods=['post', 'get'])
 def index():
@@ -38,27 +37,29 @@ def register():
 
         major = request.form.get("major")
         
-        # user_found = records.find_one({"name": user})
         email_found = records.find_one({"email": email})
         
         if first == "":
             message = 'Please enter your first name'
-            return render_template('register.html', message=message)
+            return render_template('register.html', message=message, majors=majors, last=last, email=email, password1=password1, password2=password2, selectedmajor=major)
         elif last == "":
             message = 'Please enter your last name'
-            return render_template('register.html', message=message)
+            return render_template('register.html', message=message, majors=majors, first=first, email=email, password1=password1, password2=password2)
         elif email == "":
             message = 'Please enter your email'
-            return render_template('register.html', message=message)
+            return render_template('register.html', message=message, majors=majors, first=first, last=last, password1=password1, password2=password2)
         elif major == "":
             message = 'Please enter your major'
-            return render_template('register.html', message=message)
+            return render_template('register.html', message=message, majors=majors, first=first, last=last, email=email, password1=password1, password2=password2)
+        elif (password1 == "") or (password2 == ""):
+            message = 'Passwords do not match'
+            return render_template('register.html', message=message, majors=majors, first=first, last=last, email=email)
         elif email_found:
-            message = 'This email already exists in database'
-            return render_template('register.html', message=message)
+            message = 'There is already an account associated with this email'
+            return render_template('register.html', message=message, majors=majors, first=first, last=last, password1=password1, password2=password2)
         elif password1 != password2:
-            message = 'Passwords should match!'
-            return render_template('register.html', message=message)
+            message = 'Passwords do not match'
+            return render_template('register.html', message=message, majors=majors, first=first, last=last, email=email)
         else:
             hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
             user_input = {'firstname': first, 'lastname': last, 'email': email, 'password': hashed, 'major': major, 'flowcharts': []}
