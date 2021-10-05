@@ -29,32 +29,32 @@
 <form class="reg-form" action="" method="post">
   <div class="form-group">
         <label for="Firstname">First name</label>
-        <input name="firstname" class="form-control" id="inputFirstName" aria-describedby="emailHelp" placeholder="Enter full name">
+        <input name="firstname" class="form-control" id="inputFirstName" aria-describedby="emailHelp" placeholder="Enter first name" {% if first %} value={{first}} {% endif %}>
         <small id="firstName" class="form-text text-muted"></small>
   </div>
   <div class="form-group">
     <label for="Lastname">Last name</label>
-    <input name="lastname" class="form-control" id="inputLastName" aria-describedby="emailHelp" placeholder="Enter full name">
+    <input name="lastname" class="form-control" id="inputLastName" aria-describedby="emailHelp" placeholder="Enter last name" {% if last %} value={{last}} {% endif %}>
     <small id="lastName" class="form-text text-muted"></small>
   </div>
   <div class="form-group">
         <label for="InputEmail">Email address</label>
-        <input name="email" class="form-control" id="InputEmail"  placeholder="Enter email">
+        <input name="email" class="form-control" id="InputEmail" placeholder="Enter email" {% if email %} value={{email}} {% endif %}>
         <small id="emailHelp" class="form-text text-muted"></small>
   </div>
   <div class="form-group">
     <label for="InputPassword">Password</label>
-    <input type="password" name="password1" class="form-control" id="InputPassword" placeholder="Password">
+    <input type="password" name="password1" class="form-control" id="InputPassword" placeholder="Password" {% if password1 %} value={{password1}} {% endif %}>
   </div>
 
   <div class="form-group">
     <label for="InputPassword2">Repeat Password</label>
-    <input type="password" name="password2" class="form-control" id="InputPassword2" placeholder="Repeat Password">
+    <input type="password" name="password2" class="form-control" id="InputPassword2" placeholder="Repeat Password" {% if password2 %} value={{password2}} {% endif %}>
   </div>
   
   <div class="form-group">
     <label for="InputMajor">Major</label>
-    <select name = "major" class="form-select" aria-label="Default select example">
+    <select name = "major" id=majorselector class="form-select" aria-label="Default select example">
       <!-- <option selected></option> -->
       {% for major in majors %}
       <option value="{{major}}" selected>{{major}}</option>
@@ -67,6 +67,12 @@
 
 </form>
 
+{% if selectedmajor %}
+<script>
+  
+  document.getElementById("majorselector").value = "{{selectedmajor}}";
 
+</script>
+{% endif %}
 
 {% endblock %}
