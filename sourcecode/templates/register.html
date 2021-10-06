@@ -55,9 +55,17 @@
   <div class="form-group">
     <label for="InputMajor">Major</label>
     <select name = "major" id=majorselector class="form-select" aria-label="Default select example">
-      <!-- <option selected></option> -->
       {% for major in majors %}
       <option value="{{major}}" selected>{{major}}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="InputYear">Major</label>
+    <select name = "year" id=yearselector class="form-select" aria-label="Default select example">
+      {% for year in years %}
+      <option value="{{year}}" selected>{{year}}</option>
       {% endfor %}
     </select>
   </div>
@@ -71,6 +79,7 @@
 <script>
   
   document.getElementById("majorselector").value = "{{selectedmajor}}";
+  document.getElementById("yearselector").value = "{{selectedyear}}";
 
 </script>
 {% endif %}
