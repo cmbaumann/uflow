@@ -436,7 +436,16 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
               </select>
         </div>
         <div class="column course" id="28" onclick="change('28')">
-            CS 4xx<br>
+
+            <!-- information needed for elective editing -->
+            <div class="form-outline w-100 mb-4" id="28Box">                
+                <label for="fillOutElective">CS 4xx</label>
+                <textarea class="form-control" id="28electiveText" rows="1"></textarea>
+                <small id="28ElectiveHelp" class="form-text text-muted">Please enter a CS 400-Level course of your choosing</small>
+                <button type="button" name="28Button" value="28Button" class="btn btn-secondary btn-block mb-4" id="28Button" onclick="click_button('28')">Submit</button>                
+                <h3 id="28OutputElective"></h3>
+            </div>
+
             <select hidden name="d28" class="form-select form-select-sm" id="d28" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -510,7 +519,16 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
               </select>
         </div>
         <div class="column course" id="33" onclick="change('33')">
-            CS 4xx<br>
+
+            <!-- information needed for elective editing -->
+            <div class="form-outline w-100 mb-4" id="33Box">                
+                <label for="fillOutElective">CS 4xx</label>
+                <textarea class="form-control" id="33electiveText" rows="1"></textarea>
+                <small id="33ElectiveHelp" class="form-text text-muted">Please enter a CS 400-Level course of your choosing</small>
+                <button type="button" name="33Button" value="33Button" class="btn btn-secondary btn-block mb-4" id="33Button" onclick="click_button('33')">Submit</button>                
+                <h3 id="33OutputElective"></h3>
+            </div>
+
             <select hidden name="d33" class="form-select form-select-sm" id="d33" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -599,7 +617,7 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
 
         if (button.innerHTML == "Submit") {
             var elective_name = elective_textarea.value; 
-            button.innerHTML = "Edit Elective";
+            button.innerHTML = "Edit Course";
             output_elective.style.visibility = "visible"
             submit_info.style.visibility = "hidden";
             elective_textarea.style.visibility = "hidden";
