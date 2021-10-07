@@ -3,6 +3,12 @@
 
 {% block head %}
 
+<!--
+FIXME: 
+can change bootstrap button colors - so can make them to my liking
+https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstrap
+-->
+
 <style>
     
     .course {
@@ -205,7 +211,7 @@
                 <label for="fillOutElective">HU/L/FA Elective #1 (sequence)</label>
                 <textarea class="form-control" id="10electiveText" rows="1"></textarea>
                 <small id="10ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="10Button" value="10Button" class="btn btn-primary btn-block mb-4" id="10Button" onclick="click_button('10')">Submit</button>                
+                <button type="button" name="10Button" value="10Button" class="btn btn-success btn-block mb-4" id="10Button" onclick="click_button('10')">Submit</button>                
                 <h3 id="10OutputElective"></h3>
             </div>
 
@@ -252,7 +258,7 @@
                 <label for="fillOutElective">HU/L/FA Elective #2 (sequence)</label>
                 <textarea class="form-control" id="14electiveText" rows="1"></textarea>
                 <small id="14ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="14Button" value="14Button" class="btn btn-primary btn-block mb-4" id="14Button" onclick="click_button('14')">Submit</button>                
+                <button type="button" name="14Button" value="14Button" class="btn btn-success btn-block mb-4" id="14Button" onclick="click_button('14')">Submit</button>                
                 <h3 id="14OutputElective"></h3>
             </div>
 
@@ -270,7 +276,7 @@
                 <label for="fillOutElective">Nat Science Elective (N)</label>
                 <textarea class="form-control" id="15electiveText" rows="1"></textarea>
                 <small id="15ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="15Button" value="15Button" class="btn btn-primary btn-block mb-4" id="15Button" onclick="click_button('15')">Submit</button>                
+                <button type="button" name="15Button" value="15Button" class="btn btn-danger btn-block mb-4" id="15Button" onclick="click_button('15')">Submit</button>                
                 <h3 id="15OutputElective"></h3>
             </div>
 
@@ -317,7 +323,7 @@
                 <label for="fillOutElective">Free Elective</label>
                 <textarea class="form-control" id="19electiveText" rows="1"></textarea>
                 <small id="19ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="19Button" value="19Button" class="btn btn-primary btn-block mb-4" id="19Button" onclick="click_button('19')">Submit</button>                
+                <button type="button" name="19Button" value="19Button" class="btn btn-info btn-block mb-4" id="19Button" onclick="click_button('19')">Submit</button>                
                 <h3 id="19OutputElective"></h3>
             </div>
 
@@ -382,7 +388,7 @@
                 <label for="fillOutElective">Free Elective</label>
                 <textarea class="form-control" id="24electiveText" rows="1"></textarea>
                 <small id="24ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="24Button" value="24Button" class="btn btn-primary btn-block mb-4" id="24Button" onclick="click_button('24')">Submit</button>                
+                <button type="button" name="24Button" value="24Button" class="btn btn-info btn-block mb-4" id="24Button" onclick="click_button('24')">Submit</button>                
                 <h3 id="24OutputElective"></h3>
             </div>
 
@@ -447,7 +453,7 @@
                 <label for="fillOutElective">Free Elective</label>
                 <textarea class="form-control" id="29electiveText" rows="1"></textarea>
                 <small id="29ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="29Button" value="29Button" class="btn btn-primary btn-block mb-4" id="29Button" onclick="click_button('29')">Submit</button>                
+                <button type="button" name="29Button" value="29Button" class="btn btn-info btn-block mb-4" id="29Button" onclick="click_button('29')">Submit</button>                
                 <h3 id="29OutputElective"></h3>
             </div>
 
@@ -465,7 +471,7 @@
                 <label for="fillOutElective">HU/L/FA Elective</label>
                 <textarea class="form-control" id="30electiveText" rows="1"></textarea>
                 <small id="30ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="30Button" value="30Button" class="btn btn-primary btn-block mb-4" id="30Button" onclick="click_button('30')">Submit</button>                
+                <button type="button" name="30Button" value="30Button" class="btn btn-success btn-block mb-4" id="30Button" onclick="click_button('30')">Submit</button>                
                 <h3 id="30OutputElective"></h3>
             </div>
 
@@ -483,7 +489,7 @@
                 <label for="fillOutElective">Nat Science #1 (sequence, N)</label>
                 <textarea class="form-control" id="31electiveText" rows="1"></textarea>
                 <small id="31ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="31Button" value="31Button" class="btn btn-primary btn-block mb-4" id="31Button" onclick="click_button('31')">Submit</button>                
+                <button type="button" name="31Button" value="31Button" class="btn btn-danger btn-block mb-4" id="31Button" onclick="click_button('31')">Submit</button>                
                 <h3 id="31OutputElective"></h3>
             </div>
 
@@ -521,7 +527,7 @@
                 <label for="fillOutElective">Free Elective</label>
                 <textarea class="form-control" id="34electiveText" rows="1"></textarea>
                 <small id="34ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="34Button" value="34Button" class="btn btn-primary btn-block mb-4" id="34Button" onclick="click_button('34')">Submit</button>                
+                <button type="button" name="34Button" value="34Button" class="btn btn-info btn-block mb-4" id="34Button" onclick="click_button('34')">Submit</button>                
                 <h3 id="34OutputElective"></h3>
             </div>
 
@@ -539,7 +545,7 @@
                 <label for="fillOutElective">Free Elective</label>
                 <textarea class="form-control" id="35electiveText" rows="1"></textarea>
                 <small id="35ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="35Button" value="35Button" class="btn btn-primary btn-block mb-4" id="35Button" onclick="click_button('35')">Submit</button>                
+                <button type="button" name="35Button" value="35Button" class="btn btn-info btn-block mb-4" id="35Button" onclick="click_button('35')">Submit</button>                
                 <h3 id="35OutputElective"></h3>
             </div>
 
@@ -557,7 +563,7 @@
                 <label for="fillOutElective">Nat Science #2 (sequence, N)</label>
                 <textarea class="form-control" id="36electiveText" rows="1"></textarea>
                 <small id="36ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="36Button" value="36Button" class="btn btn-primary btn-block mb-4" id="36Button" onclick="click_button('36')">Submit</button>                
+                <button type="button" name="36Button" value="36Button" class="btn btn-danger btn-block mb-4" id="36Button" onclick="click_button('36')">Submit</button>                
                 <h3 id="36OutputElective"></h3>
             </div>
 
