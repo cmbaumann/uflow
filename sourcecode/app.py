@@ -348,7 +348,20 @@ def flowchart2(name):
             {"$set": {"flowcharts": newData}}
         )
         message = 'Your flowchart has been saved'
-        return render_template('flowchart-edit.html', message=message, name=name, data=data)
+        year = records.find({"email": email}, {"year": 1, "_id": 0})
+        for item in year:
+            yearPass = item['year']
+        yearPass2 = int(yearPass)+1
+        yearPass3 = int(yearPass)+2
+        yearPass4 = int(yearPass)+3
+        yearPass5 = int(yearPass)+4
+        yearData = []
+        yearData.append(int(yearPass))
+        yearData.append(yearPass2)
+        yearData.append(yearPass3)
+        yearData.append(yearPass4)
+        yearData.append(yearPass5)
+        return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
     if "email" in session: # GET
         print("edit name: ", name)
         email = session["email"]
@@ -399,7 +412,20 @@ def flowchart2(name):
                     data.append(item['flowcharts'][i]["35"])
                     data.append(item['flowcharts'][i]["36"])
                     data.append(item['flowcharts'][i]["37"])
-        return render_template('flowchart-edit.html', data=data)
+        year = records.find({"email": email}, {"year": 1, "_id": 0})
+        for item in year:
+            yearPass = item['year']
+        yearPass2 = int(yearPass)+1
+        yearPass3 = int(yearPass)+2
+        yearPass4 = int(yearPass)+3
+        yearPass5 = int(yearPass)+4
+        yearData = []
+        yearData.append(int(yearPass))
+        yearData.append(yearPass2)
+        yearData.append(yearPass3)
+        yearData.append(yearPass4)
+        yearData.append(yearPass5)
+        return render_template('flowchart-edit.html', data=data, yearData=yearData)
     else:
         return redirect(url_for("login"))
 
