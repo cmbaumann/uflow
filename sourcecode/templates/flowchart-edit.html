@@ -72,6 +72,47 @@
         [27, 28, 32] //CS 495
     ];
 
+    var postreqArray = [
+        [], //nothing
+        [6], //EN 101
+        [], //ENGR 103
+        [8], //MATH 125
+        [9], //CS 100
+        [], //CS 121
+        [], //EN 102,
+        [],
+        [21, 26], //MATH 126
+        [12, 17], //CS 101
+        [],
+        [16], //MATH 301
+        [22, 23], //CS 200
+        [18], //ECE 380
+        [], //
+        [], 
+        [], //MATH 302
+        [22, 23], //CS 201
+        [], //ECE 383
+        [], //
+        [], //
+        [], //GES 255/MATH 355
+        [27, 28, 32, 33], //CS 300
+        [27, 28, 32, 33], //CS 301
+        [],
+        [],
+        [], //MATH 237
+        [37], //CS 403
+        [37], //CS 4xx
+        [],
+        [],
+        [36], //Natural Science 1
+        [37], //CS 470/475
+        [], //CS 4xx
+        [],
+        [],
+        [], //Natural Science 2
+        [] //CS 495
+    ];
+
     let curColor = "white";
 
     function color(id) {
@@ -140,7 +181,12 @@
     function prereqCheck(id) {
         
         if (searchPrereqArray(id)) {
-            change(id);
+            if (searchPostreqArray(id)) {
+                change(id);
+            }
+            else {
+            alert("You need this class as a prerequisite for a future course.");
+        }
         }
         else {
             alert("You have not satisfied the prerequisites for this course.");
@@ -161,6 +207,24 @@
             temp = getNumericalColorStatus(temp);
             console.log("Temp:" + temp);
             if (temp >= colorStatus) return false;
+        }
+        return true;
+    }
+
+    function searchPostreqArray(id) {
+        var colorStatus = getColorStatus();
+        colorStatus = getNumericalColorStatus(colorStatus);
+        console.log("ColorStatus:" + colorStatus);
+        var temp;
+        if (colorStatus == 1) return true;
+        for (var i=0; i<postreqArray[id].length; i++) {
+            console.log(postreqArray[id][i]);
+            
+            temp = document.getElementById("d"+postreqArray[id][i]).value;
+            console.log(temp);
+            temp = getNumericalColorStatus(temp);
+            console.log("Temp:" + temp);
+            if (temp <= colorStatus) return false;
         }
         return true;
     }
