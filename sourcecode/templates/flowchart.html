@@ -203,10 +203,23 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="7" onclick="change('7')">
             
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="7Box">                
-                <label for="fillOutElective">HI/SB Elective</label>
-                <textarea class="form-control" id="7electiveText" rows="1"></textarea>
-                <small id="7ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
+            <label for="fillOutElective">HI/SB Elective</label>
+            <div class="row w-100 mb-4" id="7Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="7electiveText" class="form-control" />
+                        <label class="form-text" for="7electiveText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="7hours" class="form-control" />
+                        <label class="form-label" for="7hours">Hours</label>
+                    </div>
+                </div>
+                
+                <!-- <textarea class="form-control" id="7electiveText" rows="1"></textarea>  -->
+                <small id="7ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
                 <button type="button" name="7Button" value="7Button" class="btn btn-primary btn-block mb-4" id="7Button" onclick="click_button('7')">Submit</button>                
                 <h3 id="7OutputElective"></h3>
             </div>
