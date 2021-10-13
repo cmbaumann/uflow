@@ -204,25 +204,24 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
             
             <!-- information needed for elective editing -->
             <label for="fillOutElective">HI/SB Elective</label>
-            <div class="row w-100 mb-4" id="7Box">                
+            <h3 id="7OutputElective"></h3>
+            <div class="row w-125 mb-4" id="7Box">                
                 <div class="col">
                     <div class="form-outline">
                         <input type="text" id="7electiveText" class="form-control" />
-                        <label class="form-text" for="7electiveText">Course Number</label>
+                        <label class="form-text" for="7electiveText" id="7courseText">Course Number</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline">
                         <input type="text" id="7hours" class="form-control" />
-                        <label class="form-label" for="7hours">Hours</label>
+                        <label class="form-label" for="7hours" id="7hoursText">Hours</label>
                     </div>
                 </div>
-                
-                <!-- <textarea class="form-control" id="7electiveText" rows="1"></textarea>  -->
-                <small id="7ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
-                <button type="button" name="7Button" value="7Button" class="btn btn-primary btn-block mb-4" id="7Button" onclick="click_button('7')">Submit</button>                
-                <h3 id="7OutputElective"></h3>
             </div>
+            <!-- <textarea class="form-control" id="7electiveText" rows="1"></textarea>  -->
+            <small id="7ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="7Button" value="7Button" class="btn btn-primary btn-block mb-4" id="7Button" onclick="new_click_button('7')">Submit</button>                
             
             <select hidden name="d7" class="form-select form-select-sm" id="d7" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -676,6 +675,41 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
             output_elective.style.visibility = "hidden"
             submit_info.style.visibility = "visible";
             elective_textarea.style.visibility = "visible";
+        }
+    }
+
+    function new_click_button(id) {
+        var course_input = document.getElementById(id+"electiveText");
+        var course_hours = document.getElementById(id+"hours")
+        var course_text = document.getElementById(id+"courseText");
+        var hours_text = document.getElementById(id+"hoursText")
+        var button = document.getElementById(id+"Button");
+        var elective_help = document.getElementById(id+"ElectiveHelp");
+        var output_elective = document.getElementById(id+"OutputElective");
+
+        if (button.innerHTML == "Submit") {
+            var course_name = course_input.value; 
+            var hours = course_hours.value;
+            button.innerHTML = "Edit Course";
+
+            output_elective.style.display = "block"
+            output_elective.innerHTML = course_name + " (" + hours + " hours)";
+            elective_help.style.display = "none";
+            course_input.style.display = "none";
+            course_hours.style.display = "none";
+            course_text.style.display = "none";
+            hours_text.style.display = "none";
+        }
+        else {
+            // button.innerHTML == "Edit Elective"
+            button.innerHTML = "Submit";
+            
+            output_elective.style.display = "none"
+            elective_help.style.display = "block";
+            course_input.style.display = "block";
+            course_hours.style.display = "block";
+            course_text.style.display = "block";
+            hours_text.style.display = "block";
         }
     }
 </script>
