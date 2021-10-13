@@ -180,25 +180,52 @@
 
     function prereqCheck(id) {
         
-        if (searchPrereqArray(id)) {
-            if (searchPostreqArray(id)) {
+        prereq = searchPrereqArray(id);
+        if (prereq.length == 0) {
+            postreq = searchPostreqArray(id);
+            if (postreq.length == 0) {
                 change(id);
             }
             else {
-            alert("You need this class as a prerequisite for a future course.");
-        }
+                alertstring = "You need this class as a prerequisite for ";
+                for (var i = 0; i < postreq.length; ++i) {
+                    if (i == 0) {
+                        alertstring = alertstring + postreq[i];
+                    }
+                    else if ((i+1) == postreq.length) {
+                        alertstring = alertstring + ", and " + postreq[i];
+                    }
+                    else {
+                        alertstring = alertstring + ", " + postreq[i];
+                    }
+                }
+                alert(alertstring);
+            }
         }
         else {
-            alert("You have not satisfied the prerequisites for this course.");
+            alertstring = "You do not have these prerequisites for this course: ";
+                for (var i = 0; i < prereq.length; ++i) {
+                    if (i == 0) {
+                        alertstring = alertstring + prereq[i];
+                    }
+                    else if ((i+1) == prereq.length) {
+                        alertstring = alertstring + ", and " + prereq[i];
+                    }
+                    else {
+                        alertstring = alertstring + ", " + prereq[i];
+                    }
+                }
+            alert(alertstring);
         }
     }
 
     function searchPrereqArray(id) {
+        returnarray = [];
         var colorStatus = getColorStatus();
         colorStatus = getNumericalColorStatus(colorStatus);
         console.log("ColorStatus:" + colorStatus);
         var temp;
-        if (colorStatus == 1) return true;
+        if (colorStatus == 1) return returnarray;
         for (var i=0; i<prereqArray[id].length; i++) {
             console.log(prereqArray[id][i]);
             
@@ -206,17 +233,20 @@
             console.log(temp);
             temp = getNumericalColorStatus(temp);
             console.log("Temp:" + temp);
-            if (temp >= colorStatus) return false;
+            if (temp >= colorStatus) {
+                returnarray.push(getClassName(prereqArray[id][i]));
+            }
         }
-        return true;
+        return returnarray;
     }
 
     function searchPostreqArray(id) {
+        returnarray = [];
         var colorStatus = getColorStatus();
         colorStatus = getNumericalColorStatus(colorStatus);
         console.log("ColorStatus:" + colorStatus);
         var temp;
-        if (colorStatus == 1) return true;
+        if (colorStatus == 1) return returnarray;
         for (var i=0; i<postreqArray[id].length; i++) {
             console.log(postreqArray[id][i]);
             
@@ -224,9 +254,11 @@
             console.log(temp);
             temp = getNumericalColorStatus(temp);
             console.log("Temp:" + temp);
-            if (temp <= colorStatus) return false;
+            if (temp <= colorStatus) {
+                returnarray.push(getClassName(postreqArray[id][i]));
+            }
         }
-        return true;
+        return returnarray;
     }
 
     function getColorStatus() {
@@ -246,6 +278,46 @@
         else if (colorStatus=="future2") return 4;
         else if (colorStatus=="future3") return 5;
         else if (colorStatus=="") return 6;
+    }
+
+    function getClassName(id) {
+        if (id == 1) return "EN 101";
+        else if (id == 2) return "ENGR 103";
+        else if (id == 3) return "MATH 125";
+        else if (id == 4) return "CS 100";
+        else if (id == 5) return "CS 121";
+        else if (id == 6) return "EN 102";
+        else if (id == 7) return "HI/SB Elective";
+        else if (id == 8) return "MATH 126";
+        else if (id == 9) return "CS 101";
+        else if (id == 10) return "HU/L/FA Elective";
+        else if (id == 11) return "MATH 301";
+        else if (id == 12) return "CS 200";
+        else if (id == 13) return "ECE 380";
+        else if (id == 14) return "HU/L/FA Elective";
+        else if (id == 15) return "Natural Science Elective";
+        else if (id == 16) return "MATH 302";
+        else if (id == 17) return "CS 201";
+        else if (id == 18) return "ECE 383";
+        else if (id == 19) return "Free Elective";
+        else if (id == 20) return "HI/SB Elective";
+        else if (id == 21) return "GES 255/ MATH 355";
+        else if (id == 22) return "CS 300";
+        else if (id == 23) return "CS 301";
+        else if (id == 24) return "Free Elective";
+        else if (id == 25) return "HI/SB Elective";
+        else if (id == 26) return "MATH 237";
+        else if (id == 27) return "CS 403";
+        else if (id == 28) return "CS 4xx";
+        else if (id == 29)  return "Free Elective";
+        else if (id == 30) return "HU/L/FA Elective";
+        else if (id == 31) return "Natural Sciene Sequence #1";
+        else if (id == 32) return "CS 470/ CS 475";
+        else if (id == 33) return "CS 4xx";
+        else if (id == 34) return "Free Elective";
+        else if (id == 35) return "Free Elective";
+        else if (id == 36) return "Natural Science Sequence #2";
+        else if (id == 37) return "CS 495";
     }
 
 </script>
