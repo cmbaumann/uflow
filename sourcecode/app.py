@@ -78,7 +78,15 @@ def register():
 def logged_in():
     if "email" in session:
         email = session["email"]
-        return render_template('logged_in.html', email=email)
+        names = []
+        len = 0
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        for item in entry:
+                for thing in item['flowcharts']:
+                    len = len + 1
+                for i in range(0, len):
+                    names.append(item['flowcharts'][i]["name"])
+        return render_template('logged_in.html', email=email, names=names)
     else:
         return redirect(url_for("login"))
 

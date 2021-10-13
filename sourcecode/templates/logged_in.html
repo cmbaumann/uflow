@@ -79,10 +79,10 @@
     </div>
 
     <div class="fc_list">
-        {%for i in range(1, 4)%}
+        {%for name in names %}
         <div class="fc_block">
-            <br><h3>Flowchart #{{i}}</h3>
-            <form action="/flowchart">
+            <br><h3>{{name}}</h3>
+            <form action="/flowchart-edit/{{name}}">
                 <section>
                     <input class="fc_edit" type="submit" value="Edit">
                     <input class="fc_delete" type="button" onclick=del_alert() value="Delete">
