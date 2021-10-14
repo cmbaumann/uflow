@@ -1,6 +1,19 @@
 <h1>UFlow</h1>
 <h4>University of Alabama Computer Science Capstone Project (CS 495)</h4>
+<h4>Fall 2021</h4>
 <h4>Group: Cassidy Baumann, Mikey McDavid, Peyton Reed, Brady Wachs</h4>
+<br>
+
+<h2>Important Note!</h2>
+<p>
+  This repository contains all <b>source code for the software developed</b> during the capstone project. 
+  
+  <a href="https://github.com/pdreed/uflow-website/tree/main">Click here </a>
+  if you are interested in seeing the repository for the project description website. This repository will also include additional information regarding the source code and website. 
+  
+  <a href="https://pdreed.github.io/uflow-website/">Click here </a>
+  if you are interested in seeing the <b>project description website.</b>
+</p>
 <br>
 
 <h2>How to use the UFlow web application</h2>
