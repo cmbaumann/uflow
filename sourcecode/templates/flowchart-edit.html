@@ -223,16 +223,11 @@
         returnarray = [];
         var colorStatus = getColorStatus();
         colorStatus = getNumericalColorStatus(colorStatus);
-        console.log("ColorStatus:" + colorStatus);
         var temp;
         if (colorStatus == 1) return returnarray;
         for (var i=0; i<prereqArray[id].length; i++) {
-            console.log(prereqArray[id][i]);
-            
             temp = document.getElementById("d"+prereqArray[id][i]).value;
-            console.log(temp);
             temp = getNumericalColorStatus(temp);
-            console.log("Temp:" + temp);
             if (temp >= colorStatus) {
                 returnarray.push(getClassName(prereqArray[id][i]));
             }
@@ -244,16 +239,11 @@
         returnarray = [];
         var colorStatus = getColorStatus();
         colorStatus = getNumericalColorStatus(colorStatus);
-        console.log("ColorStatus:" + colorStatus);
         var temp;
         if (colorStatus == 1) return returnarray;
         for (var i=0; i<postreqArray[id].length; i++) {
-            console.log(postreqArray[id][i]);
-            
             temp = document.getElementById("d"+postreqArray[id][i]).value;
-            console.log(temp);
             temp = getNumericalColorStatus(temp);
-            console.log("Temp:" + temp);
             if (temp <= colorStatus) {
                 returnarray.push(getClassName(postreqArray[id][i]));
             }
