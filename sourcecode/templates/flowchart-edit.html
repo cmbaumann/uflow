@@ -71,6 +71,47 @@
         [27, 28, 32] //CS 495
     ];
 
+    var postreqArray = [
+        [], //nothing
+        [6], //EN 101
+        [], //ENGR 103
+        [8], //MATH 125
+        [9], //CS 100
+        [], //CS 121
+        [], //EN 102,
+        [],
+        [21, 26], //MATH 126
+        [12, 17], //CS 101
+        [],
+        [16], //MATH 301
+        [22, 23], //CS 200
+        [18], //ECE 380
+        [], //
+        [],
+        [], //MATH 302
+        [22, 23], //CS 201
+        [], //ECE 383
+        [], //
+        [], //
+        [], //GES 255/MATH 355
+        [27, 28, 32, 33], //CS 300
+        [27, 28, 32, 33], //CS 301
+        [],
+        [],
+        [], //MATH 237
+        [37], //CS 403
+        [37], //CS 4xx
+        [],
+        [],
+        [36], //Natural Science 1
+        [37], //CS 470/475
+        [], //CS 4xx
+        [],
+        [],
+        [], //Natural Science 2
+        [] //CS 495
+    ];
+
     let curColor = "white";
 
     function color(id) {
@@ -88,6 +129,7 @@
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "inprogress") {
             curColor = "blue";
@@ -103,6 +145,7 @@
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "spring0") {
             curColor = "red";
@@ -118,6 +161,7 @@
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "fall0") {
             curColor = "purple";
@@ -133,6 +177,7 @@
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "spring1") {
             curColor = "yellow";
@@ -148,6 +193,7 @@
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "fall1") {
             curColor = "olive";
@@ -163,6 +209,7 @@
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "spring2") {
             curColor = "lime";
@@ -178,6 +225,7 @@
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "fall2") {
             curColor = "fuchsia";
@@ -193,6 +241,7 @@
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "spring3") {
             curColor = "sandybrown";
@@ -208,6 +257,7 @@
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "fall3") {
             curColor = "mistyrose";
@@ -223,6 +273,7 @@
             document.getElementById("spring3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "spring4") {
             curColor = "aqua";
@@ -238,6 +289,7 @@
             document.getElementById("spring3").style.backgroundColor="white";
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "fall4") {
             curColor = "teal";
@@ -253,6 +305,23 @@
             document.getElementById("spring3").style.backgroundColor="white";
             document.getElementById("fall3").style.backgroundColor="white";
             document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "deselect") {
+            curColor = "gray";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
         }
     }
 
@@ -295,34 +364,81 @@
         if (curColor == "teal") {
             document.getElementById(newid).value="fall4";
         }
+        if (curColor == "gray") {
+            document.getElementById(newid).value="";
+        }
     }
 
     function prereqCheck(id) {
-        
-        if (searchPrereqArray(id)) {
-            change(id);
-        }
-        else {
-            alert("You have not satisfied the prerequisites for this course.");
-        }
+       prereq = searchPrereqArray(id);
+       if (prereq.length == 0) {
+           postreq = searchPostreqArray(id);
+           if (postreq.length == 0) {
+               change(id);
+           }
+           else {
+               alertstring = "You need this class as a prerequisite for ";
+               for (var i = 0; i < postreq.length; ++i) {
+                   if (i == 0) {
+                       alertstring = alertstring + postreq[i];
+                   }
+                   else if ((i+1) == postreq.length) {
+                       alertstring = alertstring + ", and " + postreq[i];
+                   }
+                   else {
+                       alertstring = alertstring + ", " + postreq[i];
+                   }
+               }
+               alert(alertstring);
+           }
+       }
+       else {
+           alertstring = "You do not have these prerequisites for this course: ";
+               for (var i = 0; i < prereq.length; ++i) {
+                   if (i == 0) {
+                       alertstring = alertstring + prereq[i];
+                   }
+                   else if ((i+1) == prereq.length) {
+                       alertstring = alertstring + ", and " + prereq[i];
+                   }
+                   else {
+                       alertstring = alertstring + ", " + prereq[i];
+                   }
+               }
+           alert(alertstring);
+       }
     }
-
+    
     function searchPrereqArray(id) {
+        returnarray = [];
         var colorStatus = getColorStatus();
         colorStatus = getNumericalColorStatus(colorStatus);
-        console.log("ColorStatus:" + colorStatus);
         var temp;
-        if (colorStatus == 1) return true;
+        if (colorStatus == 1) return returnarray;
         for (var i=0; i<prereqArray[id].length; i++) {
-            console.log(prereqArray[id][i]);
-            
             temp = document.getElementById("d"+prereqArray[id][i]).value;
-            console.log(temp);
             temp = getNumericalColorStatus(temp);
-            console.log("Temp:" + temp);
-            if (temp >= colorStatus) return false;
+            if (temp >= colorStatus) {
+                returnarray.push(getClassName(prereqArray[id][i]));
+            }
         }
-        return true;
+        return returnarray;
+    }
+
+    function searchPostreqArray(id) {
+        returnarray = [];
+        var colorStatus = getColorStatus();
+        colorStatus = getNumericalColorStatus(colorStatus);
+        var temp;
+        if (colorStatus == 1) return returnarray;
+        for (var i=0; i<postreqArray[id].length; i++) {
+            temp = document.getElementById("d"+postreqArray[id][i]).value;
+            temp = getNumericalColorStatus(temp);
+            if (temp <= colorStatus) {
+                returnarray.push(getClassName(postreqArray[id][i]));
+            }
+        }
+        return returnarray;
     }
 
     function getColorStatus() {
@@ -338,7 +454,7 @@
         else if (curColor == "mistyrose") return "fall3";
         else if (curColor == "aqua") return "spring4";
         else if (curColor == "teal") return "fall4";
-
+        else if (curColor == "gray") return "deselect";
         else if (curColor == "white") return "";
     }
 
@@ -356,7 +472,48 @@
         else if (colorStatus=="fall3") return 10;
         else if (colorStatus=="spring4") return 11;
         else if (colorStatus=="fall4") return 12;
-        else if (colorStatus=="") return 13;
+        else if (colorStatus=="deselect") return 13;
+        else if (colorStatus=="") return 14;
+    }
+
+    function getClassName(id) {
+        if (id == 1) return "EN 101";
+        else if (id == 2) return "ENGR 103";
+        else if (id == 3) return "MATH 125";
+        else if (id == 4) return "CS 100";
+        else if (id == 5) return "CS 121";
+        else if (id == 6) return "EN 102";
+        else if (id == 7) return "HI/SB Elective";
+        else if (id == 8) return "MATH 126";
+        else if (id == 9) return "CS 101";
+        else if (id == 10) return "HU/L/FA Elective";
+        else if (id == 11) return "MATH 301";
+        else if (id == 12) return "CS 200";
+        else if (id == 13) return "ECE 380";
+        else if (id == 14) return "HU/L/FA Elective";
+        else if (id == 15) return "Natural Science Elective";
+        else if (id == 16) return "MATH 302";
+        else if (id == 17) return "CS 201";
+        else if (id == 18) return "ECE 383";
+        else if (id == 19) return "Free Elective";
+        else if (id == 20) return "HI/SB Elective";
+        else if (id == 21) return "GES 255/ MATH 355";
+        else if (id == 22) return "CS 300";
+        else if (id == 23) return "CS 301";
+        else if (id == 24) return "Free Elective";
+        else if (id == 25) return "HI/SB Elective";
+        else if (id == 26) return "MATH 237";
+        else if (id == 27) return "CS 403";
+        else if (id == 28) return "CS 4xx";
+        else if (id == 29)  return "Free Elective";
+        else if (id == 30) return "HU/L/FA Elective";
+        else if (id == 31) return "Natural Sciene Sequence #1";
+        else if (id == 32) return "CS 470/ CS 475";
+        else if (id == 33) return "CS 4xx";
+        else if (id == 34) return "Free Elective";
+        else if (id == 35) return "Free Elective";
+        else if (id == 36) return "Natural Science Sequence #2";
+        else if (id == 37) return "CS 495";
     }
 
 </script>
@@ -394,6 +551,7 @@
         <div class="column color" id="fall3" onclick="color('fall3')">Fall {{yearData[3]}}</div>
         <div class="column color" id="spring4" onclick="color('spring4')">Spring {{yearData[4]}}</div>
         <div class="column color" id="fall4" onclick="color('fall4')">Fall {{yearData[4]}}</div>
+        <div class="column color" id="deselect" onclick="color('deselect')">Deselect</div>
     </div>
     <div class="row">
         <div class="column course" id="1" onclick="prereqCheck('1')">
@@ -412,6 +570,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="2" onclick="prereqCheck('2')">
@@ -430,6 +589,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="3" onclick="prereqCheck('3')">
@@ -448,6 +608,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="4" onclick="prereqCheck('4')">
@@ -466,6 +627,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="5" onclick="prereqCheck('5')">
@@ -484,6 +646,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -504,6 +667,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="7" onclick="prereqCheck('7')">
@@ -522,6 +686,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="8" onclick="prereqCheck('8')">
@@ -540,6 +705,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div  class="column course" id="9" onclick="prereqCheck('9')">
@@ -558,6 +724,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -578,6 +745,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="11" onclick="prereqCheck('11')">
@@ -596,6 +764,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="12" onclick="prereqCheck('12')">
@@ -614,6 +783,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="13" onclick="prereqCheck('13')">
@@ -632,6 +802,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -652,6 +823,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="15" onclick="prereqCheck('15')">
@@ -670,6 +842,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="16" onclick="prereqCheck('16')">
@@ -688,6 +861,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="17" onclick="prereqCheck('17')">
@@ -706,6 +880,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="18" onclick="prereqCheck('18')">
@@ -724,6 +899,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -744,6 +920,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="20" onclick="prereqCheck('20')">
@@ -762,6 +939,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="21" onclick="prereqCheck('21')">
@@ -780,6 +958,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="22" onclick="prereqCheck('22')">
@@ -798,6 +977,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="23" onclick="prereqCheck('23')">
@@ -816,6 +996,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -836,6 +1017,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="25" onclick="prereqCheck('25')">
@@ -854,6 +1036,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="26" onclick="prereqCheck('26')">
@@ -872,6 +1055,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="27" onclick="prereqCheck('27')">
@@ -890,6 +1074,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="28" onclick="prereqCheck('28')">
@@ -908,6 +1093,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -928,6 +1114,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="30" onclick="prereqCheck('30')">
@@ -946,6 +1133,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="31" onclick="prereqCheck('31')">
@@ -964,6 +1152,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="32" onclick="prereqCheck('32')">
@@ -982,6 +1171,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="33" onclick="prereqCheck('33')">
@@ -1000,6 +1190,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -1020,6 +1211,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="35" onclick="prereqCheck('35')">
@@ -1038,6 +1230,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="36" onclick="prereqCheck('36')">
@@ -1056,6 +1249,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="37" onclick="prereqCheck('37')">
@@ -1074,6 +1268,7 @@
                 <option value="fall3">Fall {{yearData[3]}}</option>
                 <option value="spring4">Spring {{yearData[4]}}</option>
                 <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
