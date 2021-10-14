@@ -326,7 +326,9 @@
     }
 
     function change(id) {
-        document.getElementById(id).style.backgroundColor=curColor;
+        if (curColor == "gray") document.getElementById(id).style.backgroundColor="white";
+        else document.getElementById(id).style.backgroundColor=curColor;
+            
         newid = "d" + id
         if (curColor == "green") {
             document.getElementById(newid).value="taken";
