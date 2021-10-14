@@ -256,13 +256,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="10" onclick="change('10')">
             
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="10Box">                
-                <label for="fillOutElective">HU/L/FA Elective #1 (sequence)</label>
-                <textarea class="form-control" id="10electiveText" rows="1"></textarea>
-                <small id="10ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="10Button" value="10Button" class="btn btn-success btn-block mb-4" id="10Button" onclick="click_button('10')">Submit</button>                
-                <h3 id="10OutputElective"></h3>
+            <label for="fillOutElective">HU/L/FA Elective #1 (sequence)</label>
+            <h3 id="10OutputElective"></h3>
+            <script> document.getElementById("10OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="10Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="10electiveText" class="form-control" />
+                        <label class="form-text" for="10electiveText" id="10courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="10hours" class="form-control" />
+                        <label class="form-label" for="10hours" id="10hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="10ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="10Button" value="10Button" class="btn btn-success btn-block mb-4" id="10Button" onclick="click_button('10')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d10" class="form-select form-select-sm" id="d10" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -303,13 +318,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="14" onclick="change('14')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="14Box">                
-                <label for="fillOutElective">HU/L/FA Elective #2 (sequence)</label>
-                <textarea class="form-control" id="14electiveText" rows="1"></textarea>
-                <small id="14ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="14Button" value="14Button" class="btn btn-success btn-block mb-4" id="14Button" onclick="click_button('14')">Submit</button>                
-                <h3 id="14OutputElective"></h3>
+            <label for="fillOutElective">HU/L/FA Elective #2 (sequence)</label>
+            <h3 id="14OutputElective"></h3>
+            <script> document.getElementById("7OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="7Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="14electiveText" class="form-control" />
+                        <label class="form-text" for="14electiveText" id="14courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="14hours" class="form-control" />
+                        <label class="form-label" for="14hours" id="14hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="14ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="14Button" value="14Button" class="btn btn-success btn-block mb-4" id="14Button" onclick="click_button('14')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d14" class="form-select form-select-sm" id="d14" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -321,13 +351,29 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="15" onclick="change('15')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="15Box">                
-                <label for="fillOutElective">Nat Science Elective (N)</label>
-                <textarea class="form-control" id="15electiveText" rows="1"></textarea>
-                <small id="15ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="15Button" value="15Button" class="btn btn-danger btn-block mb-4" id="15Button" onclick="click_button('15')">Submit</button>                
-                <h3 id="15OutputElective"></h3>
+            <label for="fillOutElective">Nat Science Elective (N)</label>
+            <h3 id="15OutputElective"></h3>
+            <script> document.getElementById("15OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="15Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="15electiveText" class="form-control" />
+                        <label class="form-text" for="15electiveText" id="15courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="15hours" class="form-control" />
+                        <label class="form-label" for="15hours" id="15hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="15ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="15Button" value="15Button" class="btn btn-danger btn-block mb-4" id="15Button" onclick="click_button('15')">Submit</button>          
+            <!--- end of elective editing form -->  
+
 
             <select hidden name="d15" class="form-select form-select-sm" id="d15" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -368,13 +414,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="19" onclick="change('19')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="19Box">                
-                <label for="fillOutElective">Free Elective</label>
-                <textarea class="form-control" id="19electiveText" rows="1"></textarea>
-                <small id="19ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="19Button" value="19Button" class="btn btn-info btn-block mb-4" id="19Button" onclick="click_button('19')">Submit</button>                
-                <h3 id="19OutputElective"></h3>
+            <label for="fillOutElective">Free Elective</label>
+            <h3 id="19OutputElective"></h3>
+            <script> document.getElementById("19OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="19Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="19electiveText" class="form-control" />
+                        <label class="form-text" for="19electiveText" id="19courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="19hours" class="form-control" />
+                        <label class="form-label" for="19hours" id="19hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="19ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="19Button" value="19Button" class="btn btn-info btn-block mb-4" id="19Button" onclick="click_button('19')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d19" class="form-select form-select-sm" id="d19" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -386,13 +447,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="20" onclick="change('20')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="20Box">                
-                <label for="fillOutElective">HI/SB Elective</label>
-                <textarea class="form-control" id="20electiveText" rows="1"></textarea>
-                <small id="20ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="20Button" value="20Button" class="btn btn-primary btn-block mb-4" id="20Button" onclick="click_button('20')">Submit</button>                
-                <h3 id="20OutputElective"></h3>
+            <label for="fillOutElective">HI/SB Elective</label>
+            <h3 id="20OutputElective"></h3>
+            <script> document.getElementById("20OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="20Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="20electiveText" class="form-control" />
+                        <label class="form-text" for="7electiveText" id="20courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="20hours" class="form-control" />
+                        <label class="form-label" for="20hours" id="20hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="20ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="20Button" value="20Button" class="btn btn-primary btn-block mb-4" id="20Button" onclick="click_button('20')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d20" class="form-select form-select-sm" id="d20" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -431,15 +507,30 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
     </div>
     <div class="row">
         <div  class="column course" id="24" onclick="change('24')">
-    
+
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="24Box">                
-                <label for="fillOutElective">Free Elective</label>
-                <textarea class="form-control" id="24electiveText" rows="1"></textarea>
-                <small id="24ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="24Button" value="24Button" class="btn btn-info btn-block mb-4" id="24Button" onclick="click_button('24')">Submit</button>                
-                <h3 id="24OutputElective"></h3>
+            <label for="fillOutElective">Free Elective</label>
+            <h3 id="24OutputElective"></h3>
+            <script> document.getElementById("24OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="24Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="24electiveText" class="form-control" />
+                        <label class="form-text" for="24electiveText" id="24courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="24hours" class="form-control" />
+                        <label class="form-label" for="24hours" id="24hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="24ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="24Button" value="24Button" class="btn btn-info btn-block mb-4" id="24Button" onclick="click_button('24')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d24" class="form-select form-select-sm" id="d24" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -451,13 +542,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="25" onclick="change('25')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="25Box">                
-                <label for="fillOutElective">HI/SB Elective</label>
-                <textarea class="form-control" id="25electiveText" rows="1"></textarea>
-                <small id="25ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="25Button" value="25Button" class="btn btn-primary btn-block mb-4" id="25Button" onclick="click_button('25')">Submit</button>                
-                <h3 id="25OutputElective"></h3>
+            <label for="fillOutElective">HI/SB Elective</label>
+            <h3 id="25OutputElective"></h3>
+            <script> document.getElementById("25OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="25Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="25electiveText" class="form-control" />
+                        <label class="form-text" for="25electiveText" id="25courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="25hours" class="form-control" />
+                        <label class="form-label" for="25hours" id="25hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="25ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="25Button" value="25Button" class="btn btn-primary btn-block mb-4" id="25Button" onclick="click_button('25')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d25" class="form-select form-select-sm" id="d25" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -487,13 +593,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="28" onclick="change('28')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="28Box">                
-                <label for="fillOutElective">CS 4xx</label>
-                <textarea class="form-control" id="28electiveText" rows="1"></textarea>
-                <small id="28ElectiveHelp" class="form-text text-muted">Please enter a CS 400-Level course of your choosing</small>
-                <button type="button" name="28Button" value="28Button" class="btn btn-secondary btn-block mb-4" id="28Button" onclick="click_button('28')">Submit</button>                
-                <h3 id="28OutputElective"></h3>
+            <label for="fillOutElective">CS 4xx</label>
+            <h3 id="28OutputElective"></h3>
+            <script> document.getElementById("28OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="28Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="28electiveText" class="form-control" />
+                        <label class="form-text" for="28electiveText" id="28courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="28hours" class="form-control" />
+                        <label class="form-label" for="28hours" id="28hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="28ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="28Button" value="28Button" class="btn btn-secondary btn-block mb-4" id="28Button" onclick="click_button('28')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d28" class="form-select form-select-sm" id="d28" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -507,13 +628,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="29" onclick="change('29')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="29Box">                
-                <label for="fillOutElective">Free Elective</label>
-                <textarea class="form-control" id="29electiveText" rows="1"></textarea>
-                <small id="29ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="29Button" value="29Button" class="btn btn-info btn-block mb-4" id="29Button" onclick="click_button('29')">Submit</button>                
-                <h3 id="29OutputElective"></h3>
+            <label for="fillOutElective">Free Elective</label>
+            <h3 id="29OutputElective"></h3>
+            <script> document.getElementById("29OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="29Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="29electiveText" class="form-control" />
+                        <label class="form-text" for="29electiveText" id="29courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="29hours" class="form-control" />
+                        <label class="form-label" for="29hours" id="29hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="29ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="29Button" value="29Button" class="btn btn-info btn-block mb-4" id="29Button" onclick="click_button('29')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d29" class="form-select form-select-sm" id="d29" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -525,13 +661,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="30" onclick="change('30')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="30Box">                
-                <label for="fillOutElective">HU/L/FA Elective</label>
-                <textarea class="form-control" id="30electiveText" rows="1"></textarea>
-                <small id="30ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="30Button" value="30Button" class="btn btn-success btn-block mb-4" id="30Button" onclick="click_button('30')">Submit</button>                
-                <h3 id="30OutputElective"></h3>
+            <label for="fillOutElective">HU/L/FA Elective</label>
+            <h3 id="30OutputElective"></h3>
+            <script> document.getElementById("30OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="30Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="30electiveText" class="form-control" />
+                        <label class="form-text" for="30electiveText" id="30courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="30hours" class="form-control" />
+                        <label class="form-label" for="30hours" id="30hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="30ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="30Button" value="30Button" class="btn btn-success btn-block mb-4" id="30Button" onclick="click_button('30')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d30" class="form-select form-select-sm" id="d30" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -543,13 +694,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="31" onclick="change('31')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="31Box">                
-                <label for="fillOutElective">Nat Science #1 (sequence, N)</label>
-                <textarea class="form-control" id="31electiveText" rows="1"></textarea>
-                <small id="31ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="31Button" value="31Button" class="btn btn-danger btn-block mb-4" id="31Button" onclick="click_button('31')">Submit</button>                
-                <h3 id="31OutputElective"></h3>
+            <label for="fillOutElective">Nat Science #1 (sequence, N)</label>
+            <h3 id="31OutputElective"></h3>
+            <script> document.getElementById("31OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="31Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="31electiveText" class="form-control" />
+                        <label class="form-text" for="31electiveText" id="31courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="31hours" class="form-control" />
+                        <label class="form-label" for="31hours" id="31hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="31ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="31Button" value="31Button" class="btn btn-danger btn-block mb-4" id="31Button" onclick="click_button('31')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d31" class="form-select form-select-sm" id="d31" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -570,13 +736,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="33" onclick="change('33')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="33Box">                
-                <label for="fillOutElective">CS 4xx</label>
-                <textarea class="form-control" id="33electiveText" rows="1"></textarea>
-                <small id="33ElectiveHelp" class="form-text text-muted">Please enter a CS 400-Level course of your choosing</small>
-                <button type="button" name="33Button" value="33Button" class="btn btn-secondary btn-block mb-4" id="33Button" onclick="click_button('33')">Submit</button>                
-                <h3 id="33OutputElective"></h3>
+            <label for="fillOutElective">CS 4xx</label>
+            <h3 id="33OutputElective"></h3>
+            <script> document.getElementById("33OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="33Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="33electiveText" class="form-control" />
+                        <label class="form-text" for="33electiveText" id="33courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="33hours" class="form-control" />
+                        <label class="form-label" for="33hours" id="33hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="33ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="33Button" value="33Button" class="btn btn-secondary btn-block mb-4" id="33Button" onclick="click_button('33')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d33" class="form-select form-select-sm" id="d33" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -590,13 +771,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="34" onclick="change('34')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="34Box">                
-                <label for="fillOutElective">Free Elective</label>
-                <textarea class="form-control" id="34electiveText" rows="1"></textarea>
-                <small id="34ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="34Button" value="34Button" class="btn btn-info btn-block mb-4" id="34Button" onclick="click_button('34')">Submit</button>                
-                <h3 id="34OutputElective"></h3>
+            <label for="fillOutElective">Free Elective</label>
+            <h3 id="34OutputElective"></h3>
+            <script> document.getElementById("34OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="34Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="34electiveText" class="form-control" />
+                        <label class="form-text" for="34electiveText" id="34courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="34hours" class="form-control" />
+                        <label class="form-label" for="34hours" id="34hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="34ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="34Button" value="34Button" class="btn btn-info btn-block mb-4" id="34Button" onclick="click_button('34')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d34" class="form-select form-select-sm" id="d34" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -608,13 +804,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="35" onclick="change('35')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="35Box">                
-                <label for="fillOutElective">Free Elective</label>
-                <textarea class="form-control" id="35electiveText" rows="1"></textarea>
-                <small id="35ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="35Button" value="35Button" class="btn btn-info btn-block mb-4" id="35Button" onclick="click_button('35')">Submit</button>                
-                <h3 id="35OutputElective"></h3>
+            <label for="fillOutElective">Free Elective</label>
+            <h3 id="35OutputElective"></h3>
+            <script> document.getElementById("35OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="35Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="35electiveText" class="form-control" />
+                        <label class="form-text" for="35electiveText" id="35courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="35hours" class="form-control" />
+                        <label class="form-label" for="35hours" id="35hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="35ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="35Button" value="35Button" class="btn btn-info btn-block mb-4" id="35Button" onclick="click_button('35')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d35" class="form-select form-select-sm" id="d35" aria-label=".form-select-sm example">
                 <option selected></option>
@@ -626,13 +837,28 @@ https://stackoverflow.com/questions/28261287/how-to-change-btn-color-in-bootstra
         <div class="column course" id="36" onclick="change('36')">
 
             <!-- information needed for elective editing -->
-            <div class="form-outline w-100 mb-4" id="36Box">                
-                <label for="fillOutElective">Nat Science #2 (sequence, N)</label>
-                <textarea class="form-control" id="36electiveText" rows="1"></textarea>
-                <small id="36ElectiveHelp" class="form-text text-muted">Please enter course designation and number (i.e. EN 101)</small>
-                <button type="button" name="36Button" value="36Button" class="btn btn-danger btn-block mb-4" id="36Button" onclick="click_button('36')">Submit</button>                
-                <h3 id="36OutputElective"></h3>
+            <label for="fillOutElective">Nat Science #2 (sequence, N)</label>
+            <h3 id="36OutputElective"></h3>
+            <script> document.getElementById("36OutputElective").style.display="none" </script>
+
+            <div class="row w-125 mb-4" id="36Box">                
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="36electiveText" class="form-control" />
+                        <label class="form-text" for="36electiveText" id="36courseText">Course Number</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="36hours" class="form-control" />
+                        <label class="form-label" for="36hours" id="36hoursText">Hours</label>
+                    </div>
+                </div>
             </div>
+
+            <small id="36ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
+            <button type="button" name="36Button" value="36Button" class="btn btn-danger btn-block mb-4" id="36Button" onclick="click_button('36')">Submit</button>          
+            <!--- end of elective editing form -->  
 
             <select hidden name="d36" class="form-select form-select-sm" id="d36" aria-label=".form-select-sm example">
                 <option selected></option>
