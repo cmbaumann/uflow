@@ -320,7 +320,7 @@ def flowchart2(name):
         data.append(d6)
         data.append(d7)
         data.append(d8)
-        data.append(d19)
+        data.append(d9)
         data.append(d10)
         data.append(d11)
         data.append(d12)
@@ -433,6 +433,7 @@ def flowchart2(name):
         yearData.append(yearPass3)
         yearData.append(yearPass4)
         yearData.append(yearPass5)
+        print("GET data: ", data)
         return render_template('flowchart-edit.html', data=data, yearData=yearData)
     else:
         return redirect(url_for("login"))
