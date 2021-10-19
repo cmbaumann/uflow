@@ -1,3 +1,5 @@
+
+//When the page loads, make all courses have a white background
 window.onload = function() {
     var x = document.getElementsByClassName("column");
     for (i = 0; i < x.length; i++) {
@@ -5,13 +7,14 @@ window.onload = function() {
     }
 };
 
+    //Initialize current option and current color, as well as the status colors
     let curColor = "#ffffff";
+    let curOption = "";
     let tak_col = "#00ff00";
     let ipr_col = "#0000ff";
     let fut_col = "#ff0000";
-    let curOption = "";
 
-    //Changes the colors used into various kinds of colorblind alternatives
+    //Changes the colors used into various kinds of colorblind alternatives (figure out what colors to use)
     function color_cb_opt(id) {
         //console.log(id);
         if (id == "0") {
@@ -50,6 +53,7 @@ window.onload = function() {
         }
     }
 
+    //Course option selector. Sets current option and color
     function color(id) {
         if (id == curOption) {
             curColor = "#ffffff"
@@ -79,18 +83,8 @@ window.onload = function() {
         }
     }
 
+    //Changes course value and bg color
     function change(id) {
-        var id_col = document.getElementById(id).style.backgroundColor;
-        // newid = "picker c" + id
-        // if (curColor == "green") {
-        //     document.getElementById(newid).value="#008000";
-        // }
-        // if (curColor == "blue") {
-        //     document.getElementById(newid).value="#0000FF";
-        // }
-        // if (curColor == "red") {
-        //     document.getElementById(newid).value="#FF0000";
-        // }
         newid = "d" + id
         if (curOption == "taken") {
             change_sub(id, newid, "taken");
@@ -101,7 +95,6 @@ window.onload = function() {
         else if (curOption == "future") {
             change_sub(id, newid, "future");
         }
-        
     }
 
     function change_sub(id, newid, opt) {
