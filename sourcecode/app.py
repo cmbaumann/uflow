@@ -74,8 +74,36 @@ def register():
             return render_template('logged_in.html', email=new_email)
     return render_template('register.html', majors=majors, years=years)
 
-@app.route('/logged_in')
+@app.route('/logged_in', methods=['post', 'get'])
 def logged_in():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = session["email"]
+
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        newData = []
+        len = 0
+        for item in entry:
+            for thing in item['flowcharts']:
+                len += 1
+            for i in range(len):
+                if (item['flowcharts'][i]["name"] != name):
+                    newData.append(item['flowcharts'][i])
+        print(newData)
+        records.update_one(
+            {"email": email},
+            {"$set": {"flowcharts": newData}}
+        )
+
+        names = []
+        len = 0
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        for item in entry:
+                for thing in item['flowcharts']:
+                    len = len + 1
+                for i in range(0, len):
+                    names.append(item['flowcharts'][i]["name"])
+        return render_template('logged_in.html', email=email, names=names)
     if "email" in session:
         email = session["email"]
         names = []
@@ -276,21 +304,20 @@ def flowchart2(name):
                     item['flowcharts'][i]["3"] = d3
                     item['flowcharts'][i]["4"] = d4
                     item['flowcharts'][i]["5"] = d5
-                    item['flowcharts'][i]["6"] = d5
-                    item['flowcharts'][i]["7"] = d6
-                    item['flowcharts'][i]["8"] = d7
-                    item['flowcharts'][i]["9"] = d8
-                    item['flowcharts'][i]["10"] = d9
-                    item['flowcharts'][i]["11"] = d10
-                    item['flowcharts'][i]["12"] = d11
-                    item['flowcharts'][i]["13"] = d12
-                    item['flowcharts'][i]["14"] = d13
-                    item['flowcharts'][i]["15"] = d14
-                    item['flowcharts'][i]["16"] = d15
-                    item['flowcharts'][i]["17"] = d16
-                    item['flowcharts'][i]["18"] = d17
-                    item['flowcharts'][i]["19"] = d18
-                    item['flowcharts'][i]["10"] = d19
+                    item['flowcharts'][i]["6"] = d6
+                    item['flowcharts'][i]["7"] = d7
+                    item['flowcharts'][i]["8"] = d8
+                    item['flowcharts'][i]["9"] = d9
+                    item['flowcharts'][i]["10"] = d10
+                    item['flowcharts'][i]["11"] = d11
+                    item['flowcharts'][i]["12"] = d12
+                    item['flowcharts'][i]["13"] = d13
+                    item['flowcharts'][i]["14"] = d14
+                    item['flowcharts'][i]["15"] = d15
+                    item['flowcharts'][i]["16"] = d16
+                    item['flowcharts'][i]["17"] = d17
+                    item['flowcharts'][i]["18"] = d18
+                    item['flowcharts'][i]["19"] = d19
                     item['flowcharts'][i]["20"] = d20
                     item['flowcharts'][i]["21"] = d21
                     item['flowcharts'][i]["22"] = d22
