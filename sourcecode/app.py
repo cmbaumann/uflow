@@ -74,8 +74,36 @@ def register():
             return render_template('logged_in.html', email=new_email)
     return render_template('register.html', majors=majors, years=years)
 
-@app.route('/logged_in')
+@app.route('/logged_in', methods=['post', 'get'])
 def logged_in():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = session["email"]
+
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        newData = []
+        len = 0
+        for item in entry:
+            for thing in item['flowcharts']:
+                len += 1
+            for i in range(len):
+                if (item['flowcharts'][i]["name"] != name):
+                    newData.append(item['flowcharts'][i])
+        print(newData)
+        records.update_one(
+            {"email": email},
+            {"$set": {"flowcharts": newData}}
+        )
+
+        names = []
+        len = 0
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        for item in entry:
+                for thing in item['flowcharts']:
+                    len = len + 1
+                for i in range(0, len):
+                    names.append(item['flowcharts'][i]["name"])
+        return render_template('logged_in.html', email=email, names=names)
     if "email" in session:
         email = session["email"]
         names = []
@@ -131,6 +159,20 @@ def logout():
 @app.route("/flowchart-new", methods=['post', 'get'])
 def flowchart1():
     if request.method == "POST":
+        email = session["email"]
+        year = records.find({"email": email}, {"year": 1, "_id": 0})
+        for item in year:
+            yearPass = item['year']
+        yearPass2 = int(yearPass)+1
+        yearPass3 = int(yearPass)+2
+        yearPass4 = int(yearPass)+3
+        yearPass5 = int(yearPass)+4
+        yearData = []
+        yearData.append(int(yearPass))
+        yearData.append(yearPass2)
+        yearData.append(yearPass3)
+        yearData.append(yearPass4)
+        yearData.append(yearPass5)
         name = request.form.get("flowchartname")
         d1 = request.form.get("d1")
         d2 = request.form.get("d2")
@@ -219,14 +261,52 @@ def flowchart1():
                         name_found = True
                         break
 
+        data = []
+        data.append(name)
+        data.append(d1)
+        data.append(d2)
+        data.append(d3)
+        data.append(d4)
+        data.append(d5)
+        data.append(d6)
+        data.append(d7)
+        data.append(d8)
+        data.append(d9)
+        data.append(d10)
+        data.append(d11)
+        data.append(d12)
+        data.append(d13)
+        data.append(d14)
+        data.append(d15)
+        data.append(d16)
+        data.append(d16)
+        data.append(d17)
+        data.append(d18)
+        data.append(d19)
+        data.append(d20)
+        data.append(d21)
+        data.append(d22)
+        data.append(d23)
+        data.append(d24)
+        data.append(d25)
+        data.append(d26)
+        data.append(d27)
+        data.append(d28)
+        data.append(d29)
+        data.append(d30)
+        data.append(d31)
+        data.append(d32)
+        data.append(d33)
+        data.append(d34)
+        data.append(d35)
+        data.append(d36)
+        data.append(d37)
         if (name == ""):
-            # FIXME: just doing this to test the script
-            pass
-            # message = 'Please enter a name for your flowchart'
-            # return render_template('flowchart.html', message=message)
-        elif name_found:
+            message = 'Please enter a name for your flowchart'
+            return render_template('flowchart-new.html', message=message, data=data, yearData=yearData)
+        elif (name_found):
             message = 'You already have a flowchart named ' + name
-            return render_template('flowchart-new.html', message=message)
+            return render_template('flowchart-new.html', message=message, data=data, yearData=yearData)
         else: 
             email = session["email"]
             len = 0
@@ -265,7 +345,21 @@ def flowchart1():
             message = 'Your flowchart has been saved'
             return redirect(url_for('flowchart2', name=name))#render_template('flowchart-edit.html', message=message, name=name)
     if "email" in session: # GET
-        return render_template('flowchart-new.html')
+        email = session["email"]
+        year = records.find({"email": email}, {"year": 1, "_id": 0})
+        for item in year:
+            yearPass = item['year']
+        yearPass2 = int(yearPass)+1
+        yearPass3 = int(yearPass)+2
+        yearPass4 = int(yearPass)+3
+        yearPass5 = int(yearPass)+4
+        yearData = []
+        yearData.append(int(yearPass))
+        yearData.append(yearPass2)
+        yearData.append(yearPass3)
+        yearData.append(yearPass4)
+        yearData.append(yearPass5)
+        return render_template('flowchart-new.html', yearData = yearData)
     else:
         return redirect(url_for("login"))
 
@@ -362,20 +456,19 @@ def flowchart2(name):
                     item['flowcharts'][i]["4"] = d4
                     item['flowcharts'][i]["5"] = d5
                     item['flowcharts'][i]["6"] = d6
-                    item['flowcharts'][i]["7"] = d6
-                    item['flowcharts'][i]["8"] = d7
-                    item['flowcharts'][i]["9"] = d8
-                    item['flowcharts'][i]["10"] = d9
-                    item['flowcharts'][i]["11"] = d10
-                    item['flowcharts'][i]["12"] = d11
-                    item['flowcharts'][i]["13"] = d12
-                    item['flowcharts'][i]["14"] = d13
-                    item['flowcharts'][i]["15"] = d14
-                    item['flowcharts'][i]["16"] = d15
-                    item['flowcharts'][i]["17"] = d16
-                    item['flowcharts'][i]["18"] = d17
-                    item['flowcharts'][i]["19"] = d18
-                    item['flowcharts'][i]["10"] = d19
+                    item['flowcharts'][i]["7"] = d7
+                    item['flowcharts'][i]["8"] = d8
+                    item['flowcharts'][i]["9"] = d9
+                    item['flowcharts'][i]["10"] = d10
+                    item['flowcharts'][i]["11"] = d11
+                    item['flowcharts'][i]["12"] = d12
+                    item['flowcharts'][i]["13"] = d13
+                    item['flowcharts'][i]["14"] = d14
+                    item['flowcharts'][i]["15"] = d15
+                    item['flowcharts'][i]["16"] = d16
+                    item['flowcharts'][i]["17"] = d17
+                    item['flowcharts'][i]["18"] = d18
+                    item['flowcharts'][i]["19"] = d19
                     item['flowcharts'][i]["20"] = d20
                     item['flowcharts'][i]["21"] = d21
                     item['flowcharts'][i]["22"] = d22
@@ -396,6 +489,7 @@ def flowchart2(name):
                     item['flowcharts'][i]["37"] = d37
                     # elective information
                     item['flowcharts'][i]["d7el"] = d7el
+                    item['flowcharts'][i]["d7hrs"] = d7hrs
 
                 newData.append(item['flowcharts'][i])
         data = []
@@ -408,7 +502,7 @@ def flowchart2(name):
         data.append(d6)
         data.append(d7)
         data.append(d8)
-        data.append(d19)
+        data.append(d9)
         data.append(d10)
         data.append(d11)
         data.append(d12)
@@ -521,6 +615,7 @@ def flowchart2(name):
         yearData.append(yearPass3)
         yearData.append(yearPass4)
         yearData.append(yearPass5)
+        print("GET data: ", data)
         return render_template('flowchart-edit.html', data=data, yearData=yearData)
     else:
         return redirect(url_for("login"))

@@ -30,6 +30,7 @@
         padding: 10px 10px 10px 10px;
         margin: 10px 10px 10px 10px;
         text-align: center;
+        background-color: white;
     }
 
     .color {
@@ -40,6 +41,7 @@
         margin: 10px 10px 10px 10px;
         padding: 2px 2px 2px 2px;
         text-align: center;
+        background-color: white;
     }
 
     .btn-primary {
@@ -80,6 +82,87 @@
 </style>
 
 <script>
+    var prereqArray = [
+        [], //nothing
+        [], //EN 101
+        [], //ENGR 103
+        [], //MATH 125
+        [], //CS 100
+        [], //CS 121
+        [1], //EN 102,
+        [],
+        [3], //MATH 126
+        [3, 4], //CS 101
+        [],
+        [3], //MATH 301
+        [9], //CS 200
+        [4], //ECE 380
+        [], //
+        [], 
+        [11], //MATH 302
+        [9, 11], //CS 201
+        [13], //MATH 383
+        [], //
+        [], //
+        [8], //GES 255/MATH 355
+        [12, 17], //CS 300
+        [12, 17], //CS 301
+        [],
+        [],
+        [8], //MATH 237
+        [18, 22, 23], //CS 403
+        [18, 22, 23], //CS 4xx
+        [],
+        [],
+        [], //Natural Science 1
+        [18, 22, 23], //CS 470/475
+        [18, 22, 23], //CS 4xx
+        [],
+        [],
+        [31], //Natural Science 2
+        [27, 28, 32] //CS 495
+    ];
+
+    var postreqArray = [
+        [], //nothing
+        [6], //EN 101
+        [], //ENGR 103
+        [8], //MATH 125
+        [9], //CS 100
+        [], //CS 121
+        [], //EN 102,
+        [],
+        [21, 26], //MATH 126
+        [12, 17], //CS 101
+        [],
+        [16, 17], //MATH 301
+        [22, 23], //CS 200
+        [18], //ECE 380
+        [], //
+        [], 
+        [], //MATH 302
+        [22, 23], //CS 201
+        [], //ECE 383
+        [], //
+        [], //
+        [], //GES 255/MATH 355
+        [27, 28, 32, 33], //CS 300
+        [27, 28, 32, 33], //CS 301
+        [],
+        [],
+        [], //MATH 237
+        [37], //CS 403
+        [37], //CS 4xx
+        [],
+        [],
+        [36], //Natural Science 1
+        [37], //CS 470/475
+        [], //CS 4xx
+        [],
+        [],
+        [], //Natural Science 2
+        [] //CS 495
+    ];
 
     let curColor = "white";
 
@@ -88,24 +171,216 @@
             curColor = "green";
             document.getElementById(id).style.backgroundColor=curColor;
             document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("future").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
         if (id == "inprogress") {
             curColor = "blue";
             document.getElementById(id).style.backgroundColor=curColor;
             document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("future").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
         }
-        if (id == "future") {
+        if (id == "spring0") {
             curColor = "red";
             document.getElementById(id).style.backgroundColor=curColor;
             document.getElementById("taken").style.backgroundColor="white";
             document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "fall0") {
+            curColor = "purple";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "spring1") {
+            curColor = "yellow";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "fall1") {
+            curColor = "olive";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "spring2") {
+            curColor = "lime";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "fall2") {
+            curColor = "fuchsia";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "spring3") {
+            curColor = "sandybrown";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "fall3") {
+            curColor = "mistyrose";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "spring4") {
+            curColor = "aqua";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "fall4") {
+            curColor = "teal";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("deselect").style.backgroundColor="white";
+        }
+        if (id == "deselect") {
+            curColor = "gray";
+            document.getElementById(id).style.backgroundColor=curColor;
+            document.getElementById("taken").style.backgroundColor="white";
+            document.getElementById("inprogress").style.backgroundColor="white";
+            document.getElementById("spring0").style.backgroundColor="white";
+            document.getElementById("fall0").style.backgroundColor="white";
+            document.getElementById("spring1").style.backgroundColor="white";
+            document.getElementById("fall1").style.backgroundColor="white";
+            document.getElementById("spring2").style.backgroundColor="white";
+            document.getElementById("fall2").style.backgroundColor="white";
+            document.getElementById("spring3").style.backgroundColor="white";
+            document.getElementById("fall3").style.backgroundColor="white";
+            document.getElementById("spring4").style.backgroundColor="white";
+            document.getElementById("fall4").style.backgroundColor="white";
         }
     }
 
     function change(id) {
-        document.getElementById(id).style.backgroundColor=curColor;
+        if (curColor == "gray") document.getElementById(id).style.backgroundColor="white";
+        else document.getElementById(id).style.backgroundColor=curColor;
+            
         newid = "d" + id
         if (curColor == "green") {
             document.getElementById(newid).value="taken";
@@ -114,8 +389,185 @@
             document.getElementById(newid).value="inprogress";
         }
         if (curColor == "red") {
-            document.getElementById(newid).value="future";
+            document.getElementById(newid).value="spring0";
         }
+        if (curColor == "purple") {
+            document.getElementById(newid).value="fall0";
+        }
+        if (curColor == "yellow") {
+            document.getElementById(newid).value="spring1";
+        }
+        if (curColor == "olive") {
+            document.getElementById(newid).value="fall1";
+        }
+        if (curColor == "lime") {
+            document.getElementById(newid).value="spring2";
+        }
+        if (curColor == "fuchsia") {
+            document.getElementById(newid).value="fall2";
+        }
+        if (curColor == "sandybrown") {
+            document.getElementById(newid).value="spring3";
+        }
+        if (curColor == "mistyrose") {
+            document.getElementById(newid).value="fall3";
+        }
+        if (curColor == "aqua") {
+            document.getElementById(newid).value="spring4";
+        }
+        if (curColor == "teal") {
+            document.getElementById(newid).value="fall4";
+        }
+        if (curColor == "gray") {
+            document.getElementById(newid).value="";
+        }
+    }
+
+    function prereqCheck(id) {
+       prereq = searchPrereqArray(id);
+       if (prereq.length == 0) {
+           postreq = searchPostreqArray(id);
+           if (postreq.length == 0) {
+               change(id);
+           }
+           else {
+               alertstring = "You need this class as a prerequisite for ";
+               for (var i = 0; i < postreq.length; ++i) {
+                   if (i == 0) {
+                       alertstring = alertstring + postreq[i];
+                   }
+                   else if ((i+1) == postreq.length) {
+                       alertstring = alertstring + ", and " + postreq[i];
+                   }
+                   else {
+                       alertstring = alertstring + ", " + postreq[i];
+                   }
+               }
+               alert(alertstring);
+           }
+       }
+       else {
+           alertstring = "You do not have these prerequisites for this course: ";
+               for (var i = 0; i < prereq.length; ++i) {
+                   if (i == 0) {
+                       alertstring = alertstring + prereq[i];
+                   }
+                   else if ((i+1) == prereq.length) {
+                       alertstring = alertstring + ", and " + prereq[i];
+                   }
+                   else {
+                       alertstring = alertstring + ", " + prereq[i];
+                   }
+               }
+           alert(alertstring);
+       }
+    }
+    
+    function searchPrereqArray(id) {
+        returnarray = [];
+        var colorStatus = getColorStatus();
+        colorStatus = getNumericalColorStatus(colorStatus);
+        var temp;
+        if (colorStatus == 1) return returnarray;
+        for (var i=0; i<prereqArray[id].length; i++) {
+            temp = document.getElementById("d"+prereqArray[id][i]).value;
+            temp = getNumericalColorStatus(temp);
+            if (temp >= colorStatus) {
+                returnarray.push(getClassName(prereqArray[id][i]));
+            }
+        }
+        return returnarray;
+    }
+
+    function searchPostreqArray(id) {
+        returnarray = [];
+        var colorStatus = getColorStatus();
+        colorStatus = getNumericalColorStatus(colorStatus);
+        var temp;
+        if (colorStatus == 1) return returnarray;
+        for (var i=0; i<postreqArray[id].length; i++) {
+            temp = document.getElementById("d"+postreqArray[id][i]).value;
+            temp = getNumericalColorStatus(temp);
+            if (temp <= colorStatus) {
+                returnarray.push(getClassName(postreqArray[id][i]));
+            }
+        }
+        return returnarray;
+    }
+
+    function getColorStatus() {
+        if (curColor == "green") return "taken";
+        else if (curColor == "blue") return "inprogress";
+        else if (curColor == "red") return "spring0";
+        else if (curColor == "purple") return "fall0";
+        else if (curColor == "yellow") return "spring1";
+        else if (curColor == "olive") return "fall1";
+        else if (curColor == "lime") return "spring2";
+        else if (curColor == "fuchsia") return "fall2";
+        else if (curColor == "sandybrown") return "spring3";
+        else if (curColor == "mistyrose") return "fall3";
+        else if (curColor == "aqua") return "spring4";
+        else if (curColor == "teal") return "fall4";
+        else if (curColor == "gray") return "deselect";
+        else if (curColor == "white") return "";
+    }
+
+    function getNumericalColorStatus(colorStatus) {
+        
+        if (colorStatus=="taken") return 1;
+        else if (colorStatus=="inprogress") return 2;
+        else if (colorStatus=="spring0") return 3;
+        else if (colorStatus=="fall0") return 4;
+        else if (colorStatus=="spring1") return 5;
+        else if (colorStatus=="fall1") return 6;
+        else if (colorStatus=="spring2") return 7;
+        else if (colorStatus=="fall2") return 8;
+        else if (colorStatus=="spring3") return 9;
+        else if (colorStatus=="fall3") return 10;
+        else if (colorStatus=="spring4") return 11;
+        else if (colorStatus=="fall4") return 12;
+        else if (colorStatus=="deselect") return 13;
+        else if (colorStatus=="") return 14;
+    }
+
+    function getClassName(id) {
+        if (id == 1) return "EN 101";
+        else if (id == 2) return "ENGR 103";
+        else if (id == 3) return "MATH 125";
+        else if (id == 4) return "CS 100";
+        else if (id == 5) return "CS 121";
+        else if (id == 6) return "EN 102";
+        else if (id == 7) return "HI/SB Elective";
+        else if (id == 8) return "MATH 126";
+        else if (id == 9) return "CS 101";
+        else if (id == 10) return "HU/L/FA Elective";
+        else if (id == 11) return "MATH 301";
+        else if (id == 12) return "CS 200";
+        else if (id == 13) return "ECE 380";
+        else if (id == 14) return "HU/L/FA Elective";
+        else if (id == 15) return "Natural Science Elective";
+        else if (id == 16) return "MATH 302";
+        else if (id == 17) return "CS 201";
+        else if (id == 18) return "ECE 383";
+        else if (id == 19) return "Free Elective";
+        else if (id == 20) return "HI/SB Elective";
+        else if (id == 21) return "GES 255/ MATH 355";
+        else if (id == 22) return "CS 300";
+        else if (id == 23) return "CS 301";
+        else if (id == 24) return "Free Elective";
+        else if (id == 25) return "HI/SB Elective";
+        else if (id == 26) return "MATH 237";
+        else if (id == 27) return "CS 403";
+        else if (id == 28) return "CS 4xx";
+        else if (id == 29)  return "Free Elective";
+        else if (id == 30) return "HU/L/FA Elective";
+        else if (id == 31) return "Natural Sciene Sequence #1";
+        else if (id == 32) return "CS 470/ CS 475";
+        else if (id == 33) return "CS 4xx";
+        else if (id == 34) return "Free Elective";
+        else if (id == 35) return "Free Elective";
+        else if (id == 36) return "Natural Science Sequence #2";
+        else if (id == 37) return "CS 495";
     }
 
 </script>
@@ -134,7 +586,7 @@
 
     <div class="form-group">
         <label for="FlowchartName">Flowchart Name</label>
-        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder="New Flowchart Name" style="width: 40%">
+        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" style="width: 40%">
         <small id="flowchartname" class="form-text text-muted"></small>
         <button type="submit" class="btn btn-primary" onclick="enable()">Save</button>
   </div>
@@ -143,63 +595,133 @@
     <div class="row">
         <div class="column color" id="taken" onclick="color('taken')">Taken</div>
         <div class="column color" id="inprogress" onclick="color('inprogress')">In Progress</div>
-        <div class="column color" id="future" onclick="color('future')">Future</div>
+        <div class="column color" id="spring0" onclick="color('spring0')">Spring {{yearData[0]}}</div>
+        <div class="column color" id="fall0" onclick="color('fall0')">Fall {{yearData[0]}}</div>
+        <div class="column color" id="spring1" onclick="color('spring1')">Spring {{yearData[1]}}</div>
+        <div class="column color" id="fall1" onclick="color('fall1')">Fall {{yearData[1]}}</div>
+        <div class="column color" id="spring2" onclick="color('spring2')">Spring {{yearData[2]}}</div>
+        <div class="column color" id="fall2" onclick="color('fall2')">Fall {{yearData[2]}}</div>
+        <div class="column color" id="spring3" onclick="color('spring3')">Spring {{yearData[3]}}</div>
+        <div class="column color" id="fall3" onclick="color('fall3')">Fall {{yearData[3]}}</div>
+        <div class="column color" id="spring4" onclick="color('spring4')">Spring {{yearData[4]}}</div>
+        <div class="column color" id="fall4" onclick="color('fall4')">Fall {{yearData[4]}}</div>
+        <div class="column color" id="deselect" onclick="color('deselect')">Deselect</div>
     </div>
     <div class="row">
-        <div class="column course" id="1" onclick="change('1')">
+        <div class="column course" id="1" onclick="prereqCheck('1')">
             EN 101<br>
             <select hidden name="d1" class="form-select form-select-sm" id="d1" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="2" onclick="change('2')">
+        <div class="column course" id="2" onclick="prereqCheck('2')">
             ENGR 103<br>
             <select hidden name="d2" class="form-select form-select-sm" id="d2" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="3" onclick="change('3')">
+        <div class="column course" id="3" onclick="prereqCheck('3')">
             MATH 125<br>
             <select hidden name="d3" class="form-select form-select-sm" id="d3" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="4" onclick="change('4')">
+        <div class="column course" id="4" onclick="prereqCheck('4')">
             CS 100<br>
             <select hidden name="d4" class="form-select form-select-sm" id="d4" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="5" onclick="change('5')">
+        <div class="column course" id="5" onclick="prereqCheck('5')">
             CS 121<br>
             <select hidden name="d5" class="form-select form-select-sm" id="d5" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
     <div class="row">
-        <div  class="column course" id="6" onclick="change('6')">
+        <div  class="column course" id="6" onclick="prereqCheck('6')">
             EN 102<br>
             <select hidden name="d6" class="form-select form-select-sm" id="d6" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="7" onclick="change('7')">
@@ -230,34 +752,55 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="8" onclick="change('8')">
+        <div class="column course" id="8" onclick="prereqCheck('8')">
             MATH 126<br>
             <select hidden name="d8" class="form-select form-select-sm" id="d8" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="8" onclick="change('8')">
-            MATH 126<br>
-            <select hidden name="d8" class="form-select form-select-sm" id="d8" aria-label=".form-select-sm example">
-                <option selected></option>
-                <option value="taken">Taken</option>
-                <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
-              </select>
-        </div>
-        <div  class="column course" id="9" onclick="change('9')">
+        <div  class="column course" id="9" onclick="prereqCheck('9')">
             CS 101<br>
             <select hidden name="d9" class="form-select form-select-sm" id="d9" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -290,34 +833,74 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="11" onclick="change('11')">
+        <div class="column course" id="11" onclick="prereqCheck('11')">
             MATH 301<br>
             <select hidden name="d11" class="form-select form-select-sm" id="d11" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="12" onclick="change('12')">
+        <div class="column course" id="12" onclick="prereqCheck('12')">
             CS 200<br>
             <select hidden name="d12" class="form-select form-select-sm" id="d12" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="13" onclick="change('13')">
+        <div class="column course" id="13" onclick="prereqCheck('13')">
             ECE 380<br>
             <select hidden name="d13" class="form-select form-select-sm" id="d13" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -350,7 +933,17 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="15" onclick="change('15')">
@@ -381,34 +974,74 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="16" onclick="change('16')">
+        <div class="column course" id="16" onclick="prereqCheck('16')">
             MATH 302<br>
             <select hidden name="d16" class="form-select form-select-sm" id="d16" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="17" onclick="change('17')">
+        <div class="column course" id="17" onclick="prereqCheck('17')">
             CS 201<br>
             <select hidden name="d17" class="form-select form-select-sm" id="d17" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="18" onclick="change('18')">
+        <div class="column course" id="18" onclick="prereqCheck('18')">
             ECE 383<br>
             <select hidden name="d18" class="form-select form-select-sm" id="d18" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -441,7 +1074,17 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="20" onclick="change('20')">
@@ -472,34 +1115,74 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="21" onclick="change('21')">
+        <div class="column course" id="21" onclick="prereqCheck('21')">
             GES 255/ MATH 355<br>
             <select hidden name="d21" class="form-select form-select-sm" id="d21" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="22" onclick="change('22')">
+        <div class="column course" id="22" onclick="prereqCheck('22')">
             CS 300<br>
             <select hidden name="d22" class="form-select form-select-sm" id="d22" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="23" onclick="change('23')">
+        <div class="column course" id="23" onclick="prereqCheck('23')">
             CS 301<br>
             <select hidden name="d23" class="form-select form-select-sm" id="d23" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -532,7 +1215,17 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="25" onclick="change('25')">
@@ -563,25 +1256,55 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="26" onclick="change('26')">
+        <div class="column course" id="26" onclick="prereqCheck('26')">
             MATH 237<br>
             <select hidden name="d26" class="form-select form-select-sm" id="d26" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="27" onclick="change('27')">
+        <div class="column course" id="27" onclick="prereqCheck('27')">
             CS 403<br>
             <select hidden name="d27" class="form-select form-select-sm" id="d27" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="28" onclick="change('28')">
@@ -612,7 +1335,17 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -645,7 +1378,17 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="30" onclick="change('30')">
@@ -676,7 +1419,17 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="31" onclick="change('31')">
@@ -707,16 +1460,36 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="32" onclick="change('32')">
+        <div class="column course" id="32" onclick="prereqCheck('32')">
             CS 470/475<br>
             <select hidden name="d32" class="form-select form-select-sm" id="d32" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="33" onclick="change('33')">
@@ -747,7 +1520,17 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -780,7 +1563,17 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="35" onclick="change('35')">
@@ -810,7 +1603,17 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
         <div class="column course" id="36" onclick="change('36')">
@@ -841,16 +1644,36 @@
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="37" onclick="change('37')">
+        <div class="column course" id="37" onclick="prereqCheck('37')">
             CS 495<br>
             <select hidden name="d37" class="form-select form-select-sm" id="d37" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
                 <option value="inprogress">In Progress</option>
-                <option value="future">Future</option>
+                <option value="spring0">Spring {{yearData[0]}}</option>
+                <option value="fall0">Fall {{yearData[0]}}</option>
+                <option value="spring1">Spring {{yearData[1]}}</option>
+                <option value="fall1">Fall {{yearData[1]}}</option>
+                <option value="spring2">Spring {{yearData[2]}}</option>
+                <option value="fall2">Fall {{yearData[2]}}</option>
+                <option value="spring3">Spring {{yearData[3]}}</option>
+                <option value="fall3">Fall {{yearData[3]}}</option>
+                <option value="spring4">Spring {{yearData[4]}}</option>
+                <option value="fall4">Fall {{yearData[4]}}</option>
+                <option value="deselect">Deselect</option>
               </select>
         </div>
     </div>
@@ -898,4 +1721,66 @@ function click_button(id) {
 </script>
 
 
+{% if data %}
+<script>
+    const array = ["{{data[0]}}", "{{data[1]}}", "{{data[2]}}","{{data[3]}}", "{{data[4]}}", "{{data[5]}}", "{{data[6]}}",
+        "{{data[7]}}", "{{data[8]}}", "{{data[9]}}", "{{data[10]}}", "{{data[11]}}", "{{data[12]}}", "{{data[13]}}",
+        "{{data[14]}}", "{{data[15]}}", "{{data[16]}}", "{{data[17]}}", "{{data[18]}}", "{{data[19]}}", "{{data[20]}}",
+        "{{data[21]}}", "{{data[22]}}", "{{data[23]}}", "{{data[24]}}", "{{data[25]}}", "{{data[26]}}", "{{data[27]}}", 
+        "{{data[28]}}", "{{data[29]}}", "{{data[30]}}", "{{data[31]}}", "{{data[32]}}", "{{data[33]}}", "{{data[34]}}",
+        "{{data[35]}}", "{{data[36]}}", "{{data[37]}}"];
+    for (let i = 1; i < 38; i++) {
+        newid = "d" + i;
+        console.log(array[i]);
+        if (array[i] == "taken") {
+            document.getElementById(i).style.backgroundColor="green";
+            document.getElementById(newid).value="taken";
+        }
+        if (array[i] == "inprogress") {
+            document.getElementById(i).style.backgroundColor="blue";
+            document.getElementById(newid).value="inprogress";
+        }
+        if (array[i] == "spring0") {
+            document.getElementById(i).style.backgroundColor="red";
+            document.getElementById(newid).value="spring0";
+        }
+        if (array[i] == "fall0") {
+            document.getElementById(i).style.backgroundColor="purple";
+            document.getElementById(newid).value="fall0";
+        }
+        if (array[i] == "spring1") {
+            document.getElementById(i).style.backgroundColor="yellow";
+            document.getElementById(newid).value="spring1";
+        }
+        if (array[i] == "fall1") {
+            document.getElementById(i).style.backgroundColor="olive";
+            document.getElementById(newid).value="fall1";
+        }
+        if (array[i] == "spring2") {
+            document.getElementById(i).style.backgroundColor="lime";
+            document.getElementById(newid).value="spring2";
+        }
+        if (array[i] == "fall2") {
+            document.getElementById(i).style.backgroundColor="fuchsia";
+            document.getElementById(newid).value="fall2";
+        }
+        if (array[i] == "spring3") {
+            document.getElementById(i).style.backgroundColor="sandybrown";
+            document.getElementById(newid).value="spring3";
+        }
+        if (array[i] == "fall3") {
+            document.getElementById(i).style.backgroundColor="mistyrose";
+            document.getElementById(newid).value="fall3";
+        }
+        if (array[i] == "spring4") {
+            document.getElementById(i).style.backgroundColor="aqua";
+            document.getElementById(newid).value="spring4";
+        }
+        if (array[i] == "fall4") {
+            document.getElementById(i).style.backgroundColor="teal";
+            document.getElementById(newid).value="fall4";
+        }
+    }
+</script>
+{% endif %}
 {% endblock %}
