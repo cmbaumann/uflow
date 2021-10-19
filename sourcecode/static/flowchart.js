@@ -1,10 +1,11 @@
 
 //When the page loads, make all courses have a white background
 window.onload = function() {
-    var x = document.getElementsByClassName("column");
+    //Decremented for now until it can handle saved data
+    /*var x = document.getElementsByClassName("column");
     for (i = 0; i < x.length; i++) {
-        x[i].style.backgroundColor = "white";
-    }
+        if ([SOMETHING]) {x[i].style.backgroundColor = "white"};
+    }*/
 };
 
     //Initialize current option and current color, as well as the status colors
@@ -14,27 +15,27 @@ window.onload = function() {
     let ipr_col = "#0000ff";
     let fut_col = "#ff0000";
 
-    //Changes the colors used into various kinds of colorblind alternatives (figure out what colors to use)
+    //Changes the colors used into various kinds of colorblind alternatives (Colors not final)
     function color_cb_opt(id) {
         //console.log(id);
-        if (id == "0") {
+        if (id == "0") {        //Base
             tak_col = "#00ff00";
             ipr_col = "#0000ff";
             fut_col = "#ff0000";
         }
-        else if (id == "1") {
-            tak_col = "#00ffff";
+        else if (id == "1") {   //Protanopia    WIP
+            tak_col = "#00cc00";
             ipr_col = "#ff00ff";
-            fut_col = "#ffff00";
+            fut_col = "#aacc00";
 
         }
-        else if (id == "2") {
+        else if (id == "2") {   //Deuteranopia  WIP
             tak_col = "#000000";
             ipr_col = "#5f5f5f";
             fut_col = "#afafaf";
 
         }
-        else if (id == "3") {
+        else if (id == "3") {   //Tritanopia    WIP
             tak_col = "#0ffff0";
             ipr_col = "#f00fff";
             fut_col = "#fff00f";
@@ -87,17 +88,17 @@ window.onload = function() {
     function change(id) {
         newid = "d" + id
         if (curOption == "taken") {
-            change_sub(id, newid, "taken");
+            change_sub(id, newid);
         }
         else if (curOption == "inprogress") {
-            change_sub(id, newid, "inprogress");
+            change_sub(id, newid);
         }
         else if (curOption == "future") {
-            change_sub(id, newid, "future");
+            change_sub(id, newid);
         }
     }
 
-    function change_sub(id, newid, opt) {
+    function change_sub(id, newid) {
         if (curOption == document.getElementById(newid).value) {
             document.getElementById(newid).value="";
             document.getElementById(id).style.backgroundColor = "#ffffff";
