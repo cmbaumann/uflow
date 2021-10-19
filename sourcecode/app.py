@@ -170,6 +170,42 @@ def flowchart1():
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
 
+        # get elective information
+        # list of all elective ids
+        elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
+        d7el = request.form.get("7elective")
+        d7hrs = request.form.get("7hours")
+        d10el = request.form.get("10elective")
+        d10hrs = request.form.get("10hours")
+        d14el = request.form.get("14elective")
+        d14hrs = request.form.get("14hours")
+        d15el = request.form.get("15elective")
+        d15hrs = request.form.get("15hours")
+        d19el = request.form.get("19elective")
+        d19hrs = request.form.get("19hours")
+        d20el = request.form.get("20elective")
+        d20hrs = request.form.get("20hours")
+        d24el = request.form.get("24elective")
+        d24hrs = request.form.get("24hours")
+        d25el = request.form.get("25elective")
+        d25hrs = request.form.get("25hours")
+        d28el = request.form.get("28elective")
+        d28hrs = request.form.get("28hours")
+        d29el = request.form.get("29elective")
+        d29hrs = request.form.get("29hours")
+        d30el = request.form.get("30elective")
+        d30hrs = request.form.get("30hours")
+        d31el = request.form.get("31elective")
+        d31hrs = request.form.get("31hours")
+        d33el = request.form.get("33elective")
+        d33hrs = request.form.get("33hours")
+        d34el = request.form.get("34elective")
+        d34hrs = request.form.get("34hours")
+        d35el = request.form.get("35elective")
+        d35hrs = request.form.get("35hours")
+        d36el = request.form.get("36elective")
+        d36hrs = request.form.get("36hours")
+
         #checking if name is found
         email = session["email"]
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
@@ -210,7 +246,18 @@ def flowchart1():
                             "19": d19, "20": d20, "21": d21, "22": d22, "23": d23,
                             "24": d24, "25": d25, "26": d26, "27": d27, "28": d28,
                             "29": d29, "30": d30, "31": d31, "32": d32, "33": d33,
-                            "34": d34, "35": d35, "36": d36, "37": d37}],
+                            "34": d34, "35": d35, "36": d36, "37": d37, 
+                            "d7el": d7el, "d7hrs": d7hrs, "d10el": d10el, 
+                            "d10hrs": d10hrs, "d14el": d14el, "d14hrs": d14hrs,
+                            "d15el":d15el, "d15hrs": d15hrs, "d19el": d19el,
+                            "d19hrs": d19hrs, "d20el": d20el, "d20hrs": d20hrs,
+                            "d24el": d24el, "d24hrs": d24hrs, "d25el": d25el,
+                            "d25hrs": d25hrs, "d28el": d28el, "d28hrs": d28hrs,
+                            "d29el": d29el, "d29hrs": d29hrs, "d30el": d30el,
+                            "d30hrs": d30hrs, "d31el": d31el, "d31hrs": d31hrs,
+                            "d33el": d33el, "d33hrs": d33hrs, "d34el": d34el,
+                            "d34hrs": d34hrs, "d35el": d35el, "d35hrs": d35hrs, 
+                            "d36el": d36el, "d36hrs": d36hrs}],
                         "$position": len
                     }
                 }
@@ -264,6 +311,42 @@ def flowchart2(name):
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
 
+        # get elective information
+        # list of all elective ids
+        elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
+        d7el = request.form.get("7elective")
+        d7hrs = request.form.get("7hours")
+        d10el = request.form.get("10elective")
+        d10hrs = request.form.get("10hours")
+        d14el = request.form.get("14elective")
+        d14hrs = request.form.get("14hours")
+        d15el = request.form.get("15elective")
+        d15hrs = request.form.get("15hours")
+        d19el = request.form.get("19elective")
+        d19hrs = request.form.get("19hours")
+        d20el = request.form.get("20elective")
+        d20hrs = request.form.get("20hours")
+        d24el = request.form.get("24elective")
+        d24hrs = request.form.get("24hours")
+        d25el = request.form.get("25elective")
+        d25hrs = request.form.get("25hours")
+        d28el = request.form.get("28elective")
+        d28hrs = request.form.get("28hours")
+        d29el = request.form.get("29elective")
+        d29hrs = request.form.get("29hours")
+        d30el = request.form.get("30elective")
+        d30hrs = request.form.get("30hours")
+        d31el = request.form.get("31elective")
+        d31hrs = request.form.get("31hours")
+        d33el = request.form.get("33elective")
+        d33hrs = request.form.get("33hours")
+        d34el = request.form.get("34elective")
+        d34hrs = request.form.get("34hours")
+        d35el = request.form.get("35elective")
+        d35hrs = request.form.get("35hours")
+        d36el = request.form.get("36elective")
+        d36hrs = request.form.get("36hours")
+
         email = session["email"]
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         newData = []
@@ -278,7 +361,7 @@ def flowchart2(name):
                     item['flowcharts'][i]["3"] = d3
                     item['flowcharts'][i]["4"] = d4
                     item['flowcharts'][i]["5"] = d5
-                    item['flowcharts'][i]["6"] = d5
+                    item['flowcharts'][i]["6"] = d6
                     item['flowcharts'][i]["7"] = d6
                     item['flowcharts'][i]["8"] = d7
                     item['flowcharts'][i]["9"] = d8
@@ -311,6 +394,9 @@ def flowchart2(name):
                     item['flowcharts'][i]["35"] = d35
                     item['flowcharts'][i]["36"] = d36
                     item['flowcharts'][i]["37"] = d37
+                    # elective information
+                    item['flowcharts'][i]["d7el"] = d7el
+
                 newData.append(item['flowcharts'][i])
         data = []
         data.append(name)
