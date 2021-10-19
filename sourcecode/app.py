@@ -197,12 +197,52 @@ def flowchart1():
                         name_found = True
                         break
 
+        data = []
+        data.append(name)
+        data.append(d1)
+        data.append(d2)
+        data.append(d3)
+        data.append(d4)
+        data.append(d5)
+        data.append(d6)
+        data.append(d7)
+        data.append(d8)
+        data.append(d9)
+        data.append(d10)
+        data.append(d11)
+        data.append(d12)
+        data.append(d13)
+        data.append(d14)
+        data.append(d15)
+        data.append(d16)
+        data.append(d16)
+        data.append(d17)
+        data.append(d18)
+        data.append(d19)
+        data.append(d20)
+        data.append(d21)
+        data.append(d22)
+        data.append(d23)
+        data.append(d24)
+        data.append(d25)
+        data.append(d26)
+        data.append(d27)
+        data.append(d28)
+        data.append(d29)
+        data.append(d30)
+        data.append(d31)
+        data.append(d32)
+        data.append(d33)
+        data.append(d34)
+        data.append(d35)
+        data.append(d36)
+        data.append(d37)
         if (name == ""):
             message = 'Please enter a name for your flowchart'
-            return render_template('flowchart-new.html', message=message, yearData=yearData)
+            return render_template('flowchart-new.html', message=message, data=data, yearData=yearData)
         elif (name_found):
             message = 'You already have a flowchart named ' + name
-            return render_template('flowchart-new.html', message=message, yearData=yearData)
+            return render_template('flowchart-new.html', message=message, data=data, yearData=yearData)
         else: 
             email = session["email"]
             len = 0

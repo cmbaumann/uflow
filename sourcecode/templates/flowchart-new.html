@@ -1280,5 +1280,66 @@
 
 </form>
 
-
+{% if data %}
+<script>
+    const array = ["{{data[0]}}", "{{data[1]}}", "{{data[2]}}","{{data[3]}}", "{{data[4]}}", "{{data[5]}}", "{{data[6]}}",
+        "{{data[7]}}", "{{data[8]}}", "{{data[9]}}", "{{data[10]}}", "{{data[11]}}", "{{data[12]}}", "{{data[13]}}",
+        "{{data[14]}}", "{{data[15]}}", "{{data[16]}}", "{{data[17]}}", "{{data[18]}}", "{{data[19]}}", "{{data[20]}}",
+        "{{data[21]}}", "{{data[22]}}", "{{data[23]}}", "{{data[24]}}", "{{data[25]}}", "{{data[26]}}", "{{data[27]}}", 
+        "{{data[28]}}", "{{data[29]}}", "{{data[30]}}", "{{data[31]}}", "{{data[32]}}", "{{data[33]}}", "{{data[34]}}",
+        "{{data[35]}}", "{{data[36]}}", "{{data[37]}}"];
+    for (let i = 1; i < 38; i++) {
+        newid = "d" + i;
+        console.log(array[i]);
+        if (array[i] == "taken") {
+            document.getElementById(i).style.backgroundColor="green";
+            document.getElementById(newid).value="taken";
+        }
+        if (array[i] == "inprogress") {
+            document.getElementById(i).style.backgroundColor="blue";
+            document.getElementById(newid).value="inprogress";
+        }
+        if (array[i] == "spring0") {
+            document.getElementById(i).style.backgroundColor="red";
+            document.getElementById(newid).value="spring0";
+        }
+        if (array[i] == "fall0") {
+            document.getElementById(i).style.backgroundColor="purple";
+            document.getElementById(newid).value="fall0";
+        }
+        if (array[i] == "spring1") {
+            document.getElementById(i).style.backgroundColor="yellow";
+            document.getElementById(newid).value="spring1";
+        }
+        if (array[i] == "fall1") {
+            document.getElementById(i).style.backgroundColor="olive";
+            document.getElementById(newid).value="fall1";
+        }
+        if (array[i] == "spring2") {
+            document.getElementById(i).style.backgroundColor="lime";
+            document.getElementById(newid).value="spring2";
+        }
+        if (array[i] == "fall2") {
+            document.getElementById(i).style.backgroundColor="fuchsia";
+            document.getElementById(newid).value="fall2";
+        }
+        if (array[i] == "spring3") {
+            document.getElementById(i).style.backgroundColor="sandybrown";
+            document.getElementById(newid).value="spring3";
+        }
+        if (array[i] == "fall3") {
+            document.getElementById(i).style.backgroundColor="mistyrose";
+            document.getElementById(newid).value="fall3";
+        }
+        if (array[i] == "spring4") {
+            document.getElementById(i).style.backgroundColor="aqua";
+            document.getElementById(newid).value="spring4";
+        }
+        if (array[i] == "fall4") {
+            document.getElementById(i).style.backgroundColor="teal";
+            document.getElementById(newid).value="fall4";
+        }
+    }
+</script>
+{% endif %}
 {% endblock %}
