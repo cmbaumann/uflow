@@ -14,6 +14,8 @@ majors = ['Aerospace Engineering', 'Architecural Engineering', 'Chemical Enginee
          'Electircal Engineering', 'Environmental Engineering', 'Mechanical Engineering', 'Metallurgical Engineering',
          'Musical Audio Engineering']
 
+years = [2017, 2018, 2019, 2020, 2021, 2022, 2023]
+
 @app.route('/', methods=['post', 'get'])
 def index():
     if request.method == "POST":
@@ -24,6 +26,8 @@ def index():
 def register():
     global majors 
     majors.reverse()
+    global years
+    years.reverse()
     message = ''
     if "email" in session:
         return redirect(url_for("logged_in"))
@@ -36,33 +40,31 @@ def register():
         password2 = request.form.get("password2")
 
         major = request.form.get("major")
+        year = request.form.get("year")
         
         email_found = records.find_one({"email": email})
         
         if first == "":
             message = 'Please enter your first name'
-            return render_template('register.html', message=message, majors=majors, last=last, email=email, password1=password1, password2=password2, selectedmajor=major)
+            return render_template('register.html', message=message, majors=majors, years=years, last=last, email=email, password1=password1, password2=password2, selectedmajor=major, selectedyear=year)
         elif last == "":
             message = 'Please enter your last name'
-            return render_template('register.html', message=message, majors=majors, first=first, email=email, password1=password1, password2=password2)
+            return render_template('register.html', message=message, majors=majors, years=years, first=first, email=email, password1=password1, password2=password2, selectedmajor=major, selectedyear=year)
         elif email == "":
             message = 'Please enter your email'
-            return render_template('register.html', message=message, majors=majors, first=first, last=last, password1=password1, password2=password2)
-        elif major == "":
-            message = 'Please enter your major'
-            return render_template('register.html', message=message, majors=majors, first=first, last=last, email=email, password1=password1, password2=password2)
+            return render_template('register.html', message=message, majors=majors, years=years, first=first, last=last, password1=password1, password2=password2, selectedmajor=major, selectedyear=year)
         elif (password1 == "") or (password2 == ""):
             message = 'Passwords do not match'
-            return render_template('register.html', message=message, majors=majors, first=first, last=last, email=email)
+            return render_template('register.html', message=message, majors=majors, years=years, first=first, last=last, email=email, selectedmajor=major, selectedyear=year)
         elif email_found:
             message = 'There is already an account associated with this email'
-            return render_template('register.html', message=message, majors=majors, first=first, last=last, password1=password1, password2=password2)
+            return render_template('register.html', message=message, majors=majors, years=years, first=first, last=last, password1=password1, password2=password2, selectedmajor=major, selectedyear=year)
         elif password1 != password2:
             message = 'Passwords do not match'
-            return render_template('register.html', message=message, majors=majors, first=first, last=last, email=email)
+            return render_template('register.html', message=message, majors=majors, years=years, first=first, last=last, email=email, selectedmajor=major, selectedyear=year)
         else:
             hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
-            user_input = {'firstname': first, 'lastname': last, 'email': email, 'password': hashed, 'major': major, 'flowcharts': []}
+            user_input = {'firstname': first, 'lastname': last, 'email': email, 'password': hashed, 'major': major, 'year': year, 'flowcharts': []}
             records.insert_one(user_input)
             
             user_data = records.find_one({"email": email})
@@ -70,13 +72,21 @@ def register():
             session["email"] = new_email
    
             return render_template('logged_in.html', email=new_email)
-    return render_template('register.html', majors=majors)
+    return render_template('register.html', majors=majors, years=years)
 
 @app.route('/logged_in')
 def logged_in():
     if "email" in session:
         email = session["email"]
-        return render_template('logged_in.html', email=email)
+        names = []
+        len = 0
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        for item in entry:
+                for thing in item['flowcharts']:
+                    len = len + 1
+                for i in range(0, len):
+                    names.append(item['flowcharts'][i]["name"])
+        return render_template('logged_in.html', email=email, names=names)
     else:
         return redirect(url_for("login"))
 
@@ -348,7 +358,20 @@ def flowchart2(name):
             {"$set": {"flowcharts": newData}}
         )
         message = 'Your flowchart has been saved'
-        return render_template('flowchart-edit.html', message=message, name=name, data=data)
+        year = records.find({"email": email}, {"year": 1, "_id": 0})
+        for item in year:
+            yearPass = item['year']
+        yearPass2 = int(yearPass)+1
+        yearPass3 = int(yearPass)+2
+        yearPass4 = int(yearPass)+3
+        yearPass5 = int(yearPass)+4
+        yearData = []
+        yearData.append(int(yearPass))
+        yearData.append(yearPass2)
+        yearData.append(yearPass3)
+        yearData.append(yearPass4)
+        yearData.append(yearPass5)
+        return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
     if "email" in session: # GET
         print("edit name: ", name)
         email = session["email"]
@@ -399,7 +422,20 @@ def flowchart2(name):
                     data.append(item['flowcharts'][i]["35"])
                     data.append(item['flowcharts'][i]["36"])
                     data.append(item['flowcharts'][i]["37"])
-        return render_template('flowchart-edit.html', data=data)
+        year = records.find({"email": email}, {"year": 1, "_id": 0})
+        for item in year:
+            yearPass = item['year']
+        yearPass2 = int(yearPass)+1
+        yearPass3 = int(yearPass)+2
+        yearPass4 = int(yearPass)+3
+        yearPass5 = int(yearPass)+4
+        yearData = []
+        yearData.append(int(yearPass))
+        yearData.append(yearPass2)
+        yearData.append(yearPass3)
+        yearData.append(yearPass4)
+        yearData.append(yearPass5)
+        return render_template('flowchart-edit.html', data=data, yearData=yearData)
     else:
         return redirect(url_for("login"))
 
