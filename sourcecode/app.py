@@ -398,6 +398,7 @@ def flowchart1():
 
 @app.route("/flowchart-edit/<name>", methods=['post', 'get'])
 def flowchart2(name):
+    # POST METHOD
     if request.method == "POST":
         print("name: ", name)
         d1 = request.form.get("d1")
@@ -648,6 +649,7 @@ def flowchart2(name):
         yearData.append(yearPass4)
         yearData.append(yearPass5)
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
+    # GET METHOD
     if "email" in session: # GET
         print("edit name: ", name)
         email = session["email"]
@@ -698,6 +700,39 @@ def flowchart2(name):
                     data.append(item['flowcharts'][i]["35"])
                     data.append(item['flowcharts'][i]["36"])
                     data.append(item['flowcharts'][i]["37"])
+                    # elective information
+                    data.append(item['flowcharts'][i]["d7el"])
+                    data.append(item['flowcharts'][i]["d7hrs"])
+                    data.append(item['flowcharts'][i]["d10el"])
+                    data.append(item['flowcharts'][i]["d10hrs"])
+                    data.append(item['flowcharts'][i]["d14el"])
+                    data.append(item['flowcharts'][i]["d14hrs"])
+                    data.append(item['flowcharts'][i]["d15el"])
+                    data.append(item['flowcharts'][i]["d15hrs"])
+                    data.append(item['flowcharts'][i]["d19el"])
+                    data.append(item['flowcharts'][i]["d19hrs"])
+                    data.append(item['flowcharts'][i]["d20el"])
+                    data.append(item['flowcharts'][i]["d20hrs"])
+                    data.append(item['flowcharts'][i]["d24el"])
+                    data.append(item['flowcharts'][i]["d24hrs"])
+                    data.append(item['flowcharts'][i]["d25el"])
+                    data.append(item['flowcharts'][i]["d25hrs"])
+                    data.append(item['flowcharts'][i]["d28el"])
+                    data.append(item['flowcharts'][i]["d28hrs"])
+                    data.append(item['flowcharts'][i]["d29el"])
+                    data.append(item['flowcharts'][i]["d29hrs"])
+                    data.append(item['flowcharts'][i]["d30el"])
+                    data.append(item['flowcharts'][i]["d30hrs"])
+                    data.append(item['flowcharts'][i]["d31el"])
+                    data.append(item['flowcharts'][i]["d31hrs"])
+                    data.append(item['flowcharts'][i]["d33el"])
+                    data.append(item['flowcharts'][i]["d33hrs"])
+                    data.append(item['flowcharts'][i]["d34el"])
+                    data.append(item['flowcharts'][i]["d34hrs"])
+                    data.append(item['flowcharts'][i]["d35el"])
+                    data.append(item['flowcharts'][i]["d35hrs"])
+                    data.appendz(item['flowcharts'][i]["d36el"])
+                    data.append(item['flowcharts'][i]["d36hrs"])
         year = records.find({"email": email}, {"year": 1, "_id": 0})
         for item in year:
             yearPass = item['year']
