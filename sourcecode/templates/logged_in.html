@@ -82,15 +82,20 @@
         {%for name in names %}
         <div class="fc_block">
             <br><h3>{{name}}</h3>
-            <form action="/flowchart-edit/{{name}}">
-                    <input class="fc_edit" type="submit" value="Edit">
-            </form>
-            <form action="" method="post">
-                <input class="fc_delete" type="submit" value="Delete">
-                <select hidden name="name" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    <option selected value="{{name}}">{{name}}</option>
-                </select>
-            </form>
+            <table>
+                <tr>
+                    <td><form action="/flowchart-edit/{{name}}">
+                        <input class="fc_edit" type="submit" value="Edit">
+                    </form></td>
+                    <td><form action="" method="post">
+                        <input class="fc_delete" type="submit" value="Delete">
+                        <select hidden name="name" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected value="{{name}}">{{name}}</option>
+                        </select>
+                    </form></td>
+                </tr>
+                </table>
+            </div>
         </div>
         {%endfor%}
 
