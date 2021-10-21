@@ -1737,6 +1737,29 @@ will then have to create my own loop of some kind assigning them
             document.getElementById(newid).value="fall4";
         }
     }
+
+    //adding elective information to existing flowchart
+    var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
+    var el_idx = 0;
+    for(let i = 38; i < 70; i+=2) {
+        el_idx += 1;
+        j = i + 1;
+        var name = array[i]
+        var hours = array[j]
+        
+        //FIXME: consider controlling how empty elective info is sent to db 
+        // (store as a default var?)
+
+        //find which elective information is being added
+        var id = elective_ids[el_idx]
+        //checks to be sure variable exists and is not empty
+        if(name) {
+            document.getElementById(id+"electiveText").value = name;
+        }
+        if(hours) {
+            document.getElementById(id+"hours").value = hours;
+        }
+    }
 </script>
 
 <!---Script to edit electives when clicking the submit/edit button-->
