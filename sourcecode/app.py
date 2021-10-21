@@ -213,7 +213,7 @@ def flowchart1():
         d37 = request.form.get("d37")
         # get elective information
         # list of all elective ids
-        elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
+        # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
         d7el = request.form.get("7elective")
         d7hrs = request.form.get("7hours")
         d10el = request.form.get("10elective")
@@ -440,7 +440,7 @@ def flowchart2(name):
         d37 = request.form.get("d37")
         # get elective information
         # list of all elective ids
-        elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
+        # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
         d7el = request.form.get("7elective")
         d7hrs = request.form.get("7hours")
         d10el = request.form.get("10elective")
