@@ -16,7 +16,9 @@
 </p>
 <br>
 
-<h2>How to use the UFlow web application</h2>
+<h2>How to run/execute the application</h2>
+
+<h3>How to use the hosted UFlow web application</h3>
 <p>
   Go to the 
   <a href='https://uflow-alabama.herokuapp.com'>UFlow project home page.</a> <br>
@@ -29,7 +31,7 @@
 </p>
 <br>
 
-<h2>How to run the UFlow application on a local machine</h2>
+<h3>How to run the UFlow application on a local machine</h3>
 <p>
   Clone project repository to your local machine. <br>
   &emsp;- One way to clone: <code>git clone https://github.com/cmbaumann/uflow.git</code> <br>
