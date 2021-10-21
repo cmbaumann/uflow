@@ -1742,23 +1742,47 @@ will then have to create my own loop of some kind assigning them
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
     var el_idx = 0;
     for(let i = 38; i < 70; i+=2) {
-        el_idx += 1;
         j = i + 1;
-        var name = array[i]
-        var hours = array[j]
-        
+        //find which elective information is being added
+        var id = elective_ids[el_idx];
+        var name = array[i];
+        var hours = array[j];
+        var output_elective = document.getElementById(id+"OutputElective");
+        var elective_box = document.getElementById(id+"electiveText");
+        var hours_box = document.getElementById(id+"hours");
+
+
         //FIXME: consider controlling how empty elective info is sent to db 
         // (store as a default var?)
 
-        //find which elective information is being added
-        var id = elective_ids[el_idx]
+
         //checks to be sure variable exists and is not empty
-        if(name) {
-            document.getElementById(id+"electiveText").value = name;
+        if( (name!="None" && name!=null && name!='') && (hours!="None" && hours!=null && hours!='') ) {
+            document.getElementById(id+"Button").innerHTML = "Edit Course";
+            output_elective.innerHTML = name + " (" + hours + " hours)";        
+            output_elective.style.display = "block";
+            elective_box.style.display = "none";
+            hours_box.style.display = "none";
         }
-        if(hours) {
-            document.getElementById(id+"hours").value = hours;
+        else if( (name!="None" && name!=null && name!='') && (hours=="None" || hours==null || hours=='') ){
+            elective_box.value = name;
+            output_elective.style.display = "none";
+            elective_box.style.display = "block";
+            hours_box.style.display = "block";
         }
+        else if( (hours!="None" && hours!=null && hours!='') && (name=="None" || name==null || name=='') ) {
+            hours_box.value = hours;
+            output_elective.style.display = "none";
+            elective_box.style.display = "block";
+            hours_box.style.display = "block";
+        }
+        else {
+            output_elective.style.display = "none";
+            elective_box.placeholder = "Course Number";
+            hours_box.placeholder = "Hours";
+        }
+        
+        el_idx += 1;
     }
 </script>
 

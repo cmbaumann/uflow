@@ -731,7 +731,7 @@ def flowchart2(name):
                     data.append(item['flowcharts'][i]["d34hrs"])
                     data.append(item['flowcharts'][i]["d35el"])
                     data.append(item['flowcharts'][i]["d35hrs"])
-                    data.appendz(item['flowcharts'][i]["d36el"])
+                    data.append(item['flowcharts'][i]["d36el"])
                     data.append(item['flowcharts'][i]["d36hrs"])
         year = records.find({"email": email}, {"year": 1, "_id": 0})
         for item in year:
