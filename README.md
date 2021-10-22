@@ -50,3 +50,11 @@
     </code>
   </pre>
 </p>
+
+<h3>How to run the test cases</h3>
+<p>
+  Install the Chrome webdriver (https://chromedriver.chromium.org/downloads)<br>
+  Modify the test_functional.py file lines 58 and 87 to match the file path to the Chrome webdriver on your computer<br>
+  Change your working directory to the sourcecode folder<br>
+  Run the test cases with py -m pytest
+</p>
