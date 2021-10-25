@@ -151,7 +151,7 @@ function colorChange() {
         var opts = document.getElementsByClassName('color');
         for (var i = 0; i < opts.length; i++) {
             opts[i].style.borderStyle = "solid";
-            if (curColor == optionCols[i]) {opts[i].style.backgroundColor = curColor;}
+            if (curOption == i) {opts[i].style.backgroundColor = optionCols[i]; curColor=optionCols[i];}
             else { opts[i].style.backgroundColor = "#ffffff"}
         }
     }
@@ -195,7 +195,7 @@ function change(id) {
 
     newid = "d" + id;
     if (curOption == 12) {  //deselect option
-        document.getElementById(id).style.backgroundColor = optionCols[12];
+        document.getElementById(id).style.backgroundColor = "#ffffff";
         document.getElementById(newid).value="";
     } 
     else { 
@@ -318,21 +318,22 @@ function getColorStatus() {
 
 //FIXME make this a switch case
 function getNumericalColorStatus(colorStatus) {
-    
-    if (colorStatus=="taken") return 1;
-    else if (colorStatus=="inprogress") return 2;
-    else if (colorStatus=="spring0") return 3;
-    else if (colorStatus=="fall0") return 4;
-    else if (colorStatus=="spring1") return 5;
-    else if (colorStatus=="fall1") return 6;
-    else if (colorStatus=="spring2") return 7;
-    else if (colorStatus=="fall2") return 8;
-    else if (colorStatus=="spring3") return 9;
-    else if (colorStatus=="fall3") return 10;
-    else if (colorStatus=="spring4") return 11;
-    else if (colorStatus=="fall4") return 12;
-    else if (colorStatus=="deselect") return 13;
-    else if (colorStatus=="") return 14;
+    switch(colorStatus) {
+        case "taken": return 1;
+        case "inprogress": return 2;
+        case "spring0": return 3;
+        case "fall0": return 4;
+        case "spring1": return 5;
+        case "fall1": return 6;
+        case "spring": return 7;
+        case "fall2": return 8;
+        case "spring3": return 9;
+        case "fall3": return 10;
+        case "spring4": return 11;
+        case "fall4": return 12;
+        case "deselect": return 13;
+        case "": return 14;
+    }
 }
 
 //FIXME make this a switch case
