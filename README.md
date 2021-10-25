@@ -57,7 +57,9 @@
   Be sure the following packages are installed: <code>pytest</code> and <code>selenium</code><br>
   Modify the test_functional.py file at lines 9. Update the variable <code>chromepath</code> to match the file path to the Chrome webdriver on your local machince<br>
   Change your working directory to the sourcecode folder<br>
-  <h4>To run the test cases:<h4>
-  - For Windows: <code>py -m pytest</code>
-  - For macOS: <code>python3 -m pytest</code>
+  <h4>To run the test cases:</h4>
+  <p>
+    &emsp;- For Windows: <code>py -m pytest</code><br>
+    &emsp;- For macOS: <code>python3 -m pytest</code>
+  </p>
 </p>
