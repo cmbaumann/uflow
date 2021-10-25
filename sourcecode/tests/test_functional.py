@@ -190,8 +190,8 @@ def test_edit_elective(app, client):
     # need to add a wait? 
 
     element = driver.find_element_by_id("7OutputElective")
-    # FIXME: google how to get elements html value
-    value = element.value_of
+    value = element.get_attribute('innerHTML')
+    assert value == "MUS 121 (3 hours)"
 
 
 def test_delete(app, client):
