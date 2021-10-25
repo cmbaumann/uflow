@@ -51,8 +51,6 @@ def test_flowchart_name_fail(app, client):
     ))
     assert b'You already have a flowchart named test' in page.data
 
-     
-
 def test_future_semesters(app, client):
     client.post('/login', data=dict(
         email="flowcharttest@crimson.ua.edu",
