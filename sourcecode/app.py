@@ -530,6 +530,24 @@ def flowchart2(name):
     else:
         return redirect(url_for("login"))
 
+
+@app.route("/edit_elective", methods=["POST", "GET"])
+def edit_elective():
+    if request.method == "POST":
+        if request.form.get("7Submit"):
+            info_dict = {
+                'show_submit': True,
+                'show_edit': False
+            }
+            return render_template('flowchart-new.html', info_dict=info_dict)
+        elif request.form.get("7Edit"):
+            info_dict = {
+                'show_submit': False,
+                'show_edit': True
+            }
+            return render_template('flowchart-new.html', info_dict=info_dict)
+
+
 #end of code to run it
 if __name__ == "__main__":
   app.run(debug=True)
