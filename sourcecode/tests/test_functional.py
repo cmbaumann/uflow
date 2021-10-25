@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 
-chromepath = "EDIT THIS - CHROMEDRIVER FILE PATH" #pass the chromedriver file path specific to your machine as the string argument
+chromepath = "EDIT THIS - CHROMEDRIVER FILE PATH" #must be the chromedriver file path specific to your machine
 
 def test_login(app, client):
     page = client.post('/login', data=dict(
