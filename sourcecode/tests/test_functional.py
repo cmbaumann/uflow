@@ -115,8 +115,6 @@ def test_color(app, client):
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
     element = driver.find_element_by_class_name("fc_add")
     element.click()
-    wait.until(EC.alert_is_present())
-    driver.switch_to.alert.accept()
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-new?'))
     element = driver.find_element_by_id("inputFlowchartName")
     element.send_keys("testflowchart")
