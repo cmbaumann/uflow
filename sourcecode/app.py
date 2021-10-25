@@ -243,7 +243,6 @@ def flowchart1():
         data.append(d14)
         data.append(d15)
         data.append(d16)
-        data.append(d16)
         data.append(d17)
         data.append(d18)
         data.append(d19)
