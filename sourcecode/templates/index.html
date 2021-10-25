@@ -34,6 +34,10 @@
         background-color: #990f0f;
         border-color: #990f0f;
     }
+    .btn-primary a {
+        text-decoration: none;
+        color:white;
+    }
     .btn-secondary a {
         text-decoration: none;
         color:white;
@@ -55,6 +59,7 @@
     {% if session["email"] %}
     <div class="logged-in-row">
         <section class="login-msg">You are logged in as {{session["email"]}}</section>
+        <button class="btn btn-primary"><a href="/logged_in">Edit Your Flowcharts</a></button>
         <button class="btn btn-secondary"><a href="/logout">Log out</a></button>
     </div>
     {%else%}

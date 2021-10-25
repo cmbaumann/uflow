@@ -5,6 +5,7 @@
 {% block head %}
 <!--include jquery to be used: don't need right now-->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='flowchart.js') }}"></script>
 
 <!-- FIXME: get js script to work -->
 <!-- Ultimately: have arg so this can be done for any elective -->
@@ -22,8 +23,10 @@
 
 <style>
     
-    .course {
+    .course, .color, .color-pick {
         border: 2px solid grey;
+        font-weight:initial;
+        color:black;
         border-radius: 5px;
         width: 250px;
         height: 250px;
@@ -33,17 +36,15 @@
         background-color: white;
     }
 
-    .color {
-        border: 2px solid grey;
-        border-radius: 5px;
-        width: 110px;
+    .color, .color-pick {
         height: 30px;
-        margin: 10px 10px 10px 10px;
         padding: 2px 2px 2px 2px;
-        text-align: center;
-        background-color: white;
     }
 
+    .color-pick {
+        border: 2px solid rgb(0, 0, 0);
+        border-radius: 0px;
+    }
     .btn-primary {
         background-color: #0071fc !important;
         border-color: white !important;
@@ -79,496 +80,76 @@
         border-style: solid !important;    
     }
 
+    .column:hover {
+        border-color: #000000;
+        font-weight: bold;
+    }
+
+    canvas {
+        border-style:solid;
+        background-color: red;
+    }
+
+    .c-picker {
+        -webkit-appearance: none;
+        border: 2px solid #aaaaaa;
+        height: 10px;
+    }
+
+    .c-red {
+        background: linear-gradient(90deg, #000000, #FF0000);
+    }
+
+    .c-green {
+        background: linear-gradient(90deg, #000000, #00FF00);
+    }
+
+    .c-blue {
+        background: linear-gradient(90deg, #000000, #0000FF);
+    }
+
+    .color-choose-section {
+        background: white;
+        border: 2px solid grey;
+        padding: 10px 0px 5px 10px; /*top, right, bottom, left*/
+        margin: 0px 0px 0px 10px;
+        width: 205px;
+        height: 120px;
+        overflow: hidden;
+    }
+
+    .ccs-1, .ccs-2 {
+        float:left;
+    }
+
+    .ccs-2 {
+        margin: 8px 0px 0px 10px;
+    }
+
+    .btn-default {
+        width: 179px;
+        text-align: center;
+    }
+
+    .c-picker::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 3px;
+        height: 15px;
+        background: #3076e0;
+        cursor: pointer;
+    }
+
+    .c-picker::-moz-range-thumb {
+        width: 3px;
+        height: 15px;
+        background: #3076e0;
+        cursor: pointer;
+    }
+
 </style>
 
 <script>
-    var prereqArray = [
-        [], //nothing
-        [], //EN 101
-        [], //ENGR 103
-        [], //MATH 125
-        [], //CS 100
-        [], //CS 121
-        [1], //EN 102,
-        [],
-        [3], //MATH 126
-        [3, 4], //CS 101
-        [],
-        [3], //MATH 301
-        [9], //CS 200
-        [4], //ECE 380
-        [], //
-        [], 
-        [11], //MATH 302
-        [9, 11], //CS 201
-        [13], //MATH 383
-        [], //
-        [], //
-        [8], //GES 255/MATH 355
-        [12, 17], //CS 300
-        [12, 17], //CS 301
-        [],
-        [],
-        [8], //MATH 237
-        [18, 22, 23], //CS 403
-        [18, 22, 23], //CS 4xx
-        [],
-        [],
-        [], //Natural Science 1
-        [18, 22, 23], //CS 470/475
-        [18, 22, 23], //CS 4xx
-        [],
-        [],
-        [31], //Natural Science 2
-        [27, 28, 32] //CS 495
-    ];
-
-    var postreqArray = [
-        [], //nothing
-        [6], //EN 101
-        [], //ENGR 103
-        [8], //MATH 125
-        [9], //CS 100
-        [], //CS 121
-        [], //EN 102,
-        [],
-        [21, 26], //MATH 126
-        [12, 17], //CS 101
-        [],
-        [16, 17], //MATH 301
-        [22, 23], //CS 200
-        [18], //ECE 380
-        [], //
-        [], 
-        [], //MATH 302
-        [22, 23], //CS 201
-        [], //ECE 383
-        [], //
-        [], //
-        [], //GES 255/MATH 355
-        [27, 28, 32, 33], //CS 300
-        [27, 28, 32, 33], //CS 301
-        [],
-        [],
-        [], //MATH 237
-        [37], //CS 403
-        [37], //CS 4xx
-        [],
-        [],
-        [36], //Natural Science 1
-        [37], //CS 470/475
-        [], //CS 4xx
-        [],
-        [],
-        [], //Natural Science 2
-        [] //CS 495
-    ];
-
-    let curColor = "white";
-
-    function color(id) {
-        if (id == ("taken")) {
-            curColor = "green";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "inprogress") {
-            curColor = "blue";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "spring0") {
-            curColor = "red";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "fall0") {
-            curColor = "purple";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "spring1") {
-            curColor = "yellow";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "fall1") {
-            curColor = "olive";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "spring2") {
-            curColor = "lime";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "fall2") {
-            curColor = "fuchsia";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "spring3") {
-            curColor = "sandybrown";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "fall3") {
-            curColor = "mistyrose";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "spring4") {
-            curColor = "aqua";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "fall4") {
-            curColor = "teal";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("deselect").style.backgroundColor="white";
-        }
-        if (id == "deselect") {
-            curColor = "gray";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("spring0").style.backgroundColor="white";
-            document.getElementById("fall0").style.backgroundColor="white";
-            document.getElementById("spring1").style.backgroundColor="white";
-            document.getElementById("fall1").style.backgroundColor="white";
-            document.getElementById("spring2").style.backgroundColor="white";
-            document.getElementById("fall2").style.backgroundColor="white";
-            document.getElementById("spring3").style.backgroundColor="white";
-            document.getElementById("fall3").style.backgroundColor="white";
-            document.getElementById("spring4").style.backgroundColor="white";
-            document.getElementById("fall4").style.backgroundColor="white";
-        }
-    }
-
-    function change(id) {
-        if (curColor == "gray") document.getElementById(id).style.backgroundColor="white";
-        else document.getElementById(id).style.backgroundColor=curColor;
-            
-        newid = "d" + id
-        if (curColor == "green") {
-            document.getElementById(newid).value="taken";
-        }
-        if (curColor == "blue") {
-            document.getElementById(newid).value="inprogress";
-        }
-        if (curColor == "red") {
-            document.getElementById(newid).value="spring0";
-        }
-        if (curColor == "purple") {
-            document.getElementById(newid).value="fall0";
-        }
-        if (curColor == "yellow") {
-            document.getElementById(newid).value="spring1";
-        }
-        if (curColor == "olive") {
-            document.getElementById(newid).value="fall1";
-        }
-        if (curColor == "lime") {
-            document.getElementById(newid).value="spring2";
-        }
-        if (curColor == "fuchsia") {
-            document.getElementById(newid).value="fall2";
-        }
-        if (curColor == "sandybrown") {
-            document.getElementById(newid).value="spring3";
-        }
-        if (curColor == "mistyrose") {
-            document.getElementById(newid).value="fall3";
-        }
-        if (curColor == "aqua") {
-            document.getElementById(newid).value="spring4";
-        }
-        if (curColor == "teal") {
-            document.getElementById(newid).value="fall4";
-        }
-        if (curColor == "gray") {
-            document.getElementById(newid).value="";
-        }
-    }
-
-    function prereqCheck(id) {
-       prereq = searchPrereqArray(id);
-       if (prereq.length == 0) {
-           postreq = searchPostreqArray(id);
-           if (postreq.length == 0) {
-               change(id);
-           }
-           else {
-               alertstring = "You need this class as a prerequisite for ";
-               for (var i = 0; i < postreq.length; ++i) {
-                   if (i == 0) {
-                       alertstring = alertstring + postreq[i];
-                   }
-                   else if ((i+1) == postreq.length) {
-                       alertstring = alertstring + ", and " + postreq[i];
-                   }
-                   else {
-                       alertstring = alertstring + ", " + postreq[i];
-                   }
-               }
-               alert(alertstring);
-           }
-       }
-       else {
-           alertstring = "You do not have these prerequisites for this course: ";
-               for (var i = 0; i < prereq.length; ++i) {
-                   if (i == 0) {
-                       alertstring = alertstring + prereq[i];
-                   }
-                   else if ((i+1) == prereq.length) {
-                       alertstring = alertstring + ", and " + prereq[i];
-                   }
-                   else {
-                       alertstring = alertstring + ", " + prereq[i];
-                   }
-               }
-           alert(alertstring);
-       }
-    }
-    
-    function searchPrereqArray(id) {
-        returnarray = [];
-        var colorStatus = getColorStatus();
-        colorStatus = getNumericalColorStatus(colorStatus);
-        var temp;
-        if (colorStatus == 1) return returnarray;
-        for (var i=0; i<prereqArray[id].length; i++) {
-            temp = document.getElementById("d"+prereqArray[id][i]).value;
-            temp = getNumericalColorStatus(temp);
-            if (temp >= colorStatus) {
-                returnarray.push(getClassName(prereqArray[id][i]));
-            }
-        }
-        return returnarray;
-    }
-
-    function searchPostreqArray(id) {
-        returnarray = [];
-        var colorStatus = getColorStatus();
-        colorStatus = getNumericalColorStatus(colorStatus);
-        var temp;
-        if (colorStatus == 1) return returnarray;
-        for (var i=0; i<postreqArray[id].length; i++) {
-            temp = document.getElementById("d"+postreqArray[id][i]).value;
-            temp = getNumericalColorStatus(temp);
-            if (temp <= colorStatus) {
-                returnarray.push(getClassName(postreqArray[id][i]));
-            }
-        }
-        return returnarray;
-    }
-
-    function getColorStatus() {
-        if (curColor == "green") return "taken";
-        else if (curColor == "blue") return "inprogress";
-        else if (curColor == "red") return "spring0";
-        else if (curColor == "purple") return "fall0";
-        else if (curColor == "yellow") return "spring1";
-        else if (curColor == "olive") return "fall1";
-        else if (curColor == "lime") return "spring2";
-        else if (curColor == "fuchsia") return "fall2";
-        else if (curColor == "sandybrown") return "spring3";
-        else if (curColor == "mistyrose") return "fall3";
-        else if (curColor == "aqua") return "spring4";
-        else if (curColor == "teal") return "fall4";
-        else if (curColor == "gray") return "deselect";
-        else if (curColor == "white") return "";
-    }
-
-    function getNumericalColorStatus(colorStatus) {
-        
-        if (colorStatus=="taken") return 1;
-        else if (colorStatus=="inprogress") return 2;
-        else if (colorStatus=="spring0") return 3;
-        else if (colorStatus=="fall0") return 4;
-        else if (colorStatus=="spring1") return 5;
-        else if (colorStatus=="fall1") return 6;
-        else if (colorStatus=="spring2") return 7;
-        else if (colorStatus=="fall2") return 8;
-        else if (colorStatus=="spring3") return 9;
-        else if (colorStatus=="fall3") return 10;
-        else if (colorStatus=="spring4") return 11;
-        else if (colorStatus=="fall4") return 12;
-        else if (colorStatus=="deselect") return 13;
-        else if (colorStatus=="") return 14;
-    }
-
-    function getClassName(id) {
-        if (id == 1) return "EN 101";
-        else if (id == 2) return "ENGR 103";
-        else if (id == 3) return "MATH 125";
-        else if (id == 4) return "CS 100";
-        else if (id == 5) return "CS 121";
-        else if (id == 6) return "EN 102";
-        else if (id == 7) return "HI/SB Elective";
-        else if (id == 8) return "MATH 126";
-        else if (id == 9) return "CS 101";
-        else if (id == 10) return "HU/L/FA Elective";
-        else if (id == 11) return "MATH 301";
-        else if (id == 12) return "CS 200";
-        else if (id == 13) return "ECE 380";
-        else if (id == 14) return "HU/L/FA Elective";
-        else if (id == 15) return "Natural Science Elective";
-        else if (id == 16) return "MATH 302";
-        else if (id == 17) return "CS 201";
-        else if (id == 18) return "ECE 383";
-        else if (id == 19) return "Free Elective";
-        else if (id == 20) return "HI/SB Elective";
-        else if (id == 21) return "GES 255/ MATH 355";
-        else if (id == 22) return "CS 300";
-        else if (id == 23) return "CS 301";
-        else if (id == 24) return "Free Elective";
-        else if (id == 25) return "HI/SB Elective";
-        else if (id == 26) return "MATH 237";
-        else if (id == 27) return "CS 403";
-        else if (id == 28) return "CS 4xx";
-        else if (id == 29)  return "Free Elective";
-        else if (id == 30) return "HU/L/FA Elective";
-        else if (id == 31) return "Natural Sciene Sequence #1";
-        else if (id == 32) return "CS 470/ CS 475";
-        else if (id == 33) return "CS 4xx";
-        else if (id == 34) return "Free Elective";
-        else if (id == 35) return "Free Elective";
-        else if (id == 36) return "Natural Science Sequence #2";
-        else if (id == 37) return "CS 495";
-    }
 
 </script>
 
@@ -590,7 +171,20 @@
         <small id="flowchartname" class="form-text text-muted"></small>
         <button type="submit" class="btn btn-primary" onclick="enable()">Save</button>
   </div>
-
+<div>
+    <button type="button" class="color-pick" id="btn-change" onclick="colorChange()">Change colors</button>
+</div>
+<div id="color-chooser" class="color-choose-section" style="display: none">
+    <button type="button" class="btn-default" id="btn-default" onclick="colorDefault()">Set default colors</button><br>
+    <div class="ccs-1">
+        <input type="range" class="c-picker c-red" min="0" max="255" value="0" oninput="colCanvasChange()"></input><br>
+        <input type="range" class="c-picker c-green" min="0" max="255" value="0" oninput="colCanvasChange()"></input><br>
+        <input type="range" class="c-picker c-blue" min="0" max="255" value="0" oninput="colCanvasChange()"></input>
+    </div>
+    <div class="ccs-2">
+        <canvas id="c-display" width="30px" height="52px"></canvas>
+    </div>
+</div>
 <div class="container-fluid form-group">
     <div class="row">
         <div class="column color" id="taken" onclick="color('taken')">Taken</div>
@@ -724,30 +318,30 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="7" onclick="change('7')">
+        <div class="column course" id="7" onclick="prereqCheck('7')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">HI/SB Elective</label>
             <h3 id="7OutputElective"></h3>
             <script> document.getElementById("7OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="7Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="7Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="7electiveText" class="form-control" />
-                        <label class="form-text" for="7electiveText" id="7courseText">Course Number</label>
+                        <input type="text" id="7electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="7electiveText" id="7courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="7hours" class="form-control" />
-                        <label class="form-label" for="7hours" id="7hoursText">Hours</label>
+                        <input type="text" id="7hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="7hours" id="7hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
 
             <small id="7ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
             <button type="button" name="7Button" value="7Button" class="btn btn-primary btn-block mb-4" id="7Button" onclick="click_button('7')">Submit</button>          
-            <!--- end of elective editing form -->      
+            <!--- end of elective editing form -->
             <select hidden name="d7" class="form-select form-select-sm" id="d7" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -805,30 +399,30 @@
         </div>
     </div>
     <div class="row">
-        <div class="column course" id="10" onclick="change('10')">
+        <div class="column course" id="10" onclick="prereqCheck('10')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">HU/L/FA Elective #1 (sequence)</label>
             <h3 id="10OutputElective"></h3>
             <script> document.getElementById("10OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="10Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="10Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="10electiveText" class="form-control" />
-                        <label class="form-text" for="10electiveText" id="10courseText">Course Number</label>
+                        <input type="text" id="10electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="10electiveText" id="10courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="10hours" class="form-control" />
-                        <label class="form-label" for="10hours" id="10hoursText">Hours</label>
+                        <input type="text" id="10hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="10hours" id="10hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
 
             <small id="10ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
             <button type="button" name="10Button" value="10Button" class="btn btn-success btn-block mb-4" id="10Button" onclick="click_button('10')">Submit</button>          
-            <!--- end of elective editing form -->            
+            <!--- end of elective editing form -->  
             <select hidden name="d10" class="form-select form-select-sm" id="d10" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -905,20 +499,20 @@
         </div>
     </div>
     <div class="row">
-        <div class="column course" id="14" onclick="change('14')">
+        <div class="column course" id="14" onclick="prereqCheck('14')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">HU/L/FA Elective #2 (sequence)</label>
             <h3 id="14OutputElective"></h3>
             <script> document.getElementById("7OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="7Box">                
-                <div class="col-md-offset-3" style="width: 60%;">
+            <div class="row w-125 mb-4" id="14Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
                         <input type="text" id="14electiveText" class="form-control" placeholder="Course Number" />
                         <label class="form-text" for="14electiveText" id="14courseText"></label>
                     </div>
                 </div>
-                <div class="col-md-offset-3" style="width: 30%;">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
                         <input type="text" id="14hours" class="form-control" placeholder="Hours" />
                         <label class="form-label" for="14hours" id="14hoursText" placeholder="Hours"></label>
@@ -946,23 +540,23 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="15" onclick="change('15')">
+        <div class="column course" id="15" onclick="prereqCheck('15')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Nat Science Elective (N)</label>
             <h3 id="15OutputElective"></h3>
             <script> document.getElementById("15OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="15Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="15Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="15electiveText" class="form-control" />
-                        <label class="form-text" for="15electiveText" id="15courseText">Course Number</label>
+                        <input type="text" id="15electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="15electiveText" id="15courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="15hours" class="form-control" />
-                        <label class="form-label" for="15hours" id="15hoursText">Hours</label>
+                        <input type="text" id="15hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="15hours" id="14hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1046,23 +640,23 @@
         </div>
     </div>
     <div class="row">
-        <div class="column course" id="19" onclick="change('19')">
+        <div class="column course" id="19" onclick="prereqCheck('19')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Free Elective</label>
             <h3 id="19OutputElective"></h3>
             <script> document.getElementById("19OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="19Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="19Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="19electiveText" class="form-control" />
-                        <label class="form-text" for="19electiveText" id="19courseText">Course Number</label>
+                        <input type="text" id="19electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="19electiveText" id="19courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="19hours" class="form-control" />
-                        <label class="form-label" for="19hours" id="19hoursText">Hours</label>
+                        <input type="text" id="19hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="19hours" id="19hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1087,26 +681,26 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="20" onclick="change('20')">
+        <div class="column course" id="20" onclick="prereqCheck('20')">
            <!-- information needed for elective editing -->
            <label for="fillOutElective">HI/SB Elective</label>
            <h3 id="20OutputElective"></h3>
            <script> document.getElementById("20OutputElective").style.display="none" </script>
 
-           <div class="row w-125 mb-4" id="20Box">                
-               <div class="col">
-                   <div class="form-outline">
-                       <input type="text" id="20electiveText" class="form-control" />
-                       <label class="form-text" for="7electiveText" id="20courseText">Course Number</label>
-                   </div>
-               </div>
-               <div class="col">
-                   <div class="form-outline">
-                       <input type="text" id="20hours" class="form-control" />
-                       <label class="form-label" for="20hours" id="20hoursText">Hours</label>
-                   </div>
-               </div>
-           </div>
+           <div class="row w-125 mb-4" id="20Box" style="margin: 0 auto;">                
+            <div class="col-md-offset-3" style="width: 65%;">
+                <div class="form-outline">
+                    <input type="text" id="20electiveText" class="form-control" placeholder="Course Number" />
+                    <label class="form-text" for="20electiveText" id="20courseText"></label>
+                </div>
+            </div>
+            <div class="col-md-offset-3" style="width: 35%;">
+                <div class="form-outline">
+                    <input type="text" id="20hours" class="form-control" placeholder="Hours" />
+                    <label class="form-label" for="20hours" id="20hoursText" placeholder="Hours"></label>
+                </div>
+            </div>
+        </div>
 
            <small id="20ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
            <button type="button" name="20Button" value="20Button" class="btn btn-primary btn-block mb-4" id="20Button" onclick="click_button('20')">Submit</button>          
@@ -1187,23 +781,23 @@
         </div>
     </div>
     <div class="row">
-        <div  class="column course" id="24" onclick="change('24')">
+        <div  class="column course" id="24" onclick="prereqCheck('24')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Free Elective</label>
             <h3 id="24OutputElective"></h3>
             <script> document.getElementById("24OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="24Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="24Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="24electiveText" class="form-control" />
-                        <label class="form-text" for="24electiveText" id="24courseText">Course Number</label>
+                        <input type="text" id="24electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="24electiveText" id="24courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="24hours" class="form-control" />
-                        <label class="form-label" for="24hours" id="24hoursText">Hours</label>
+                        <input type="text" id="24hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="24hours" id="24hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1228,23 +822,23 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="25" onclick="change('25')">
+        <div class="column course" id="25" onclick="prereqCheck('25')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">HI/SB Elective</label>
             <h3 id="25OutputElective"></h3>
             <script> document.getElementById("25OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="25Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="25Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="25electiveText" class="form-control" />
-                        <label class="form-text" for="25electiveText" id="25courseText">Course Number</label>
+                        <input type="text" id="25electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="24electiveText" id="25courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="25hours" class="form-control" />
-                        <label class="form-label" for="25hours" id="25hoursText">Hours</label>
+                        <input type="text" id="25hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="25hours" id="25hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1307,23 +901,23 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="28" onclick="change('28')">
+        <div class="column course" id="28" onclick="prereqCheck('28')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">CS 4xx</label>
             <h3 id="28OutputElective"></h3>
             <script> document.getElementById("28OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="28Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="28Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="28electiveText" class="form-control" />
-                        <label class="form-text" for="28electiveText" id="28courseText">Course Number</label>
+                        <input type="text" id="28electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="28electiveText" id="28courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="28hours" class="form-control" />
-                        <label class="form-label" for="28hours" id="28hoursText">Hours</label>
+                        <input type="text" id="28hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="28hours" id="28hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1350,30 +944,30 @@
         </div>
     </div>
     <div class="row">
-        <div class="column course" id="29" onclick="change('29')">
+        <div class="column course" id="29" onclick="prereqCheck('29')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Free Elective</label>
             <h3 id="29OutputElective"></h3>
             <script> document.getElementById("29OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="29Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="29Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="29electiveText" class="form-control" />
-                        <label class="form-text" for="29electiveText" id="29courseText">Course Number</label>
+                        <input type="text" id="29electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="29electiveText" id="29courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="29hours" class="form-control" />
-                        <label class="form-label" for="29hours" id="29hoursText">Hours</label>
+                        <input type="text" id="29hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="29hours" id="29hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
 
             <small id="29ElectiveHelp" class="form-text text-muted">Please enter course number and hours of credits (i.e. EN 101 and 3)</small>
             <button type="button" name="29Button" value="29Button" class="btn btn-info btn-block mb-4" id="29Button" onclick="click_button('29')">Submit</button>          
-            <!--- end of elective editing form --> 
+            <!--- end of elective editing form -->     
             <select hidden name="d29" class="form-select form-select-sm" id="d29" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -1391,23 +985,23 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="30" onclick="change('30')">
+        <div class="column course" id="30" onclick="prereqCheck('30')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">HU/L/FA Elective</label>
             <h3 id="30OutputElective"></h3>
             <script> document.getElementById("30OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="30Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="30Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="30electiveText" class="form-control" />
-                        <label class="form-text" for="30electiveText" id="30courseText">Course Number</label>
+                        <input type="text" id="30electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="30electiveText" id="30courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="30hours" class="form-control" />
-                        <label class="form-label" for="30hours" id="30hoursText">Hours</label>
+                        <input type="text" id="30hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="30hours" id="30hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1432,23 +1026,23 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="31" onclick="change('31')">
+        <div class="column course" id="31" onclick="prereqCheck('31')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Nat Science #1 (sequence, N)</label>
             <h3 id="31OutputElective"></h3>
             <script> document.getElementById("31OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="31Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="31Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="31electiveText" class="form-control" />
-                        <label class="form-text" for="31electiveText" id="31courseText">Course Number</label>
+                        <input type="text" id="31electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="31electiveText" id="31courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="31hours" class="form-control" />
-                        <label class="form-label" for="31hours" id="31hoursText">Hours</label>
+                        <input type="text" id="31hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="31hours" id="31hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1492,23 +1086,23 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="33" onclick="change('33')">
+        <div class="column course" id="33" onclick="prereqCheck('33')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">CS 4xx</label>
             <h3 id="33OutputElective"></h3>
             <script> document.getElementById("33OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="33Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="33Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="33electiveText" class="form-control" />
-                        <label class="form-text" for="33electiveText" id="33courseText">Course Number</label>
+                        <input type="text" id="33electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="33electiveText" id="33courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="33hours" class="form-control" />
-                        <label class="form-label" for="33hours" id="33hoursText">Hours</label>
+                        <input type="text" id="33hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="33hours" id="33hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1535,23 +1129,23 @@
         </div>
     </div>
     <div class="row">
-        <div class="column course" id="34" onclick="change('34')">
+        <div class="column course" id="34" onclick="prereqCheck('34')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Free Elective</label>
             <h3 id="34OutputElective"></h3>
             <script> document.getElementById("34OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="34Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="34Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="34electiveText" class="form-control" />
-                        <label class="form-text" for="34electiveText" id="34courseText">Course Number</label>
+                        <input type="text" id="34electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="35electiveText" id="34courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="34hours" class="form-control" />
-                        <label class="form-label" for="34hours" id="34hoursText">Hours</label>
+                        <input type="text" id="34hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="34hours" id="34hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1576,23 +1170,23 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="35" onclick="change('35')">
+        <div class="column course" id="35" onclick="prereqCheck('35')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Free Elective</label>
             <h3 id="35OutputElective"></h3>
             <script> document.getElementById("35OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="35Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="35Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="35electiveText" class="form-control" />
-                        <label class="form-text" for="35electiveText" id="35courseText">Course Number</label>
+                        <input type="text" id="35electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="35electiveText" id="35courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="35hours" class="form-control" />
-                        <label class="form-label" for="35hours" id="35hoursText">Hours</label>
+                        <input type="text" id="35hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="35hours" id="35hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1616,23 +1210,23 @@
                 <option value="deselect">Deselect</option>
               </select>
         </div>
-        <div class="column course" id="36" onclick="change('36')">
+        <div class="column course" id="36" onclick="prereqCheck('36')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Nat Science #2 (sequence, N)</label>
             <h3 id="36OutputElective"></h3>
             <script> document.getElementById("36OutputElective").style.display="none" </script>
 
-            <div class="row w-125 mb-4" id="36Box">                
-                <div class="col">
+            <div class="row w-125 mb-4" id="36Box" style="margin: 0 auto;">                
+                <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="36electiveText" class="form-control" />
-                        <label class="form-text" for="36electiveText" id="36courseText">Course Number</label>
+                        <input type="text" id="36electiveText" class="form-control" placeholder="Course Number" />
+                        <label class="form-text" for="36electiveText" id="36courseText"></label>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="36hours" class="form-control" />
-                        <label class="form-label" for="36hours" id="36hoursText">Hours</label>
+                        <input type="text" id="36hours" class="form-control" placeholder="Hours" />
+                        <label class="form-label" for="36hours" id="36hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
             </div>
@@ -1681,7 +1275,6 @@
 
 </form>
 
-
 <!---Script to edit electives when clicking the submit/edit button-->
 <script>
 function click_button(id) {
@@ -1719,7 +1312,6 @@ function click_button(id) {
     }
 }
 </script>
-
 
 {% if data %}
 <script>
@@ -1783,4 +1375,5 @@ function click_button(id) {
     }
 </script>
 {% endif %}
+
 {% endblock %}
