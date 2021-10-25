@@ -87,12 +87,14 @@ let pickColMode = 0;
 let curColor = "#ffffff";
 let curOption = 12;
 const default_optionCols = ["#00aa00", "#0000ff",    "#ff0000", "#ff00ff", "#ffff00", "#808000", "#BFFF00", "#FF00FF", "#F4A460", "#ffe4e1", "#00ffff", "#008080", "#aaaaaa"]
-let optionCols = ["#00aa00", "#0000ff",    "#ff0000", "#ff00ff", "#ffff00", "#808000", "#BFFF00", "#FF00FF", "#F4A460", "#ffe4e1", "#00ffff", "#008080", "#aaaaaa"]
+let optionCols = ["#008000", "#0000ff",    "#ff0000", "#800080", "#ffff00", "#808000", "#00FF00", "#FF00FF", "#F4A460", "#ffe4e1", "#00ffff", "#008080", "#aaaaaa"]
 let optionList = ["taken",   "inprogress", "spring0", "fall0",   "spring1", "fall1",   "spring2", "fall2",   "spring3", "fall3",   "spring4", "fall4",   "deselect"];
 //                 green      blue          red        purple     yellow     olive      lime       fuchsia    sdybrn     mstyrose   aqua       teal       white  
 //                 0          1             2          3          4          5          6          7          8          9          10         11         12
 
 //On click event for option buttons
+    //If colorpick mode is on, then set whatever option is clicked to the color of the color display that appears when color mode is on. Change color of all courses with same value as the option
+    //If colorpick mode is not on, get the option color and number, set all options but the selected option to white
 function color(id) {
     if (pickColMode) {
         for (var i = 0; i < optionList.length; i++) {
@@ -133,10 +135,12 @@ function colorTest() {
 }
 
 //Reveals a color picker element on the webpage to use to change the color of the options
+    //When this option is clicked, show colors of all options, show the color picker, set the colorpick flag to 1
+    //When this option is clicked again, Set all options but the current option to white, hide the color picker, set the colorpick flag to 0
 function colorChange() {
     if (!pickColMode) {
         colorTest();
-        document.getElementById("btn-change").style.backgroundColor = "blue";
+        document.getElementById("btn-change").style.backgroundColor = "#7777ff";
         document.getElementById("color-chooser").style.display = "block";
         pickColMode = 1;
         var opts = document.getElementsByClassName('color');
@@ -205,7 +209,7 @@ function change(id) {
     //console.log("changed: "+ document.getElementById(newid).value + " color: " + document.getElementById(id).style.backgroundColor);
 }
 
-
+//Checks if the clicked class has a prerequisite and/or postrequisite before setting its value and color
 function prereqCheck(id) {
     if(!pickColMode) {
         prereq = searchPrereqArray(id);
@@ -248,7 +252,7 @@ function prereqCheck(id) {
     }
 }
 
-//
+//Searches the prerequisite array
 function searchPrereqArray(id) {
     returnarray = [];
     var colorStatus = getColorStatus();
@@ -265,6 +269,7 @@ function searchPrereqArray(id) {
     return returnarray;
 }
 
+//Sarches the postrequisite array
 function searchPostreqArray(id) {
     returnarray = [];
     var colorStatus = getColorStatus();
@@ -282,7 +287,7 @@ function searchPostreqArray(id) {
     return returnarray;
 }
 
-//FIXME make this a switch case
+//Gets the corresponding option name of a color
 function getColorStatus() {
     switch(curColor) {
         case optionCols[ 0]: return "taken";
@@ -300,23 +305,9 @@ function getColorStatus() {
         case optionCols[12]: return "deselect";
         case "#ffffff": return "";
     }
-    /*if (curColor == optionCols[0]) return "taken";
-    else if (curColor == optionCols[1]) return "inprogress";
-    else if (curColor == optionCols[2]) return "spring0";
-    else if (curColor == optionCols[3]) return "fall0";
-    else if (curColor == optionCols[4]) return "spring1";
-    else if (curColor == optionCols[5]) return "fall1";
-    else if (curColor == optionCols[6]) return "spring2";
-    else if (curColor == optionCols[7]) return "fall2";
-    else if (curColor == optionCols[8]) return "spring3";
-    else if (curColor == optionCols[9]) return "fall3";
-    else if (curColor == optionCols[10]) return "spring4";
-    else if (curColor == optionCols[11]) return "fall4";
-    else if (curColor == optionCols[12]) return "deselect";
-    else if (curColor == "#ffffff") return "";*/
 }
 
-//FIXME make this a switch case
+//Gets the corresponding value of an option name
 function getNumericalColorStatus(colorStatus) {
     switch(colorStatus) {
         case "taken": return 1;
@@ -337,6 +328,7 @@ function getNumericalColorStatus(colorStatus) {
 }
 
 //FIXME make this a switch case
+//Gets the name of a course
 function getClassName(id) {
     if (id == 1) return "EN 101";
     else if (id == 2) return "ENGR 103";
