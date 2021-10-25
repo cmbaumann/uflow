@@ -1,118 +1,377 @@
+var prereqArray = [
+    [], //nothing
+    [], //EN 101
+    [], //ENGR 103
+    [], //MATH 125
+    [], //CS 100
+    [], //CS 121
+    [1], //EN 102,
+    [],
+    [3], //MATH 126
+    [3, 4], //CS 101
+    [],
+    [3], //MATH 301
+    [9], //CS 200
+    [4], //ECE 380
+    [], //
+    [], 
+    [11], //MATH 302
+    [9, 11], //CS 201
+    [13], //MATH 383
+    [], //
+    [], //
+    [8], //GES 255/MATH 355
+    [12, 17], //CS 300
+    [12, 17], //CS 301
+    [],
+    [],
+    [8], //MATH 237
+    [18, 22, 23], //CS 403
+    [18, 22, 23], //CS 4xx
+    [],
+    [],
+    [], //Natural Science 1
+    [18, 22, 23], //CS 470/475
+    [18, 22, 23], //CS 4xx
+    [],
+    [],
+    [31], //Natural Science 2
+    [27, 28, 32] //CS 495
+];
+
+var postreqArray = [
+    [], //nothing
+    [6], //EN 101
+    [], //ENGR 103
+    [8], //MATH 125
+    [9], //CS 100
+    [], //CS 121
+    [], //EN 102,
+    [],
+    [21, 26], //MATH 126
+    [12, 17], //CS 101
+    [],
+    [16, 17], //MATH 301
+    [22, 23], //CS 200
+    [18], //ECE 380
+    [], //
+    [], 
+    [], //MATH 302
+    [22, 23], //CS 201
+    [], //ECE 383
+    [], //
+    [], //
+    [], //GES 255/MATH 355
+    [27, 28, 32, 33], //CS 300
+    [27, 28, 32, 33], //CS 301
+    [],
+    [],
+    [], //MATH 237
+    [37], //CS 403
+    [37], //CS 4xx
+    [],
+    [],
+    [36], //Natural Science 1
+    [37], //CS 470/475
+    [], //CS 4xx
+    [],
+    [],
+    [], //Natural Science 2
+    [] //CS 495
+];
+
 window.onload = function() {
-    var x = document.getElementsByClassName("column");
-    for (i = 0; i < x.length; i++) {
-        x[i].style.backgroundColor = "white";
-    }
-};
+}
 
-    let curColor = "#ffffff";
-    let tak_col = "#00ff00";
-    let ipr_col = "#0000ff";
-    let fut_col = "#ff0000";
-    let curOption = "";
+let pickColMode = 0;
+let curColor = "#ffffff";
+let curOption = 12;
+const default_optionCols = ["#00aa00", "#0000ff",    "#ff0000", "#ff00ff", "#ffff00", "#808000", "#BFFF00", "#FF00FF", "#F4A460", "#ffe4e1", "#00ffff", "#008080", "#aaaaaa"]
+let optionCols = ["#00aa00", "#0000ff",    "#ff0000", "#ff00ff", "#ffff00", "#808000", "#BFFF00", "#FF00FF", "#F4A460", "#ffe4e1", "#00ffff", "#008080", "#aaaaaa"]
+let optionList = ["taken",   "inprogress", "spring0", "fall0",   "spring1", "fall1",   "spring2", "fall2",   "spring3", "fall3",   "spring4", "fall4",   "deselect"];
+//                 green      blue          red        purple     yellow     olive      lime       fuchsia    sdybrn     mstyrose   aqua       teal       white  
+//                 0          1             2          3          4          5          6          7          8          9          10         11         12
 
-    //Changes the colors used into various kinds of colorblind alternatives
-    function color_cb_opt(id) {
-        //console.log(id);
-        if (id == "0") {
-            tak_col = "#00ff00";
-            ipr_col = "#0000ff";
-            fut_col = "#ff0000";
+//On click event for option buttons
+function color(id) {
+    if (pickColMode) {
+        for (var i = 0; i < optionList.length; i++) {
+            //console.log(i);
+            if (id != optionList[i] || id == "deselect") {}
+            else { 
+                if (curColor == optionCols[i]) { curColor = document.getElementById("c-display").style.backgroundColor; }
+                optionCols[i] = document.getElementById("c-display").style.backgroundColor;
+                document.getElementById(id).style.backgroundColor=optionCols[i];
+                var courses = document.getElementsByClassName("course");
+                for (var q = 0; q < courses.length; q++) {
+                    if (document.getElementById("d"+courses[q].id).value == optionList[i]) {
+                        courses[q].style.backgroundColor = optionCols[i];
+                    }
+                }
+            }
         }
-        else if (id == "1") {
-            tak_col = "#00ffff";
-            ipr_col = "#ff00ff";
-            fut_col = "#ffff00";
 
-        }
-        else if (id == "2") {
-            tak_col = "#000000";
-            ipr_col = "#5f5f5f";
-            fut_col = "#afafaf";
-
-        }
-        else if (id == "3") {
-            tak_col = "#0ffff0";
-            ipr_col = "#f00fff";
-            fut_col = "#fff00f";
-        }
-        if (curOption) {
-            if (curOption == "taken") {document.getElementById(curOption).style.backgroundColor=tak_col; curColor=tak_col;}
-            else if (curOption == "inprogress") {document.getElementById(curOption).style.backgroundColor=ipr_col; curColor=ipr_col;}
-            else if (curOption == "future") {document.getElementById(curOption).style.backgroundColor=fut_col; curColor=fut_col;}
-        }
-        for (var i=1; i<=37; i++) {
-            var newid = "d" + i.toString();
-            var curCourse = document.getElementById(newid).value;
-            if (curCourse == "taken") {document.getElementById(i).style.backgroundColor = tak_col;}
-            else if (curCourse == "inprogress") {document.getElementById(i).style.backgroundColor = ipr_col;}
-            else if (curCourse == "future") {document.getElementById(i).style.backgroundColor = fut_col;}
+    } else {
+        for (var i = 0; i < optionList.length; i++) {
+            //console.log(i);
+            if (id != optionList[i]) { document.getElementById(optionList[i]).style.backgroundColor="#ffffff"; }
+            else { 
+                curColor = optionCols[i];
+                curOption = i;
+                document.getElementById(id).style.backgroundColor=curColor;
+            }
         }
     }
+}
 
-    function color(id) {
-        if (id == curOption) {
-            curColor = "#ffffff"
-            curOption = "";
-            document.getElementById(id).style.backgroundColor=curColor;
+//Reveal colors of all options
+function colorTest() {
+    var opts = document.getElementsByClassName('color');
+    for (var i = 0; i < opts.length; i++) {
+        opts[i].style.backgroundColor = optionCols[i];
+    }
+}
+
+//Reveals a color picker element on the webpage to use to change the color of the options
+function colorChange() {
+    if (!pickColMode) {
+        colorTest();
+        document.getElementById("btn-change").style.backgroundColor = "blue";
+        document.getElementById("color-chooser").style.display = "block";
+        pickColMode = 1;
+        var opts = document.getElementsByClassName('color');
+        for (var i = 0; i < opts.length-1; i++) {
+            opts[i].style.borderStyle = "dashed";
         }
-        else if (id == ("taken")) {
-            curColor = tak_col;
-            curOption = "taken";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("inprogress").style.backgroundColor="white";
-            document.getElementById("future").style.backgroundColor="white";
-        }
-        else if (id == "inprogress") {
-            curColor = ipr_col;
-            curOption = "inprogress";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("future").style.backgroundColor="white";
-        }
-        else if (id == "future") {
-            curColor = fut_col;
-            curOption = "future";
-            document.getElementById(id).style.backgroundColor=curColor;
-            document.getElementById("taken").style.backgroundColor="white";
-            document.getElementById("inprogress").style.backgroundColor="white";
+        colCanvasChange();
+    } else {
+        document.getElementById("btn-change").style.backgroundColor = "#f1f1f1";
+        document.getElementById("color-chooser").style.display = "none";
+        pickColMode = 0;
+        var opts = document.getElementsByClassName('color');
+        for (var i = 0; i < opts.length; i++) {
+            opts[i].style.borderStyle = "solid";
+            if (curColor == optionCols[i]) {opts[i].style.backgroundColor = curColor;}
+            else { opts[i].style.backgroundColor = "#ffffff"}
         }
     }
+}
 
-    function change(id) {
-        var id_col = document.getElementById(id).style.backgroundColor;
-        // newid = "picker c" + id
-        // if (curColor == "green") {
-        //     document.getElementById(newid).value="#008000";
-        // }
-        // if (curColor == "blue") {
-        //     document.getElementById(newid).value="#0000FF";
-        // }
-        // if (curColor == "red") {
-        //     document.getElementById(newid).value="#FF0000";
-        // }
-        newid = "d" + id
-        if (curOption == "taken") {
-            change_sub(id, newid, "taken");
-        }
-        else if (curOption == "inprogress") {
-            change_sub(id, newid, "inprogress");
-        }
-        else if (curOption == "future") {
-            change_sub(id, newid, "future");
-        }
-        
+//Changes the color of the display used to determine the picked color
+function colCanvasChange() {
+    colmtrx = document.getElementsByClassName("c-picker");
+    var red = parseInt(colmtrx[0].value).toString(16);
+    var grn = parseInt(colmtrx[1].value).toString(16);
+    var blu = parseInt(colmtrx[2].value).toString(16);
+    if (red.length == 1) { red = "0" + red; }
+    if (grn.length == 1) { grn = "0" + grn; }
+    if (blu.length == 1) { blu = "0" + blu; }
+    hexVal = "#" + red + grn + blu;
+    //console.log(hexVal);
+    document.getElementById("c-display").style.backgroundColor = hexVal;
+}
+
+//Changes the color of the options and the selected courses back to their default color
+function colorDefault() {
+    var opts = document.getElementsByClassName('color');
+    var courses = document.getElementsByClassName('course');
+    for (var i = 0; i < optionCols.length; i++) {
+        if (curColor == optionCols[i]) { curColor = default_optionCols[i]; }
+        optionCols[i] = default_optionCols[i];
     }
+    for (var i = 0; i < opts.length; i++) {
+        if (curColor == optionCols[i]) { opts[i].style.backgroundColor = optionCols[i]; }
+        if (pickColMode) { opts[i].style.backgroundColor = optionCols[i]; }
+        for (var q = 0; q < courses.length; q++) {
+            if (document.getElementById("d"+courses[q].id).value == optionList[i]) {
+                courses[q].style.backgroundColor = optionCols[i];
+            }
+        }
+    }
+}
 
-    function change_sub(id, newid, opt) {
-        if (curOption == document.getElementById(newid).value) {
-            document.getElementById(newid).value="";
-            document.getElementById(id).style.backgroundColor = "#ffffff";
-            console.log(document.getElementById(newid).value);
+//Changes the value of a course based on the current option (curOption) when clicked
+function change(id) {
+
+    newid = "d" + id;
+    if (curOption == 12) {  //deselect option
+        document.getElementById(id).style.backgroundColor = optionCols[12];
+        document.getElementById(newid).value="";
+    } 
+    else { 
+        document.getElementById(id).style.backgroundColor = curColor;
+        document.getElementById(newid).value = optionList[curOption];
+    }
+    //console.log("changed: "+ document.getElementById(newid).value + " color: " + document.getElementById(id).style.backgroundColor);
+}
+
+
+function prereqCheck(id) {
+    if(!pickColMode) {
+        prereq = searchPrereqArray(id);
+        if (prereq.length == 0) {
+            postreq = searchPostreqArray(id);
+            if (postreq.length == 0) {
+                change(id);
+            }
+            else {
+                alertstring = "You need this class as a prerequisite for ";
+                for (var i = 0; i < postreq.length; ++i) {
+                    if (i == 0) {
+                    alertstring = alertstring + postreq[i];
+                    }
+                    else if ((i+1) == postreq.length) {
+                        alertstring = alertstring + ", and " + postreq[i];
+                    }
+                    else {
+                        alertstring = alertstring + ", " + postreq[i];
+                    }
+                }
+                alert(alertstring);
+            }
         }
         else {
-            document.getElementById(newid).value=curOption;
-            document.getElementById(id).style.backgroundColor = curColor;
-            console.log(document.getElementById(newid).value);
+            alertstring = "You do not have these prerequisites for this course: ";
+                for (var i = 0; i < prereq.length; ++i) {
+                    if (i == 0) {
+                        alertstring = alertstring + prereq[i];
+                    }
+                    else if ((i+1) == prereq.length) {
+                        alertstring = alertstring + ", and " + prereq[i];
+                    }
+                    else {
+                        alertstring = alertstring + ", " + prereq[i];
+                    }
+                }
+            alert(alertstring);
         }
     }
+}
+
+//
+function searchPrereqArray(id) {
+    returnarray = [];
+    var colorStatus = getColorStatus();
+    colorStatus = getNumericalColorStatus(colorStatus);
+    var temp;
+    if (colorStatus == 1) return returnarray;
+    for (var i=0; i<prereqArray[id].length; i++) {
+        temp = document.getElementById("d"+prereqArray[id][i]).value;
+        temp = getNumericalColorStatus(temp);
+        if (temp >= colorStatus) {
+            returnarray.push(getClassName(prereqArray[id][i]));
+        }
+    }
+    return returnarray;
+}
+
+function searchPostreqArray(id) {
+    returnarray = [];
+    var colorStatus = getColorStatus();
+    colorStatus = getNumericalColorStatus(colorStatus);
+    console.log(colorStatus);
+    var temp;
+    if (colorStatus == 1) return returnarray;
+    for (var i=0; i<postreqArray[id].length; i++) {
+        temp = document.getElementById("d"+postreqArray[id][i]).value;
+        temp = getNumericalColorStatus(temp);
+        if (temp <= colorStatus) {
+            returnarray.push(getClassName(postreqArray[id][i]));
+        }
+    }
+    return returnarray;
+}
+
+//FIXME make this a switch case
+function getColorStatus() {
+    switch(curColor) {
+        case optionCols[ 0]: return "taken";
+        case optionCols[ 1]: return "inprogress";
+        case optionCols[ 2]: return "spring0";
+        case optionCols[ 3]: return "fall0";
+        case optionCols[ 4]: return "spring1";
+        case optionCols[ 5]: return "fall1";
+        case optionCols[ 6]: return "spring";
+        case optionCols[ 7]: return "fall2";
+        case optionCols[ 8]: return "spring3";
+        case optionCols[ 9]: return "fall3";
+        case optionCols[10]: return "spring4";
+        case optionCols[11]: return "fall4";
+        case optionCols[12]: return "deselect";
+        case "#ffffff": return "";
+    }
+    /*if (curColor == optionCols[0]) return "taken";
+    else if (curColor == optionCols[1]) return "inprogress";
+    else if (curColor == optionCols[2]) return "spring0";
+    else if (curColor == optionCols[3]) return "fall0";
+    else if (curColor == optionCols[4]) return "spring1";
+    else if (curColor == optionCols[5]) return "fall1";
+    else if (curColor == optionCols[6]) return "spring2";
+    else if (curColor == optionCols[7]) return "fall2";
+    else if (curColor == optionCols[8]) return "spring3";
+    else if (curColor == optionCols[9]) return "fall3";
+    else if (curColor == optionCols[10]) return "spring4";
+    else if (curColor == optionCols[11]) return "fall4";
+    else if (curColor == optionCols[12]) return "deselect";
+    else if (curColor == "#ffffff") return "";*/
+}
+
+//FIXME make this a switch case
+function getNumericalColorStatus(colorStatus) {
+    
+    if (colorStatus=="taken") return 1;
+    else if (colorStatus=="inprogress") return 2;
+    else if (colorStatus=="spring0") return 3;
+    else if (colorStatus=="fall0") return 4;
+    else if (colorStatus=="spring1") return 5;
+    else if (colorStatus=="fall1") return 6;
+    else if (colorStatus=="spring2") return 7;
+    else if (colorStatus=="fall2") return 8;
+    else if (colorStatus=="spring3") return 9;
+    else if (colorStatus=="fall3") return 10;
+    else if (colorStatus=="spring4") return 11;
+    else if (colorStatus=="fall4") return 12;
+    else if (colorStatus=="deselect") return 13;
+    else if (colorStatus=="") return 14;
+}
+
+//FIXME make this a switch case
+function getClassName(id) {
+    if (id == 1) return "EN 101";
+    else if (id == 2) return "ENGR 103";
+    else if (id == 3) return "MATH 125";
+    else if (id == 4) return "CS 100";
+    else if (id == 5) return "CS 121";
+    else if (id == 6) return "EN 102";
+    else if (id == 7) return "HI/SB Elective";
+    else if (id == 8) return "MATH 126";
+    else if (id == 9) return "CS 101";
+    else if (id == 10) return "HU/L/FA Elective";
+    else if (id == 11) return "MATH 301";
+    else if (id == 12) return "CS 200";
+    else if (id == 13) return "ECE 380";
+    else if (id == 14) return "HU/L/FA Elective";
+    else if (id == 15) return "Natural Science Elective";
+    else if (id == 16) return "MATH 302";
+    else if (id == 17) return "CS 201";
+    else if (id == 18) return "ECE 383";
+    else if (id == 19) return "Free Elective";
+    else if (id == 20) return "HI/SB Elective";
+    else if (id == 21) return "GES 255/ MATH 355";
+    else if (id == 22) return "CS 300";
+    else if (id == 23) return "CS 301";
+    else if (id == 24) return "Free Elective";
+    else if (id == 25) return "HI/SB Elective";
+    else if (id == 26) return "MATH 237";
+    else if (id == 27) return "CS 403";
+    else if (id == 28) return "CS 4xx";
+    else if (id == 29)  return "Free Elective";
+    else if (id == 30) return "HU/L/FA Elective";
+    else if (id == 31) return "Natural Sciene Sequence #1";
+    else if (id == 32) return "CS 470/ CS 475";
+    else if (id == 33) return "CS 4xx";
+    else if (id == 34) return "Free Elective";
+    else if (id == 35) return "Free Elective";
+    else if (id == 36) return "Natural Science Sequence #2";
+    else if (id == 37) return "CS 495";
+}
