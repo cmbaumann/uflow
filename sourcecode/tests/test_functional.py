@@ -5,6 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 
+chromepath = "EDIT THIS - CHROMEDRIVER FILE PATH" #pass the chromedriver file path specific to your machine as the string argument
+
 def test_login(app, client):
     page = client.post('/login', data=dict(
         email="email@email.com",
@@ -103,7 +105,7 @@ def test_future_semesters(app, client):
     assert b'Your flowchart has been saved' in page.data
 
 def test_color(app, client):
-    driver = webdriver.Chrome("EDIT THIS - CHROMEDRIVER FILE PATH") #pass the chromedriver file path specific to your machine as the string argument
+    driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
     element = driver.find_element_by_id("InputEmail")
     element.send_keys("test@crimson.ua.edu")
@@ -130,7 +132,7 @@ def test_color(app, client):
     assert value == "rgba(0, 128, 0, 1)"
 
 def test_deselect(app, client):
-    driver = webdriver.Chrome("EDIT THIS - CHROMEDRIVER FILE PATH") #pass the chromedriver file path specific to your machine as the string argument
+    driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
     element = driver.find_element_by_id("InputEmail")
     element.send_keys("test@crimson.ua.edu")
@@ -163,7 +165,7 @@ def test_deselect(app, client):
     assert value == "rgba(0, 0, 0, 0)"
 
 def test_delete(app, client):
-    driver = webdriver.Chrome("EDIT THIS - CHROMEDRIVER FILE PATH") #pass the chromedriver file path specific to your machine as the string argument
+    driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
     element = driver.find_element_by_id("InputEmail")
     element.send_keys("test@crimson.ua.edu")
