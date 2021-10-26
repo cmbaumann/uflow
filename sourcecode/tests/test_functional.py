@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 
 # must be the chromedriver file path specific to your machine
-chromepath = "/Users/bradywachs/Downloads/chromedriver" 
+chromepath = "/Users/peytonreed/Downloads/chromedriver" 
 
 def test_login(app, client):
     page = client.post('/login', data=dict(
@@ -163,7 +163,7 @@ def test_deselect(app, client):
 
     element = driver.find_element_by_id("2")
     value = element.value_of_css_property("backgroundColor")
-    assert value == "rgba(0, 0, 0, 0)"
+    assert value == "rgba(255, 255, 255, 1)"
 
 def test_edit_elective(app, client):
     driver = webdriver.Chrome(chromepath)
@@ -211,7 +211,7 @@ def test_color_save(app, client):
     element = driver.find_element_by_id("btn-change")
     element.click()
     element = driver.find_element_by_class_name("c-red")
-    element.send_keys("255")
+    element.send_keys("0")
     element = driver.find_element_by_id("taken")
     element.click()
     element = driver.find_element_by_id("btn-change")
@@ -222,7 +222,7 @@ def test_color_save(app, client):
     element = driver.find_element_by_id("taken")
     element.click()
     value = element.value_of_css_property("backgroundColor")
-    assert value == "rgba(255, 0, 0, 1)"
+    assert value == "rgba(0, 0, 0, 1)"
 
 def test_delete(app, client):
     driver = webdriver.Chrome(chromepath)
