@@ -166,8 +166,6 @@ def test_deselect(app, client):
     assert value == "rgba(0, 0, 0, 0)"
 
 def test_edit_elective(app, client):
-    #FIXME: find element by id or class name?
-
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
     element = driver.find_element_by_id("InputEmail")
@@ -187,7 +185,6 @@ def test_edit_elective(app, client):
     element.send_keys("3")
     element = driver.find_element_by_id("7Button")
     element.click()
-    # need to add a wait? 
 
     element = driver.find_element_by_id("7OutputElective")
     value = element.get_attribute('innerHTML')
