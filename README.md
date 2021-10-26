@@ -54,7 +54,12 @@
 <h3>How to run the test cases</h3>
 <p>
   Install the Chrome webdriver (https://chromedriver.chromium.org/downloads)<br>
-  Modify the test_functional.py file lines 58 and 87 to match the file path to the Chrome webdriver on your computer<br>
+  Be sure the following packages are installed: <code>pytest</code> and <code>selenium</code><br>
+  Modify the test_functional.py file at lines 9. Update the variable <code>chromepath</code> to match the file path to the Chrome webdriver on your local machince<br>
   Change your working directory to the sourcecode folder<br>
-  Run the test cases with py -m pytest
+  <h4>To run the test cases:</h4>
+  <p>
+    &emsp;- For Windows: <code>py -m pytest</code><br>
+    &emsp;- For macOS: <code>python3 -m pytest</code>
+  </p>
 </p>

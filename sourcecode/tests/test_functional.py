@@ -5,7 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 
-chromepath = "EDIT THIS - CHROMEDRIVER FILE PATH" #must be the chromedriver file path specific to your machine
+# must be the chromedriver file path specific to your machine
+chromepath = "/Users/bradywachs/Downloads/chromedriver" 
 
 def test_login(app, client):
     page = client.post('/login', data=dict(
@@ -163,6 +164,32 @@ def test_deselect(app, client):
     element = driver.find_element_by_id("2")
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 0, 0, 0)"
+
+def test_edit_elective(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("7electiveText")
+    element.send_keys("MUS 121")
+    element = driver.find_element_by_id("7hours")
+    element.send_keys("3")
+    element = driver.find_element_by_id("7Button")
+    element.click()
+
+    element = driver.find_element_by_id("7OutputElective")
+    value = element.get_attribute('innerHTML')
+    assert value == "MUS 121 (3 hours)"
+
 
 def test_delete(app, client):
     driver = webdriver.Chrome(chromepath)
