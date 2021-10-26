@@ -190,27 +190,6 @@ def test_edit_elective(app, client):
     value = element.get_attribute('innerHTML')
     assert value == "MUS 121 (3 hours)"
 
-
-def test_delete(app, client):
-    driver = webdriver.Chrome(chromepath)
-    driver.get("https://uflow-alabama.herokuapp.com/login")
-    element = driver.find_element_by_id("InputEmail")
-    element.send_keys("test@crimson.ua.edu")
-    element = driver.find_element_by_id("InputPassword")
-    element.send_keys("password")
-    element = driver.find_element_by_class_name("btn")
-    element.click()
-    wait = WebDriverWait(driver, 10)
-    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
-    element = driver.find_element_by_class_name("fc_delete")
-    element.click()
-    page = driver.page_source
-    print(page)
-    if "testflowchart" in page:
-        assert False
-    else:
-        assert True
-
 def test_color_save(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
@@ -244,4 +223,26 @@ def test_color_save(app, client):
     element.click()
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(255, 0, 0, 1)"
+
+def test_delete(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_delete")
+    element.click()
+    page = driver.page_source
+    print(page)
+    if "testflowchart" in page:
+        assert False
+    else:
+        assert True
+
+
     
