@@ -210,3 +210,38 @@ def test_delete(app, client):
         assert False
     else:
         assert True
+
+def test_color_save(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("taken")
+    element.click()
+    element = driver.find_element_by_id("1")
+    element.click()
+    element = driver.find_element_by_id("btn-change")
+    element.click()
+    element = driver.find_element_by_class_name("c-red")
+    element.send_keys("255")
+    element = driver.find_element_by_id("taken")
+    element.click()
+    element = driver.find_element_by_id("btn-change")
+    element.click()
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("taken")
+    element.click()
+    value = element.value_of_css_property("backgroundColor")
+    assert value == "rgba(255, 0, 0, 1)"
+    
