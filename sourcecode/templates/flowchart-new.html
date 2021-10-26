@@ -113,7 +113,7 @@
         border: 2px solid grey;
         padding: 10px 0px 5px 10px; /*top, right, bottom, left*/
         margin: 0px 0px 0px 10px;
-        width: 205px;
+        width: 13em;
         height: 120px;
         overflow: hidden;
     }
@@ -200,6 +200,19 @@
         <div class="column color" id="spring4" onclick="color('spring4')">Spring {{yearData[4]}}</div>
         <div class="column color" id="fall4" onclick="color('fall4')">Fall {{yearData[4]}}</div>
         <div class="column color" id="deselect" onclick="color('deselect')">Deselect</div>
+        <input type="text" name="c1" id="c1" style="display:none" value="#008000" placeholder="CHICKEN"></input>
+        <input type="text" name="c2" id="c2" style="display:none" value="#0000ff" placeholder="CHICKEN"></input>
+        <input type="text" name="c3" id="c3" style="display:none" value="#ff0000" placeholder="CHICKEN"></input>
+        <input type="text" name="c4" id="c4" style="display:none" value="#800080" placeholder="CHICKEN"></input>
+        <input type="text" name="c5" id="c5" style="display:none" value="#ffff00" placeholder="CHICKEN"></input>
+        <input type="text" name="c6" id="c6" style="display:none" value="#808000" placeholder="CHICKEN"></input>
+        <input type="text" name="c7" id="c7" style="display:none" value="#00ff00" placeholder="CHICKEN"></input>
+        <input type="text" name="c8" id="c8" style="display:none" value="#ff00ff" placeholder="CHICKEN"></input>
+        <input type="text" name="c9" id="c9" style="display:none" value="#f4a460" placeholder="CHICKEN"></input>
+        <input type="text" name="c10" id="c10" style="display:none" value="#ffe4e1" placeholder="CHICKEN"></input>
+        <input type="text" name="c11" id="c11" style="display:none" value="#00ffff" placeholder="CHICKEN"></input>
+        <input type="text" name="c12" id="c12" style="display:none" value="#008080" placeholder="CHICKEN"></input>
+        <input type="text" name="c13" id="c13" style="display:none" value="#aaaaaa" placeholder="CHICKEN"></input>
     </div>
     <div class="row">
         <div class="column course" id="1" onclick="prereqCheck('1')">
@@ -1283,58 +1296,72 @@
         "{{data[21]}}", "{{data[22]}}", "{{data[23]}}", "{{data[24]}}", "{{data[25]}}", "{{data[26]}}", "{{data[27]}}", 
         "{{data[28]}}", "{{data[29]}}", "{{data[30]}}", "{{data[31]}}", "{{data[32]}}", "{{data[33]}}", "{{data[34]}}",
         "{{data[35]}}", "{{data[36]}}", "{{data[37]}}"];
+    console.log(DBcols);
     for (let i = 1; i < 38; i++) {
         newid = "d" + i;
         console.log(array[i]);
         if (array[i] == "taken") {
-            document.getElementById(i).style.backgroundColor="green";
+            document.getElementById(i).style.backgroundColor="{{data[38][0]}}";
             document.getElementById(newid).value="taken";
         }
         if (array[i] == "inprogress") {
-            document.getElementById(i).style.backgroundColor="blue";
+            document.getElementById(i).style.backgroundColor="{{data[38][1]}}";
             document.getElementById(newid).value="inprogress";
         }
         if (array[i] == "spring0") {
-            document.getElementById(i).style.backgroundColor="red";
+            document.getElementById(i).style.backgroundColor="{{data[38][2]}}";
             document.getElementById(newid).value="spring0";
         }
         if (array[i] == "fall0") {
-            document.getElementById(i).style.backgroundColor="purple";
+            document.getElementById(i).style.backgroundColor="{{data[38][3]}}";
             document.getElementById(newid).value="fall0";
         }
         if (array[i] == "spring1") {
-            document.getElementById(i).style.backgroundColor="yellow";
+            document.getElementById(i).style.backgroundColor="{{data[38][4]}}";
             document.getElementById(newid).value="spring1";
         }
         if (array[i] == "fall1") {
-            document.getElementById(i).style.backgroundColor="olive";
+            document.getElementById(i).style.backgroundColor="{{data[38][5]}}";
             document.getElementById(newid).value="fall1";
         }
         if (array[i] == "spring2") {
-            document.getElementById(i).style.backgroundColor="lime";
+            document.getElementById(i).style.backgroundColor="{{data[38][6]}}";
             document.getElementById(newid).value="spring2";
         }
         if (array[i] == "fall2") {
-            document.getElementById(i).style.backgroundColor="fuchsia";
+            document.getElementById(i).style.backgroundColor="{{data[38][7]}}";
             document.getElementById(newid).value="fall2";
         }
         if (array[i] == "spring3") {
-            document.getElementById(i).style.backgroundColor="sandybrown";
+            document.getElementById(i).style.backgroundColor="{{data[38][8]}}";
             document.getElementById(newid).value="spring3";
         }
         if (array[i] == "fall3") {
-            document.getElementById(i).style.backgroundColor="mistyrose";
+            document.getElementById(i).style.backgroundColor="{{data[38][9]}}";
             document.getElementById(newid).value="fall3";
         }
         if (array[i] == "spring4") {
-            document.getElementById(i).style.backgroundColor="aqua";
+            document.getElementById(i).style.backgroundColor="{{data[38][10]}}";
             document.getElementById(newid).value="spring4";
         }
         if (array[i] == "fall4") {
-            document.getElementById(i).style.backgroundColor="teal";
+            document.getElementById(i).style.backgroundColor="{{data[38][11]}}";
             document.getElementById(newid).value="fall4";
         }
     }
+    document.getElementById("c1").value = "{{data[38][0]}}";
+    document.getElementById("c2").value = "{{data[38][1]}}";
+    document.getElementById("c3").value = "{{data[38][2]}}";
+    document.getElementById("c4").value = "{{data[38][3]}}";
+    document.getElementById("c5").value = "{{data[38][4]}}";
+    document.getElementById("c6").value = "{{data[38][5]}}";
+    document.getElementById("c7").value = "{{data[38][6]}}";
+    document.getElementById("c8").value = "{{data[38][7]}}";
+    document.getElementById("c9").value = "{{data[38][8]}}";
+    document.getElementById("c10").value = "{{data[38][9]}}";
+    document.getElementById("c11").value = "{{data[38][10]}}";
+    document.getElementById("c12").value = "{{data[38][11]}}";
+
 </script>
 {% endif %}
 

@@ -80,17 +80,34 @@ var postreqArray = [
     [] //CS 495
 ];
 
-window.onload = function() {
-}
-
 let pickColMode = 0;
 let curColor = "#ffffff";
 let curOption = 12;
-const default_optionCols = ["#00aa00", "#0000ff",    "#ff0000", "#ff00ff", "#ffff00", "#808000", "#BFFF00", "#FF00FF", "#F4A460", "#ffe4e1", "#00ffff", "#008080", "#aaaaaa"]
+const default_optionCols = ["#008000", "#0000ff",    "#ff0000", "#800080", "#ffff00", "#808000", "#00FF00", "#FF00FF", "#F4A460", "#ffe4e1", "#00ffff", "#008080", "#aaaaaa"]
 let optionCols = ["#008000", "#0000ff",    "#ff0000", "#800080", "#ffff00", "#808000", "#00FF00", "#FF00FF", "#F4A460", "#ffe4e1", "#00ffff", "#008080", "#aaaaaa"]
 let optionList = ["taken",   "inprogress", "spring0", "fall0",   "spring1", "fall1",   "spring2", "fall2",   "spring3", "fall3",   "spring4", "fall4",   "deselect"];
 //                 green      blue          red        purple     yellow     olive      lime       fuchsia    sdybrn     mstyrose   aqua       teal       white  
 //                 0          1             2          3          4          5          6          7          8          9          10         11         12
+
+window.onload = function() {
+    /*var path = window.location.pathname;
+    var page = path.split("/")[1];
+    //console.log(page);
+
+    if (page == "flowchart-edit") {
+        console.log("get stuff from database");
+        for (var i = 1; i < 14; i++) {
+            var id = "c" + i.toString()
+            optionCols[i-1] = document.getElementById(id).value;
+        }
+    } else {
+        for (var i = 1; i < 14; i++) {
+            var id = "c" + i.toString()
+            document.getElementById(id).value = optionCols[i-1];
+        }
+    }*/
+    DBtoOpts();
+}
 
 //On click event for option buttons
     //If colorpick mode is on, then set whatever option is clicked to the color of the color display that appears when color mode is on. Change color of all courses with same value as the option
@@ -101,8 +118,9 @@ function color(id) {
             //console.log(i);
             if (id != optionList[i] || id == "deselect") {}
             else { 
-                if (curColor == optionCols[i]) { curColor = document.getElementById("c-display").style.backgroundColor; }
-                optionCols[i] = document.getElementById("c-display").style.backgroundColor;
+                if (curColor == optionCols[i]) { curColor = document.getElementById("c-display").value; }
+                optionCols[i] = document.getElementById("c-display").value;
+                document.getElementById("c"+(i+1).toString()).value=optionCols[i];
                 document.getElementById(id).style.backgroundColor=optionCols[i];
                 var courses = document.getElementsByClassName("course");
                 for (var q = 0; q < courses.length; q++) {
@@ -124,6 +142,16 @@ function color(id) {
             }
         }
     }
+}
+
+function DBtoOpts() {
+    document.getElementById("btn-change").style.backgroundColor = "#ffffff";
+    for (var i = 0; i < 12; i++) {
+        optionCols[i] = document.getElementById("c"+(i+1).toString()).value;
+        console.log(optionCols[i]);
+        document.getElementById(optionList[i]).style.backgroundColor = "#ffffff";
+    }
+    document.getElementById(optionList[12]).style.backgroundColor = optionCols[12];
 }
 
 //Reveal colors of all options
@@ -149,7 +177,7 @@ function colorChange() {
         }
         colCanvasChange();
     } else {
-        document.getElementById("btn-change").style.backgroundColor = "#f1f1f1";
+        document.getElementById("btn-change").style.backgroundColor = "#ffffff";
         document.getElementById("color-chooser").style.display = "none";
         pickColMode = 0;
         var opts = document.getElementsByClassName('color');
@@ -171,17 +199,20 @@ function colCanvasChange() {
     if (grn.length == 1) { grn = "0" + grn; }
     if (blu.length == 1) { blu = "0" + blu; }
     hexVal = "#" + red + grn + blu;
-    //console.log(hexVal);
+    console.log(hexVal);
     document.getElementById("c-display").style.backgroundColor = hexVal;
+    document.getElementById("c-display").value = hexVal;
 }
 
 //Changes the color of the options and the selected courses back to their default color
 function colorDefault() {
     var opts = document.getElementsByClassName('color');
     var courses = document.getElementsByClassName('course');
-    for (var i = 0; i < optionCols.length; i++) {
+    //Set option colors to default
+    for (var i = 0; i < optionCols.length-1; i++) {
         if (curColor == optionCols[i]) { curColor = default_optionCols[i]; }
         optionCols[i] = default_optionCols[i];
+        document.getElementById("c"+(i+1).toString()).value = default_optionCols[i]
     }
     for (var i = 0; i < opts.length; i++) {
         if (curColor == optionCols[i]) { opts[i].style.backgroundColor = optionCols[i]; }

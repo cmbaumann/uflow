@@ -211,6 +211,21 @@ def flowchart1():
         d35 = request.form.get("d35")
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
+        c1 = request.form.get("c1")
+        c2 = request.form.get("c2")
+        c3 = request.form.get("c3")
+        c4 = request.form.get("c4")
+        c5 = request.form.get("c5")
+        c6 = request.form.get("c6")
+        c7 = request.form.get("c7")
+        c8 = request.form.get("c8")
+        c9 = request.form.get("c9")
+        c10 = request.form.get("c10")
+        c11 = request.form.get("c11")
+        c12 = request.form.get("c12")
+        c13 = request.form.get("c13")
+        colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
+        print(colArr)
 
         #checking if name is found
         email = session["email"]
@@ -264,6 +279,7 @@ def flowchart1():
         data.append(d35)
         data.append(d36)
         data.append(d37)
+        data.append(colArr)
         if (name == ""):
             message = 'Please enter a name for your flowchart'
             return render_template('flowchart-new.html', message=message, data=data, yearData=yearData)
@@ -289,7 +305,7 @@ def flowchart1():
                             "19": d19, "20": d20, "21": d21, "22": d22, "23": d23,
                             "24": d24, "25": d25, "26": d26, "27": d27, "28": d28,
                             "29": d29, "30": d30, "31": d31, "32": d32, "33": d33,
-                            "34": d34, "35": d35, "36": d36, "37": d37}],
+                            "34": d34, "35": d35, "36": d36, "37": d37, "colors": colArr}],
                         "$position": len
                     }
                 }
@@ -317,7 +333,7 @@ def flowchart1():
 
 @app.route("/flowchart-edit/<name>", methods=['post', 'get'])
 def flowchart2(name):
-    if request.method == "POST":
+    if request.method == "POST":    # Get data from html page
         print("name: ", name)
         d1 = request.form.get("d1")
         d2 = request.form.get("d2")
@@ -356,16 +372,31 @@ def flowchart2(name):
         d35 = request.form.get("d35")
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
+        c1 = request.form.get("c1")
+        c2 = request.form.get("c2")
+        c3 = request.form.get("c3")
+        c4 = request.form.get("c4")
+        c5 = request.form.get("c5")
+        c6 = request.form.get("c6")
+        c7 = request.form.get("c7")
+        c8 = request.form.get("c8")
+        c9 = request.form.get("c9")
+        c10 = request.form.get("c10")
+        c11 = request.form.get("c11")
+        c12 = request.form.get("c12")
+        c13 = request.form.get("c13")
+        colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
+        print(colArr)
 
         email = session["email"]
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         newData = []
         len = 0
         for item in entry:
-            for thing in item['flowcharts']:
+            for thing in item['flowcharts']: # Get number of flowcharts an account has
                 len += 1
             for i in range(len):
-                if (item['flowcharts'][i]["name"] == name):
+                if (item['flowcharts'][i]["name"] == name): # Get a specific flowchart using the name to find it; set the data
                     item['flowcharts'][i]["1"] = d1
                     item['flowcharts'][i]["2"] = d2
                     item['flowcharts'][i]["3"] = d3
@@ -403,6 +434,7 @@ def flowchart2(name):
                     item['flowcharts'][i]["35"] = d35
                     item['flowcharts'][i]["36"] = d36
                     item['flowcharts'][i]["37"] = d37
+                    item['flowcharts'][i]["colors"] = colArr
                 newData.append(item['flowcharts'][i])
         data = []
         data.append(name)
@@ -443,6 +475,7 @@ def flowchart2(name):
         data.append(d35)
         data.append(d36)
         data.append(d37)
+        data.append(colArr)
         print("data: ", data)
         records.update_one(
             {"email": email},
@@ -512,6 +545,8 @@ def flowchart2(name):
                     data.append(item['flowcharts'][i]["35"])
                     data.append(item['flowcharts'][i]["36"])
                     data.append(item['flowcharts'][i]["37"])
+                    data.append(item['flowcharts'][i]["colors"])
+
         year = records.find({"email": email}, {"year": 1, "_id": 0})
         for item in year:
             yearPass = item['year']
