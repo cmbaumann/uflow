@@ -5,6 +5,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 
+# must be the chromedriver file path specific to your machine
+chromepath = "/Users/peytonreed/Downloads/chromedriver" 
+
 def test_login(app, client):
     page = client.post('/login', data=dict(
         email="email@email.com",
@@ -103,7 +106,7 @@ def test_future_semesters(app, client):
     assert b'Your flowchart has been saved' in page.data
 
 def test_color(app, client):
-    driver = webdriver.Chrome("C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe")
+    driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
     element = driver.find_element_by_id("InputEmail")
     element.send_keys("test@crimson.ua.edu")
@@ -129,8 +132,100 @@ def test_color(app, client):
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 128, 0, 1)"
 
+def test_deselect(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("taken")
+    element.click()
+    element = driver.find_element_by_id("2")
+    element.click()
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("deselect")
+    element.click()
+    element = driver.find_element_by_id("2")
+    element.click()
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+
+    element = driver.find_element_by_id("2")
+    value = element.value_of_css_property("backgroundColor")
+    assert value == "rgba(255, 255, 255, 1)"
+
+def test_edit_elective(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("7electiveText")
+    element.send_keys("MUS 121")
+    element = driver.find_element_by_id("7hours")
+    element.send_keys("3")
+    element = driver.find_element_by_id("7Button")
+    element.click()
+
+    element = driver.find_element_by_id("7OutputElective")
+    value = element.get_attribute('innerHTML')
+    assert value == "MUS 121 (3 hours)"
+
+def test_color_save(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("taken")
+    element.click()
+    element = driver.find_element_by_id("1")
+    element.click()
+    element = driver.find_element_by_id("btn-change")
+    element.click()
+    element = driver.find_element_by_class_name("c-red")
+    element.send_keys("0")
+    element = driver.find_element_by_id("taken")
+    element.click()
+    element = driver.find_element_by_id("btn-change")
+    element.click()
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("taken")
+    element.click()
+    value = element.value_of_css_property("backgroundColor")
+    assert value == "rgba(0, 0, 0, 1)"
+
 def test_delete(app, client):
-    driver = webdriver.Chrome("C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe")
+    driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
     element = driver.find_element_by_id("InputEmail")
     element.send_keys("test@crimson.ua.edu")
@@ -148,3 +243,6 @@ def test_delete(app, client):
         assert False
     else:
         assert True
+
+
+    

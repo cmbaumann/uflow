@@ -182,6 +182,20 @@
         <div class="column color" id="spring4" onclick="color('spring4')">Spring {{yearData[4]}}</div>
         <div class="column color" id="fall4" onclick="color('fall4')">Fall {{yearData[4]}}</div>
         <div class="column color" id="deselect" onclick="color('deselect')">Deselect</div>
+        <input type="text" name="c1" id="c1" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c2" id="c2" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c3" id="c3" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c4" id="c4" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c5" id="c5" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c6" id="c6" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c7" id="c7" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c8" id="c8" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c9" id="c9" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c10" id="c10" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c11" id="c11" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c12" id="c12" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c13" id="c13" style="display:none" placeholder="CHICKEN"></input>
+
     </div>
     <div class="row">
         <div class="column course" id="1" onclick="prereqCheck('1')">
@@ -1282,59 +1296,77 @@ will then have to create my own loop of some kind assigning them
         newid = "d" + i;
         console.log(array[i]);
         if (array[i] == "taken") {
-            document.getElementById(i).style.backgroundColor="green";
+            document.getElementById(i).style.backgroundColor="{{data[38][0]}}";
             document.getElementById(newid).value="taken";
         }
-        if (array[i] == "inprogress") {
-            document.getElementById(i).style.backgroundColor="blue";
+        else if (array[i] == "inprogress") {
+            document.getElementById(i).style.backgroundColor="{{data[38][1]}}";
             document.getElementById(newid).value="inprogress";
         }
-        if (array[i] == "spring0") {
-            document.getElementById(i).style.backgroundColor="red";
+        else if (array[i] == "spring0") {
+            document.getElementById(i).style.backgroundColor="{{data[38][2]}}";
             document.getElementById(newid).value="spring0";
         }
-        if (array[i] == "fall0") {
-            document.getElementById(i).style.backgroundColor="purple";
+        else if (array[i] == "fall0") {
+            document.getElementById(i).style.backgroundColor="{{data[38][3]}}";
             document.getElementById(newid).value="fall0";
         }
-        if (array[i] == "spring1") {
-            document.getElementById(i).style.backgroundColor="yellow";
+        else if (array[i] == "spring1") {
+            document.getElementById(i).style.backgroundColor="{{data[38][4]}}";
             document.getElementById(newid).value="spring1";
         }
-        if (array[i] == "fall1") {
-            document.getElementById(i).style.backgroundColor="olive";
+        else if (array[i] == "fall1") {
+            document.getElementById(i).style.backgroundColor="{{data[38][5]}}";
             document.getElementById(newid).value="fall1";
         }
-        if (array[i] == "spring2") {
-            document.getElementById(i).style.backgroundColor="lime";
+        else if (array[i] == "spring2") {
+            document.getElementById(i).style.backgroundColor="{{data[38][6]}}";
             document.getElementById(newid).value="spring2";
         }
-        if (array[i] == "fall2") {
-            document.getElementById(i).style.backgroundColor="fuchsia";
+        else if (array[i] == "fall2") {
+            document.getElementById(i).style.backgroundColor="{{data[38][7]}}";
             document.getElementById(newid).value="fall2";
         }
-        if (array[i] == "spring3") {
-            document.getElementById(i).style.backgroundColor="sandybrown";
+        else if (array[i] == "spring3") {
+            document.getElementById(i).style.backgroundColor="{{data[38][8]}}";
             document.getElementById(newid).value="spring3";
         }
-        if (array[i] == "fall3") {
-            document.getElementById(i).style.backgroundColor="mistyrose";
+        else if (array[i] == "fall3") {
+            document.getElementById(i).style.backgroundColor="{{data[38][9]}}";
             document.getElementById(newid).value="fall3";
         }
-        if (array[i] == "spring4") {
-            document.getElementById(i).style.backgroundColor="aqua";
+        else if (array[i] == "spring4") {
+            document.getElementById(i).style.backgroundColor="{{data[38][10]}}";
             document.getElementById(newid).value="spring4";
         }
-        if (array[i] == "fall4") {
-            document.getElementById(i).style.backgroundColor="teal";
+        else if (array[i] == "fall4") {
+            document.getElementById(i).style.backgroundColor="{{data[38][11]}}";
             document.getElementById(newid).value="fall4";
         }
+        else {
+            document.getElementById(i).style.backgroundColor="#ffffff";
+        }
     }
+
+    //color array at index 38
+    document.getElementById("c1").value = "{{data[38][0]}}";
+    document.getElementById("c2").value = "{{data[38][1]}}";
+    document.getElementById("c3").value = "{{data[38][2]}}";
+    document.getElementById("c4").value = "{{data[38][3]}}";
+    document.getElementById("c5").value = "{{data[38][4]}}";
+    document.getElementById("c6").value = "{{data[38][5]}}";
+    document.getElementById("c7").value = "{{data[38][6]}}";
+    document.getElementById("c8").value = "{{data[38][7]}}";
+    document.getElementById("c9").value = "{{data[38][8]}}";
+    document.getElementById("c10").value = "{{data[38][9]}}";
+    document.getElementById("c11").value = "{{data[38][10]}}";
+    document.getElementById("c12").value = "{{data[38][11]}}";
 
     //adding elective information to existing flowchart
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
     var el_idx = 0;
-    for(let i = 38; i < 70; i+=2) {
+    //elective information begins at index 39 - immediately after colors array
+    for(let i = 39; i < 70; i+=2) {
         j = i + 1;
         //find which elective information is being added
         var id = elective_ids[el_idx];
@@ -1377,6 +1409,7 @@ will then have to create my own loop of some kind assigning them
         
         el_idx += 1;
     }
+
 </script>
 
 <!---Script to edit electives when clicking the submit/edit button-->
