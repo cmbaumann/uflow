@@ -145,6 +145,7 @@
     </div>
 {% endif %}
 <form id="nested" action="\export\{{data[0]}}"></form>
+<form id="landing" action="\logged_in"></form>
 <form action="" method="post">
 
     <div class="form-group">
@@ -154,8 +155,13 @@
         <table>
             <tr>
                 <td><button type="submit" class="btn btn-primary" onclick="enable()">Save</button></td>
+                <!-- <td><input class="btn btn-primary" type="submit" value="Export" form="nested"></td> -->
+                <td><input class="btn btn-primary" type="submit" value="Return to Flowcharts" form="landing"></td>
                 <td>
-                    <input class="btn btn-primary" type="submit" value="Export" form="nested">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="export" id="export">
+                        <label class="form-check-label" for="exampleCheck1">Export Flowchart With Save</label>
+                    </div>
                 </td>
             </tr>
         </table>
