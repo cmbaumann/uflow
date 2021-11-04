@@ -1328,13 +1328,21 @@ function click_button(id) {
 
 {% if data %}
 <script>
+    /* data arry info.
+    - index 0: name
+    - index 1-37: course information
+    - index 38: color array
+    - index 39 & 40: elective name and hours arrays
+    */
     const array = ["{{data[0]}}", "{{data[1]}}", "{{data[2]}}","{{data[3]}}", "{{data[4]}}", "{{data[5]}}", "{{data[6]}}",
         "{{data[7]}}", "{{data[8]}}", "{{data[9]}}", "{{data[10]}}", "{{data[11]}}", "{{data[12]}}", "{{data[13]}}",
         "{{data[14]}}", "{{data[15]}}", "{{data[16]}}", "{{data[17]}}", "{{data[18]}}", "{{data[19]}}", "{{data[20]}}",
         "{{data[21]}}", "{{data[22]}}", "{{data[23]}}", "{{data[24]}}", "{{data[25]}}", "{{data[26]}}", "{{data[27]}}", 
         "{{data[28]}}", "{{data[29]}}", "{{data[30]}}", "{{data[31]}}", "{{data[32]}}", "{{data[33]}}", "{{data[34]}}",
-        "{{data[35]}}", "{{data[36]}}", "{{data[37]}}"];
+        "{{data[35]}}", "{{data[36]}}", "{{data[37]}}", "{{data[38]}}", "{{data[39]}}", "{{data[39]}}"];
     console.log(DBcols);
+    
+    // updating course information - taken, in progress, etc. 
     for (let i = 1; i < 38; i++) {
         newid = "d" + i;
         console.log(array[i]);
@@ -1387,6 +1395,8 @@ function click_button(id) {
             document.getElementById(newid).value="fall4";
         }
     }
+
+    // updating color information for each semester
     document.getElementById("c1").value = "{{data[38][0]}}";
     document.getElementById("c2").value = "{{data[38][1]}}";
     document.getElementById("c3").value = "{{data[38][2]}}";
@@ -1399,6 +1409,31 @@ function click_button(id) {
     document.getElementById("c10").value = "{{data[38][9]}}";
     document.getElementById("c11").value = "{{data[38][10]}}";
     document.getElementById("c12").value = "{{data[38][11]}}";
+
+    // updating elective information
+    var elNameArray = "{{data[39]}}";
+    var elHoursArray = "{{data[40]}}";
+    var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
+    var len_elec = elective_ids.length;
+    
+    for(i=0; i<len_elec; i++) {
+        // declare variables - make more readable
+        var id = elective_ids[i];
+        var output_elective = document.getElementById(id+"OutputElective");
+        var elective_box = document.getElementById(id+"electiveText");
+        var hours_box = document.getElementById(id+"hours");
+        var button = document.getElementById(id+"Button")
+        // information from DB
+        var elName = elNameArray[i];
+        var elHour = elHoursArray[i];
+
+        // FIXME: for now edit everything for now - will need to check for null / empty electives
+        output_elective.innerHTML = elName + " (" + elHour + " hours)";
+        output_elective.style.display = "block";    // show output
+        elective_box.style.display = "none";       // do not show input form
+        hours_box.style.display = "none";          // do not show input form
+        button.innerHTML = "Edit Course";
+    }
 
 </script>
 {% endif %}

@@ -212,6 +212,23 @@ def flowchart1():
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
         
+        # color information 
+        c1 = request.form.get("c1")
+        c2 = request.form.get("c2")
+        c3 = request.form.get("c3")
+        c4 = request.form.get("c4")
+        c5 = request.form.get("c5")
+        c6 = request.form.get("c6")
+        c7 = request.form.get("c7")
+        c8 = request.form.get("c8")
+        c9 = request.form.get("c9")
+        c10 = request.form.get("c10")
+        c11 = request.form.get("c11")
+        c12 = request.form.get("c12")
+        c13 = request.form.get("c13")
+        colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
+        print(colArr)
+
         # get elective information
         # list of all elective ids
         # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
@@ -252,23 +269,6 @@ def flowchart1():
         elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
                      d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
         print(f'{elNameArr}\n{elHoursArr}')
-        
-        # color information 
-        c1 = request.form.get("c1")
-        c2 = request.form.get("c2")
-        c3 = request.form.get("c3")
-        c4 = request.form.get("c4")
-        c5 = request.form.get("c5")
-        c6 = request.form.get("c6")
-        c7 = request.form.get("c7")
-        c8 = request.form.get("c8")
-        c9 = request.form.get("c9")
-        c10 = request.form.get("c10")
-        c11 = request.form.get("c11")
-        c12 = request.form.get("c12")
-        c13 = request.form.get("c13")
-        colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
-        print(colArr)
 
         #checking if name is found
         email = session["email"]
@@ -327,6 +327,9 @@ def flowchart1():
         data.append(colArr)
 
         # appending elective info
+        data.append(elNameArr)
+        data.append(elHoursArr)
+
         # data.append(d7el)
         # data.append(d7hrs)
         # data.append(d10el)
@@ -359,8 +362,6 @@ def flowchart1():
         # data.append(d35hrs)
         # data.append(d36el)
         # data.append(d36hrs)
-
-
         
         if (name == ""):
             message = 'Please enter a name for your flowchart'
@@ -388,17 +389,7 @@ def flowchart1():
                             "24": d24, "25": d25, "26": d26, "27": d27, "28": d28,
                             "29": d29, "30": d30, "31": d31, "32": d32, "33": d33,
                             "34": d34, "35": d35, "36": d36, "37": d37, "colors": colArr,
-                            "d7el": d7el, "d7hrs": d7hrs, "d10el": d10el, 
-                            "d10hrs": d10hrs, "d14el": d14el, "d14hrs": d14hrs,
-                            "d15el":d15el, "d15hrs": d15hrs, "d19el": d19el,
-                            "d19hrs": d19hrs, "d20el": d20el, "d20hrs": d20hrs,
-                            "d24el": d24el, "d24hrs": d24hrs, "d25el": d25el,
-                            "d25hrs": d25hrs, "d28el": d28el, "d28hrs": d28hrs,
-                            "d29el": d29el, "d29hrs": d29hrs, "d30el": d30el,
-                            "d30hrs": d30hrs, "d31el": d31el, "d31hrs": d31hrs,
-                            "d33el": d33el, "d33hrs": d33hrs, "d34el": d34el,
-                            "d34hrs": d34hrs, "d35el": d35el, "d35hrs": d35hrs, 
-                            "d36el": d36el, "d36hrs": d36hrs}],
+                            "elective_names": elNameArr, "elective_hours": elHoursArr}],
                         "$position": len
                     }
                 }
@@ -466,6 +457,23 @@ def flowchart2(name):
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
         
+        # color information 
+        c1 = request.form.get("c1")
+        c2 = request.form.get("c2")
+        c3 = request.form.get("c3")
+        c4 = request.form.get("c4")
+        c5 = request.form.get("c5")
+        c6 = request.form.get("c6")
+        c7 = request.form.get("c7")
+        c8 = request.form.get("c8")
+        c9 = request.form.get("c9")
+        c10 = request.form.get("c10")
+        c11 = request.form.get("c11")
+        c12 = request.form.get("c12")
+        c13 = request.form.get("c13")
+        colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
+        print(colArr)
+
         # get elective information
         # list of all elective ids
         # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
@@ -506,23 +514,6 @@ def flowchart2(name):
         elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
                      d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
         print(f'{elNameArr}\n{elHoursArr}')
-        
-        # color information 
-        c1 = request.form.get("c1")
-        c2 = request.form.get("c2")
-        c3 = request.form.get("c3")
-        c4 = request.form.get("c4")
-        c5 = request.form.get("c5")
-        c6 = request.form.get("c6")
-        c7 = request.form.get("c7")
-        c8 = request.form.get("c8")
-        c9 = request.form.get("c9")
-        c10 = request.form.get("c10")
-        c11 = request.form.get("c11")
-        c12 = request.form.get("c12")
-        c13 = request.form.get("c13")
-        colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
-        print(colArr)
 
         email = session["email"]
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
@@ -611,7 +602,6 @@ def flowchart2(name):
                     # item['flowcharts'][i]["d36el"] = d36el
                     # item['flowcharts'][i]["d36hrs"] = d36hrs
 
-
                 newData.append(item['flowcharts'][i])
         data = []
         data.append(name)
@@ -653,42 +643,45 @@ def flowchart2(name):
         data.append(d36)
         data.append(d37)
         
-        # appending color array
+        # appending color array - at index 38
         data.append(colArr)
 
-        # appending elective info
-        data.append(d7el)
-        data.append(d7hrs)
-        data.append(d10el)
-        data.append(d10hrs)
-        data.append(d14el)
-        data.append(d14hrs)
-        data.append(d15el)
-        data.append(d15hrs)
-        data.append(d19el)
-        data.append(d19hrs)
-        data.append(d20el)
-        data.append(d20hrs)
-        data.append(d24el)
-        data.append(d24hrs)
-        data.append(d25el)
-        data.append(d25hrs)
-        data.append(d28el)
-        data.append(d28hrs)
-        data.append(d29el)
-        data.append(d29hrs)
-        data.append(d30el)
-        data.append(d30hrs)
-        data.append(d31el)
-        data.append(d31hrs)
-        data.append(d33el)
-        data.append(d33hrs)
-        data.append(d34el)
-        data.append(d34hrs)
-        data.append(d35el)
-        data.append(d35hrs)
-        data.append(d36el)
-        data.append(d36hrs)
+        # appending elective info - at index 39 & 40
+        data.append(elNameArr)
+        data.append(elHoursArr)
+        
+        # data.append(d7el)
+        # data.append(d7hrs)
+        # data.append(d10el)
+        # data.append(d10hrs)
+        # data.append(d14el)
+        # data.append(d14hrs)
+        # data.append(d15el)
+        # data.append(d15hrs)
+        # data.append(d19el)
+        # data.append(d19hrs)
+        # data.append(d20el)
+        # data.append(d20hrs)
+        # data.append(d24el)
+        # data.append(d24hrs)
+        # data.append(d25el)
+        # data.append(d25hrs)
+        # data.append(d28el)
+        # data.append(d28hrs)
+        # data.append(d29el)
+        # data.append(d29hrs)
+        # data.append(d30el)
+        # data.append(d30hrs)
+        # data.append(d31el)
+        # data.append(d31hrs)
+        # data.append(d33el)
+        # data.append(d33hrs)
+        # data.append(d34el)
+        # data.append(d34hrs)
+        # data.append(d35el)
+        # data.append(d35hrs)
+        # data.append(d36el)
+        # data.append(d36hrs)
         
         print("data: ", data)
         records.update_one(
@@ -761,42 +754,45 @@ def flowchart2(name):
                     data.append(item['flowcharts'][i]["36"])
                     data.append(item['flowcharts'][i]["37"])
                     
-                    # color information
+                    # color information - from dictionary
                     data.append(item['flowcharts'][i]["colors"])
 
-                    # elective information
-                    data.append(item['flowcharts'][i]["d7el"])
-                    data.append(item['flowcharts'][i]["d7hrs"])
-                    data.append(item['flowcharts'][i]["d10el"])
-                    data.append(item['flowcharts'][i]["d10hrs"])
-                    data.append(item['flowcharts'][i]["d14el"])
-                    data.append(item['flowcharts'][i]["d14hrs"])
-                    data.append(item['flowcharts'][i]["d15el"])
-                    data.append(item['flowcharts'][i]["d15hrs"])
-                    data.append(item['flowcharts'][i]["d19el"])
-                    data.append(item['flowcharts'][i]["d19hrs"])
-                    data.append(item['flowcharts'][i]["d20el"])
-                    data.append(item['flowcharts'][i]["d20hrs"])
-                    data.append(item['flowcharts'][i]["d24el"])
-                    data.append(item['flowcharts'][i]["d24hrs"])
-                    data.append(item['flowcharts'][i]["d25el"])
-                    data.append(item['flowcharts'][i]["d25hrs"])
-                    data.append(item['flowcharts'][i]["d28el"])
-                    data.append(item['flowcharts'][i]["d28hrs"])
-                    data.append(item['flowcharts'][i]["d29el"])
-                    data.append(item['flowcharts'][i]["d29hrs"])
-                    data.append(item['flowcharts'][i]["d30el"])
-                    data.append(item['flowcharts'][i]["d30hrs"])
-                    data.append(item['flowcharts'][i]["d31el"])
-                    data.append(item['flowcharts'][i]["d31hrs"])
-                    data.append(item['flowcharts'][i]["d33el"])
-                    data.append(item['flowcharts'][i]["d33hrs"])
-                    data.append(item['flowcharts'][i]["d34el"])
-                    data.append(item['flowcharts'][i]["d34hrs"])
-                    data.append(item['flowcharts'][i]["d35el"])
-                    data.append(item['flowcharts'][i]["d35hrs"])
-                    data.append(item['flowcharts'][i]["d36el"])
-                    data.append(item['flowcharts'][i]["d36hrs"])
+                    # elective information - from dictionary
+                    data.append(item['flowcharts'][i]["elective_names"])
+                    data.append(item['flowcharts'][i]["elective_hours"])
+
+                    # data.append(item['flowcharts'][i]["d7el"])
+                    # data.append(item['flowcharts'][i]["d7hrs"])
+                    # data.append(item['flowcharts'][i]["d10el"])
+                    # data.append(item['flowcharts'][i]["d10hrs"])
+                    # data.append(item['flowcharts'][i]["d14el"])
+                    # data.append(item['flowcharts'][i]["d14hrs"])
+                    # data.append(item['flowcharts'][i]["d15el"])
+                    # data.append(item['flowcharts'][i]["d15hrs"])
+                    # data.append(item['flowcharts'][i]["d19el"])
+                    # data.append(item['flowcharts'][i]["d19hrs"])
+                    # data.append(item['flowcharts'][i]["d20el"])
+                    # data.append(item['flowcharts'][i]["d20hrs"])
+                    # data.append(item['flowcharts'][i]["d24el"])
+                    # data.append(item['flowcharts'][i]["d24hrs"])
+                    # data.append(item['flowcharts'][i]["d25el"])
+                    # data.append(item['flowcharts'][i]["d25hrs"])
+                    # data.append(item['flowcharts'][i]["d28el"])
+                    # data.append(item['flowcharts'][i]["d28hrs"])
+                    # data.append(item['flowcharts'][i]["d29el"])
+                    # data.append(item['flowcharts'][i]["d29hrs"])
+                    # data.append(item['flowcharts'][i]["d30el"])
+                    # data.append(item['flowcharts'][i]["d30hrs"])
+                    # data.append(item['flowcharts'][i]["d31el"])
+                    # data.append(item['flowcharts'][i]["d31hrs"])
+                    # data.append(item['flowcharts'][i]["d33el"])
+                    # data.append(item['flowcharts'][i]["d33hrs"])
+                    # data.append(item['flowcharts'][i]["d34el"])
+                    # data.append(item['flowcharts'][i]["d34hrs"])
+                    # data.append(item['flowcharts'][i]["d35el"])
+                    # data.append(item['flowcharts'][i]["d35hrs"])
+                    # data.append(item['flowcharts'][i]["d36el"])
+                    # data.append(item['flowcharts'][i]["d36hrs"])
 
 
         year = records.find({"email": email}, {"year": 1, "_id": 0})
@@ -818,6 +814,7 @@ def flowchart2(name):
         return redirect(url_for("login"))
 
 
+# FIXME: is this route being used?
 @app.route("/edit_elective", methods=["POST", "GET"])
 def edit_elective():
     if request.method == "POST":
