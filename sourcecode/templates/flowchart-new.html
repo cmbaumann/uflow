@@ -340,13 +340,13 @@
             <div class="row w-125 mb-4" id="7Box" style="margin: 0 auto;">                
                 <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="7electiveText" class="form-control" placeholder="Course Number" />
+                        <input type="text" id="7electiveText" name="7electiveText" class="form-control" placeholder="Course Number" />
                         <label class="form-text" for="7electiveText" id="7courseText"></label>
                     </div>
                 </div>
                 <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="7hours" class="form-control" placeholder="Hours" />
+                        <input type="text" id="7hours" name="7hours" class="form-control" placeholder="Hours" />
                         <label class="form-label" for="7hours" id="7hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
@@ -421,13 +421,13 @@
             <div class="row w-125 mb-4" id="10Box" style="margin: 0 auto;">                
                 <div class="col-md-offset-3" style="width: 65%;">
                     <div class="form-outline">
-                        <input type="text" id="10electiveText" class="form-control" placeholder="Course Number" />
+                        <input type="text" id="10electiveText" name="10electiveText" class="form-control" placeholder="Course Number" />
                         <label class="form-text" for="10electiveText" id="10courseText"></label>
                     </div>
                 </div>
                 <div class="col-md-offset-3" style="width: 35%;">
                     <div class="form-outline">
-                        <input type="text" id="10hours" class="form-control" placeholder="Hours" />
+                        <input type="text" id="10hours" name="10hours" class="form-control" placeholder="Hours" />
                         <label class="form-label" for="10hours" id="10hoursText" placeholder="Hours"></label>
                     </div>
                 </div>
@@ -1415,6 +1415,10 @@ function click_button(id) {
     var elHoursArray = "{{data[40]}}";
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
     var len_elec = elective_ids.length;
+
+    // FIXME: just a test
+    alert(console.log(typeof elNameArray));
+    // console.log(typeof elHoursArray);
     
     for(i=0; i<len_elec; i++) {
         // declare variables - make more readable
@@ -1424,8 +1428,10 @@ function click_button(id) {
         var hours_box = document.getElementById(id+"hours");
         var button = document.getElementById(id+"Button")
         // information from DB
-        var elName = elNameArray[i];
-        var elHour = elHoursArray[i];
+        elName = elNameArray[i];
+        elHour = elHoursArray[i];
+
+        alert("Name: " + elName + "  --  Hours: " + elHour);
 
         // FIXME: for now edit everything for now - will need to check for null / empty electives
         output_elective.innerHTML = elName + " (" + elHour + " hours)";

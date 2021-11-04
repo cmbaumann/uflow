@@ -1363,51 +1363,33 @@ will then have to create my own loop of some kind assigning them
     document.getElementById("c12").value = "{{data[38][11]}}";
 
     //adding elective information to existing flowchart
+
+    //FIXME: consider controlling how empty elective info is sent to db 
+    // (store as a default var?)
+    
+    
+    var elNameArray = "{{data[39]}}";
+    var elHoursArray = "{{data[40]}}";
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
-    var el_idx = 0;
-    //elective information begins at index 39 - immediately after colors array
-    for(let i = 39; i < 70; i+=2) {
-        j = i + 1;
-        //find which elective information is being added
-        var id = elective_ids[el_idx];
-        var name = array[i];
-        var hours = array[j];
+    var len_elec = elective_ids.length;
+    
+    for(i=0; i<len_elec; i++) {
+        // declare variables - make more readable
+        var id = elective_ids[i];
         var output_elective = document.getElementById(id+"OutputElective");
         var elective_box = document.getElementById(id+"electiveText");
         var hours_box = document.getElementById(id+"hours");
+        var button = document.getElementById(id+"Button")
+        // information from DB
+        var elName = elNameArray[i];
+        var elHour = elHoursArray[i];
 
-
-        //FIXME: consider controlling how empty elective info is sent to db 
-        // (store as a default var?)
-
-
-        //checks to be sure variable exists and is not empty
-        if( (name!="None" && name!=null && name!='') && (hours!="None" && hours!=null && hours!='') ) {
-            document.getElementById(id+"Button").innerHTML = "Edit Course";
-            output_elective.innerHTML = name + " (" + hours + " hours)";        
-            output_elective.style.display = "block";
-            elective_box.style.display = "none";
-            hours_box.style.display = "none";
-        }
-        else if( (name!="None" && name!=null && name!='') && (hours=="None" || hours==null || hours=='') ){
-            elective_box.value = name;
-            output_elective.style.display = "none";
-            elective_box.style.display = "block";
-            hours_box.style.display = "block";
-        }
-        else if( (hours!="None" && hours!=null && hours!='') && (name=="None" || name==null || name=='') ) {
-            hours_box.value = hours;
-            output_elective.style.display = "none";
-            elective_box.style.display = "block";
-            hours_box.style.display = "block";
-        }
-        else {
-            output_elective.style.display = "none";
-            elective_box.placeholder = "Course Number";
-            hours_box.placeholder = "Hours";
-        }
-        
-        el_idx += 1;
+        // FIXME: for now edit everything for now - will need to check for null / empty electives
+        output_elective.innerHTML = elName + " (" + elHour + " hours)";
+        output_elective.style.display = "block";    // show output
+        elective_box.style.display = "none";       // do not show input form
+        hours_box.style.display = "none";          // do not show input form
+        button.innerHTML = "Edit Course";
     }
 
 </script>
@@ -1437,7 +1419,7 @@ will then have to create my own loop of some kind assigning them
             hours_text.style.display = "none";
         }
         else {
-            // button.innerHTML == "Edit Elective"
+            // button.innerHTML == "Edit Course"
             button.innerHTML = "Submit";
             
             output_elective.style.display = "none"

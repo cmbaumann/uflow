@@ -232,37 +232,37 @@ def flowchart1():
         # get elective information
         # list of all elective ids
         # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
-        d7el = request.form.get("7elective")
+        d7el = request.form.get("7electiveText")
         d7hrs = request.form.get("7hours")
-        d10el = request.form.get("10elective")
+        d10el = request.form.get("10electiveText")
         d10hrs = request.form.get("10hours")
-        d14el = request.form.get("14elective")
+        d14el = request.form.get("14electiveText")
         d14hrs = request.form.get("14hours")
-        d15el = request.form.get("15elective")
+        d15el = request.form.get("15electiveText")
         d15hrs = request.form.get("15hours")
-        d19el = request.form.get("19elective")
+        d19el = request.form.get("19electiveText")
         d19hrs = request.form.get("19hours")
-        d20el = request.form.get("20elective")
+        d20el = request.form.get("20electiveText")
         d20hrs = request.form.get("20hours")
-        d24el = request.form.get("24elective")
+        d24el = request.form.get("24electiveText")
         d24hrs = request.form.get("24hours")
-        d25el = request.form.get("25elective")
+        d25el = request.form.get("25electiveText")
         d25hrs = request.form.get("25hours")
-        d28el = request.form.get("28elective")
+        d28el = request.form.get("28electiveText")
         d28hrs = request.form.get("28hours")
-        d29el = request.form.get("29elective")
+        d29el = request.form.get("29electiveText")
         d29hrs = request.form.get("29hours")
-        d30el = request.form.get("30elective")
+        d30el = request.form.get("30electiveText")
         d30hrs = request.form.get("30hours")
-        d31el = request.form.get("31elective")
+        d31el = request.form.get("31electiveText")
         d31hrs = request.form.get("31hours")
-        d33el = request.form.get("33elective")
+        d33el = request.form.get("33electiveText")
         d33hrs = request.form.get("33hours")
-        d34el = request.form.get("34elective")
+        d34el = request.form.get("34electiveText")
         d34hrs = request.form.get("34hours")
-        d35el = request.form.get("35elective")
+        d35el = request.form.get("35electiveText")
         d35hrs = request.form.get("35hours")
-        d36el = request.form.get("36elective")
+        d36el = request.form.get("36electiveText")
         d36hrs = request.form.get("36hours")
         elNameArr = [d7el, d10el, d14el, d15el, d19el, d20el, d24el, d25el,
                      d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
@@ -477,37 +477,37 @@ def flowchart2(name):
         # get elective information
         # list of all elective ids
         # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
-        d7el = request.form.get("7elective")
+        d7el = request.form.get("7electiveText").value
         d7hrs = request.form.get("7hours")
-        d10el = request.form.get("10elective")
+        d10el = request.form.get("10electiveText")
         d10hrs = request.form.get("10hours")
-        d14el = request.form.get("14elective")
+        d14el = request.form.get("14electiveText")
         d14hrs = request.form.get("14hours")
-        d15el = request.form.get("15elective")
+        d15el = request.form.get("15electiveText")
         d15hrs = request.form.get("15hours")
-        d19el = request.form.get("19elective")
+        d19el = request.form.get("19electiveText")
         d19hrs = request.form.get("19hours")
-        d20el = request.form.get("20elective")
+        d20el = request.form.get("20electiveText")
         d20hrs = request.form.get("20hours")
-        d24el = request.form.get("24elective")
+        d24el = request.form.get("24electiveText")
         d24hrs = request.form.get("24hours")
-        d25el = request.form.get("25elective")
+        d25el = request.form.get("25electiveText")
         d25hrs = request.form.get("25hours")
-        d28el = request.form.get("28elective")
+        d28el = request.form.get("28electiveText")
         d28hrs = request.form.get("28hours")
-        d29el = request.form.get("29elective")
+        d29el = request.form.get("29electiveText")
         d29hrs = request.form.get("29hours")
-        d30el = request.form.get("30elective")
+        d30el = request.form.get("30electiveText")
         d30hrs = request.form.get("30hours")
-        d31el = request.form.get("31elective")
+        d31el = request.form.get("31electiveText")
         d31hrs = request.form.get("31hours")
-        d33el = request.form.get("33elective")
+        d33el = request.form.get("33electiveText")
         d33hrs = request.form.get("33hours")
-        d34el = request.form.get("34elective")
+        d34el = request.form.get("34electiveText")
         d34hrs = request.form.get("34hours")
-        d35el = request.form.get("35elective")
+        d35el = request.form.get("35electiveText")
         d35hrs = request.form.get("35hours")
-        d36el = request.form.get("36elective")
+        d36el = request.form.get("36electiveText")
         d36hrs = request.form.get("36hours")
         elNameArr = [d7el, d10el, d14el, d15el, d19el, d20el, d24el, d25el,
                      d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
@@ -683,6 +683,14 @@ def flowchart2(name):
         # data.append(d36el)
         # data.append(d36hrs)
         
+        """FIXME: rather than appending this all to a new data array and rendering the page,
+        is it possible to render page with last flowchart in database (as the record gets
+        updated before rendering the template)
+
+        FIXME: possible to make these data.appends and editing flowchart duplicates 
+        a function so it can be called in the 2-3 places it is used instead of copy/pasting
+        """
+
         print("data: ", data)
         records.update_one(
             {"email": email},
