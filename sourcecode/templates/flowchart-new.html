@@ -1412,10 +1412,16 @@ function click_button(id) {
     document.getElementById("c12").value = "{{data[38][11]}}";
 
     // updating elective information
-    var elNameArray = "{{data[39]}}";
-    var elHoursArray = "{{data[40]}}";
+    // var elNameArray = "{{data[39][]}}";
+    // var elHoursArray = "{{data[40][]}}";
+    var elNameArray = array[39];
+    var elHoursArray = array[40];
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
     var len_elec = elective_ids.length;
+
+    // FIXME: just a sanity check
+    // document.getElementById("7OutputElective").innerHTML = "{{data[39][0]}}";
+    // document.getElementById("7OutputElective").innerHTML = "{{data[39][0]}}" + " (" + "{{data[40][0]" + " hours)";
 
     // FIXME: just a test
     // alert(console.log(typeof elNameArray));
@@ -1429,17 +1435,17 @@ function click_button(id) {
         var hours_box = document.getElementById(id+"hours");
         var button = document.getElementById(id+"Button")
         // information from DB
-        elName = elNameArray[i];
-        elHour = elHoursArray[i];
+        elName = elNameArray.at(i);
+        elHour = elHoursArray.at(i);
 
-        if(elName && elHours) {
-            // FIXME: for now edit everything for now - will need to check for null / empty electives
+        // FIXME: for now edit everything for now - will need to check for null / empty electives
+        // if(elName && elHours) {
             output_elective.innerHTML = elName + " (" + elHour + " hours)";
             output_elective.style.display = "block";    // show output
             elective_box.style.display = "none";       // do not show input form
             hours_box.style.display = "none";          // do not show input form
             button.innerHTML = "Edit Course";
-        }
+        // }
     }
 
 </script>

@@ -268,7 +268,7 @@ def flowchart1():
                      d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
         elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
                      d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
-        print(f'{elNameArr}\n{elHoursArr}')
+        print(f'\nNAME ARR:\n{elNameArr}\nHOURS ARRAY:\n{elHoursArr}\n')
 
         #checking if name is found
         email = session["email"]
@@ -477,7 +477,7 @@ def flowchart2(name):
         # get elective information
         # list of all elective ids
         # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
-        d7el = request.form.get("7electiveText").value
+        d7el = request.form.get("7electiveText")
         d7hrs = request.form.get("7hours")
         d10el = request.form.get("10electiveText")
         d10hrs = request.form.get("10hours")
@@ -513,7 +513,7 @@ def flowchart2(name):
                      d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
         elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
                      d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
-        print(f'{elNameArr}\n{elHoursArr}')
+        print(f'\nNAME ARR:\n{elNameArr}\nHOURS ARRAY:\n{elHoursArr}\n')
 
         email = session["email"]
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
