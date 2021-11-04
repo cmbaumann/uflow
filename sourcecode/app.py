@@ -3,6 +3,7 @@ import pymongo
 import bcrypt
 from docx import Document
 from docx2pdf import convert
+import math
 
 app = Flask(__name__)
 app.secret_key = "testing"
@@ -261,28 +262,74 @@ def exportData(years, email, name):
                     data[cur].append(j)
                 numRows = 0 #number of semesters
                 numCols = 0 #max number of classes in a semester
+                largestCol = 0
                 for j in range(1, 13):
                     if (count[j] > 0):
                         numRows += 1
                         if (count[j] > numCols):
                             numCols = count[j]
+                            largestCol = j
                 numCols += 1 #add one for semester name
                 #add data to document
                 if (numRows == 0): 
                     document.add_paragraph('This flowchart has no data.')
                 else:
-                    document.add_paragraph('text')
-                    table = document.add_table(rows=numRows, cols=numCols)
-                    table.style = 'TableGrid'
                     row = 0
-                    for j in range(0, 13):
-                        if (count[j] > 0):
-                            curRow = table.rows[row].cells
-                            curRow[0].text = getSemesterName(j)
-                            for k in range(1, count[j]+1):
+                    if (largestCol != 1):
+                        table = document.add_table(rows=numRows, cols=numCols)
+                        table.style = 'TableGrid'
+                        for j in range(1, 13):
+                            if (count[j] > 0):
                                 curRow = table.rows[row].cells
-                                curRow[k].text = getClassName(data[j][k-1])
-                            row += 1
+                                curRow[0].text = getSemesterName(j)
+                                for k in range(1, count[j]+1):
+                                    curRow = table.rows[row].cells
+                                    curRow[k].text = getClassName(data[j][k-1])
+                                row += 1
+                    else: 
+                        newNumCols = 0
+                        for j in range(1, 13):
+                            if ((count[j] > newNumCols) and (j != 1)):
+                                    newNumCols = count[j]
+                        rowIterations = count[1] / newNumCols
+                        rowIterations = math.ceil(rowIterations)
+                        newNumRows = numRows + rowIterations - 1
+                        table = document.add_table(rows=newNumRows, cols=newNumCols+1)
+                        table.style = 'TableGrid'
+                        for j in range(1, 13):
+                            if (j != 1):
+                                if (count[j] > 0):
+                                    # print("adding ", getSemesterName(j), "to 0 in row ", row)
+                                    curRow = table.rows[row].cells
+                                    curRow[0].text = getSemesterName(j)
+                                    for k in range(1, count[j]+1):
+                                        curRow = table.rows[row].cells
+                                        curRow[k].text = getClassName(data[j][k-1])
+                                        # print("adding ", getClassName(data[j][k-1]), "to ", k, "in row ", row, "class ", data[j][k-1])
+                                    row += 1
+                            else:
+                                place = 0
+                                if (count[j] > 0):
+                                    for i in range(0, rowIterations):
+                                        curRow = table.rows[row].cells
+                                        if (i == 0):
+                                            curRow[0].text = getSemesterName(j)
+                                            # print("adding ", getSemesterName(j), "to 0 in row ", row)
+                                            for k in range(1, newNumCols):
+                                                curRow = table.rows[row].cells
+                                                curRow[k].text = getClassName(data[j][place])
+                                                # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
+                                                place += 1
+                                            row += 1
+                                        else:
+                                            for k in range(1, newNumCols+1):
+                                                curRow = table.rows[row].cells
+                                                curRow[k].text = getClassName(data[j][place])
+                                                # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
+                                                place += 1
+                                                if (place >= count[1]):
+                                                    break
+                                            row += 1
     #send document to user to be downloaded            
     saveName1 = title + ".docx"
     #return send_file(saveName,name,as_attachment=True, attachment_filename=saveName)
