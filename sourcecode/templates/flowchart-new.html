@@ -1412,20 +1412,16 @@ function click_button(id) {
     document.getElementById("c12").value = "{{data[38][11]}}";
 
     // updating elective information
-    // var elNameArray = "{{data[39][]}}";
-    // var elHoursArray = "{{data[40][]}}";
-    var elNameArray = array[39];
-    var elHoursArray = array[40];
+    var elNameArray = "{{data[39][]}}";
+    var elHoursArray = "{{data[40][]}}";
+    // var elNameArray = array[39];
+    // var elHoursArray = array[40];
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
     var len_elec = elective_ids.length;
 
     // FIXME: just a sanity check
     // document.getElementById("7OutputElective").innerHTML = "{{data[39][0]}}";
-    // document.getElementById("7OutputElective").innerHTML = "{{data[39][0]}}" + " (" + "{{data[40][0]" + " hours)";
 
-    // FIXME: just a test
-    // alert(console.log(typeof elNameArray));
-    // console.log(typeof elHoursArray);
     
     for(i=0; i<len_elec; i++) {
         // declare variables - make more readable
