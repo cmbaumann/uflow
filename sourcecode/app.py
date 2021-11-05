@@ -333,6 +333,7 @@ def exportData(years, email, name):
     saveName1 = title + ".docx"
     document.save(saveName1)
     return saveName1
+
 @app.route("/flowchart-new", methods=['post', 'get'])
 def flowchart1():
     if request.method == "POST":
@@ -672,6 +673,15 @@ def flowchart2(name):
         yearData.append(yearPass3)
         yearData.append(yearPass4)
         yearData.append(yearPass5)
+
+        export = request.form.get("export")
+        if (export == "on"):
+            print("EXPORT")
+            for i in range(0, 5):
+                years.append(int(yearData[i]))
+            fileName = exportData(years, email, name)
+            return send_file(fileName,name,as_attachment=True, attachment_filename=fileName)
+
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
     if "email" in session: # GET
         print("edit name: ", name)
