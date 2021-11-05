@@ -29,7 +29,6 @@ pyOpenSSL==21.0.0
 pyparsing==2.4.7
 pytest==6.2.5
 python-docx==0.8.11
-pywin32==227
 selenium==4.0.0
 six==1.16.0
 sniffio==1.2.0
