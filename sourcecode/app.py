@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, url_for, redirect, session
+from flask import Flask, render_template, request, url_for, redirect, session, send_file
 import pymongo
 import bcrypt
+from docx import Document
+import math
 
 app = Flask(__name__)
 app.secret_key = "testing"
@@ -156,6 +158,181 @@ def logout():
     else:
         return render_template('index.html')
 
+def exportData(years, email, name):
+    #get student major
+    entry = records.find({"email": email}, {"major": 1, "_id": 0})
+    for item in entry:
+        major = item['major']
+
+    #create document
+    document = Document()
+    title = major + " Flowchart " + name
+
+    #helper function for determining table size
+    def number_helper(value):
+        if (value == "taken"): return 1
+        elif (value == "inprogress"): return 2
+        elif (value == "spring0"): return 3
+        elif (value == "fall0"): return 4
+        elif (value == "spring1"): return 5
+        elif (value == "fall1"): return 6
+        elif (value == "spring2"): return 7
+        elif (value == "fall2"): return 8
+        elif (value == "spring3"): return 9
+        elif (value == "fall3"): return 10
+        elif (value == "spring4"): return 11
+        elif (value == "fall4"): return 12
+        elif (value == "deselect"): return 13
+        elif (value == ""): return 13
+
+    #helper function to get semester name
+    def getSemesterName(num):
+        if (num == 1): return "Taken"
+        elif (num == 2): return "In Progress"
+        elif (num == 3): return "Spring " + str(years[0])
+        elif (num == 4): return "Fall " + str(years[0])
+        elif (num == 5): return "Spring " + str(years[1])
+        elif (num == 6): return "Fall " + str(years[1])
+        elif (num == 7): return "Spring " + str(years[2])
+        elif (num == 8): return "Fall " + str(years[2])
+        elif (num == 9): return "Spring " + str(years[3])
+        elif (num == 10): return "Fall " + str(years[3])
+        elif (num == 11): return "Spring " + str(years[4])
+        elif (num == 12): return "Fall " + str(years[4])
+        elif (num == 13): return ""
+
+    #helper function to get class name based on id
+    def getClassName(id):
+        if (id == 1): return "EN 101"
+        elif (id == 2): return "ENGR 103"
+        elif (id == 3): return "MATH 125"
+        elif (id == 4): return "CS 100"
+        elif (id == 5): return "CS 121"
+        elif (id == 6): return "EN 102"
+        elif (id == 7): return "HI/SB Elective"
+        elif (id == 8): return "MATH 126"
+        elif (id == 9): return "CS 101"
+        elif (id == 10): return "HU/L/FA Elective"
+        elif (id == 11): return "MATH 301"
+        elif (id == 12): return "CS 200"
+        elif (id == 13): return "ECE 380"
+        elif (id == 14): return "HU/L/FA Elective"
+        elif (id == 15): return "Natural Science Elective"
+        elif (id == 16): return "MATH 302"
+        elif (id == 17): return "CS 201"
+        elif (id == 18): return "ECE 383"
+        elif (id == 19): return "Free Elective"
+        elif (id == 20): return "HI/SB Elective"
+        elif (id == 21): return "GES 255/ MATH 355"
+        elif (id == 22): return "CS 300"
+        elif (id == 23): return "CS 301"
+        elif (id == 24): return "Free Elective"
+        elif (id == 25): return "HI/SB Elective"
+        elif (id == 26): return "MATH 237"
+        elif (id == 27): return "CS 403"
+        elif (id == 28): return "CS 4xx"
+        elif (id == 29):  return "Free Elective"
+        elif (id == 30): return "HU/L/FA Elective"
+        elif (id == 31): return "Natural Sciene Sequence #1"
+        elif (id == 32): return "CS 470/ CS 475"
+        elif (id == 33): return "CS 4xx"
+        elif (id == 34): return "Free Elective"
+        elif (id == 35): return "Free Elective"
+        elif (id == 36): return "Natural Science Sequence #2"
+        elif (id == 37): return "CS 495"
+
+    #get flowchart information and populate document
+    entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+    len = 0
+    for item in entry:
+        for thing in item['flowcharts']: # Get number of flowcharts an account has
+            len += 1
+        for i in range(len):
+            if (item['flowcharts'][i]["name"] == name): # write flowchart information to document
+                count = []
+                data = []
+                for j in range(0, 14):
+                    count.append(0)
+                    data.append([])
+                for j in range(1,38): #determine size of table
+                    cur = number_helper(item['flowcharts'][i][str(j)])
+                    cur = int(cur)
+                    count[cur] += 1
+                    data[cur].append(j)
+                numRows = 0 #number of semesters
+                numCols = 0 #max number of classes in a semester
+                largestCol = 0
+                for j in range(1, 13):
+                    if (count[j] > 0):
+                        numRows += 1
+                        if (count[j] > numCols):
+                            numCols = count[j]
+                            largestCol = j
+                numCols += 1 #add one for semester name
+                #add data to document
+                if (numRows == 0): 
+                    document.add_paragraph('This flowchart has no data.')
+                else:
+                    row = 0
+                    if (largestCol != 1):
+                        table = document.add_table(rows=numRows, cols=numCols)
+                        table.style = 'TableGrid'
+                        for j in range(1, 13):
+                            if (count[j] > 0):
+                                curRow = table.rows[row].cells
+                                curRow[0].text = getSemesterName(j)
+                                for k in range(1, count[j]+1):
+                                    curRow = table.rows[row].cells
+                                    curRow[k].text = getClassName(data[j][k-1])
+                                row += 1
+                    else: 
+                        newNumCols = 0
+                        for j in range(1, 13):
+                            if ((count[j] > newNumCols) and (j != 1)):
+                                    newNumCols = count[j]
+                        rowIterations = count[1] / newNumCols
+                        rowIterations = math.ceil(rowIterations)
+                        newNumRows = numRows + rowIterations - 1
+                        table = document.add_table(rows=newNumRows, cols=newNumCols+1)
+                        table.style = 'TableGrid'
+                        for j in range(1, 13):
+                            if (j != 1):
+                                if (count[j] > 0):
+                                    # print("adding ", getSemesterName(j), "to 0 in row ", row)
+                                    curRow = table.rows[row].cells
+                                    curRow[0].text = getSemesterName(j)
+                                    for k in range(1, count[j]+1):
+                                        curRow = table.rows[row].cells
+                                        curRow[k].text = getClassName(data[j][k-1])
+                                        # print("adding ", getClassName(data[j][k-1]), "to ", k, "in row ", row, "class ", data[j][k-1])
+                                    row += 1
+                            else:
+                                place = 0
+                                if (count[j] > 0):
+                                    for i in range(0, rowIterations):
+                                        curRow = table.rows[row].cells
+                                        if (i == 0):
+                                            curRow[0].text = getSemesterName(j)
+                                            # print("adding ", getSemesterName(j), "to 0 in row ", row)
+                                            for k in range(1, newNumCols):
+                                                curRow = table.rows[row].cells
+                                                curRow[k].text = getClassName(data[j][place])
+                                                # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
+                                                place += 1
+                                            row += 1
+                                        else:
+                                            for k in range(1, newNumCols+1):
+                                                curRow = table.rows[row].cells
+                                                curRow[k].text = getClassName(data[j][place])
+                                                # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
+                                                place += 1
+                                                if (place >= count[1]):
+                                                    break
+                                            row += 1
+    #send document to user to be downloaded            
+    saveName1 = title + ".docx"
+    document.save(saveName1)
+    return saveName1
 @app.route("/flowchart-new", methods=['post', 'get'])
 def flowchart1():
     if request.method == "POST":
