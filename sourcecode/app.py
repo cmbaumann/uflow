@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, url_for, redirect, session, m
 import pymongo
 import bcrypt
 from docx import Document
-from docx2pdf import convert
 import math
 
 app = Flask(__name__)
@@ -332,11 +331,8 @@ def exportData(years, email, name):
                                             row += 1
     #send document to user to be downloaded            
     saveName1 = title + ".docx"
-    #return send_file(saveName,name,as_attachment=True, attachment_filename=saveName)
-    saveName2 = title + ".pdf"
     document.save(saveName1)
-    convert(saveName1)
-    return saveName2
+    return saveName1
 
 @app.route("/flowchart-new", methods=['post', 'get'])
 def flowchart1():
