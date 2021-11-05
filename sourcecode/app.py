@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, session, make_response, send_file
+from flask import Flask, render_template, request, url_for, redirect, session, send_file
 import pymongo
 import bcrypt
 from docx import Document
@@ -333,7 +333,6 @@ def exportData(years, email, name):
     saveName1 = title + ".docx"
     document.save(saveName1)
     return saveName1
-
 @app.route("/flowchart-new", methods=['post', 'get'])
 def flowchart1():
     if request.method == "POST":
@@ -673,16 +672,6 @@ def flowchart2(name):
         yearData.append(yearPass3)
         yearData.append(yearPass4)
         yearData.append(yearPass5)
-
-        export = request.form.get("export")
-        if (export == "on"):
-            print("EXPORT")
-            for i in range(0, 5):
-                print(yearData[i])
-                years.append(int(yearData[i]))
-            fileName = exportData(years, email, name)
-            return send_file(fileName,name,as_attachment=True, attachment_filename=fileName)
-
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
     if "email" in session: # GET
         print("edit name: ", name)
@@ -769,6 +758,7 @@ def edit_elective():
                 'show_edit': True
             }
             return render_template('flowchart-new.html', info_dict=info_dict)
+
 
 #end of code to run it
 if __name__ == "__main__":
