@@ -1340,7 +1340,7 @@ function click_button(id) {
         "{{data[14]}}", "{{data[15]}}", "{{data[16]}}", "{{data[17]}}", "{{data[18]}}", "{{data[19]}}", "{{data[20]}}",
         "{{data[21]}}", "{{data[22]}}", "{{data[23]}}", "{{data[24]}}", "{{data[25]}}", "{{data[26]}}", "{{data[27]}}", 
         "{{data[28]}}", "{{data[29]}}", "{{data[30]}}", "{{data[31]}}", "{{data[32]}}", "{{data[33]}}", "{{data[34]}}",
-        "{{data[35]}}", "{{data[36]}}", "{{data[37]}}", "{{data[38]}}", "{{data[39]}}", "{{data[39]}}"];
+        "{{data[35]}}", "{{data[36]}}", "{{data[37]}}", "{{data[38]}}", "{{data[39]}}", "{{data[39]}}", "{{data[40]}}"];
     console.log(DBcols);
     
     // updating course information - taken, in progress, etc. 
@@ -1411,11 +1411,29 @@ function click_button(id) {
     document.getElementById("c11").value = "{{data[38][10]}}";
     document.getElementById("c12").value = "{{data[38][11]}}";
 
+    // function to create array of strings from jinja input
+    function cleanArray(input) {
+        const splitArray = input.split(",");
+        var returnArray = [];
+
+        for(i=0; i<splitArray.length; i++) {
+            let temp = splitArray[i];
+            // clean each string
+            temp.replace(/[^0-9a-z]/gi, '');
+            returnArray.push(temp);
+        }
+        return returnArray;
+    }
+
     // updating elective information
-    var elNameArray = "{{data[39][]}}";
-    var elHoursArray = "{{data[40][]}}";
-    // var elNameArray = array[39];
-    // var elHoursArray = array[40];
+    var elNameArray = "{{data[39]}}";
+    var elHoursArray = "{{data[40]}}";
+    const allNames = cleanArray(elNameArray);
+    const allHours = cleanArray(elHoursArray);
+
+    //TEST
+    console.log(allNames, allHours);
+
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
     var len_elec = elective_ids.length;
 
@@ -1423,26 +1441,28 @@ function click_button(id) {
     // document.getElementById("7OutputElective").innerHTML = "{{data[39][0]}}";
 
     
-    for(i=0; i<len_elec; i++) {
-        // declare variables - make more readable
-        var id = elective_ids[i];
-        var output_elective = document.getElementById(id+"OutputElective");
-        var elective_box = document.getElementById(id+"electiveText");
-        var hours_box = document.getElementById(id+"hours");
-        var button = document.getElementById(id+"Button")
-        // information from DB
-        elName = elNameArray.at(i);
-        elHour = elHoursArray.at(i);
+    // for(i=0; i<len_elec; i++) {
+    //     // declare variables - make more readable
+    //     var id = elective_ids[i];
+    //     var output_elective = document.getElementById(id+"OutputElective");
+    //     var elective_box = document.getElementById(id+"electiveText");
+    //     var hours_box = document.getElementById(id+"hours");
+    //     var button = document.getElementById(id+"Button")
+    //     // information from DB
 
-        // FIXME: for now edit everything for now - will need to check for null / empty electives
-        // if(elName && elHours) {
-            output_elective.innerHTML = elName + " (" + elHour + " hours)";
-            output_elective.style.display = "block";    // show output
-            elective_box.style.display = "none";       // do not show input form
-            hours_box.style.display = "none";          // do not show input form
-            button.innerHTML = "Edit Course";
-        // }
-    }
+    //     //FIXME: use .at() or []?
+    //     elName = elNameArray.at(i);
+    //     elHour = elHoursArray.at(i);
+
+    //     // FIXME: for now edit everything for now - will need to check for null / empty electives
+    //     if(elName && elHours) {
+    //         output_elective.innerHTML = elName + " (" + elHour + " hours)";
+    //         output_elective.style.display = "block";    // show output
+    //         elective_box.style.display = "none";       // do not show input form
+    //         hours_box.style.display = "none";          // do not show input form
+    //         button.innerHTML = "Edit Course";
+    //     }
+    // }
 
 </script>
 {% endif %}
