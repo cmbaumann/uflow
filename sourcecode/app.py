@@ -3,6 +3,7 @@ import pymongo
 import bcrypt
 from docx import Document
 import math
+from datetime import date
 
 app = Flask(__name__)
 app.secret_key = "testing"
@@ -274,6 +275,11 @@ def exportData(years, email, name):
                     document.add_paragraph('This flowchart has no data.')
                 else:
                     row = 0
+                    line1 = "Flowchart Name: " + name
+                    today = date.today()
+                    line2 = "Modified on " + str(today)
+                    document.add_paragraph(line1)
+                    document.add_paragraph(line2)
                     if (largestCol != 1):
                         table = document.add_table(rows=numRows, cols=numCols)
                         table.style = 'TableGrid'
@@ -300,7 +306,9 @@ def exportData(years, email, name):
                                 if (count[j] > 0):
                                     # print("adding ", getSemesterName(j), "to 0 in row ", row)
                                     curRow = table.rows[row].cells
-                                    curRow[0].text = getSemesterName(j)
+                                    paragraph = curRow[0].paragraphs[0]
+                                    run = paragraph.add_run(getSemesterName(j))
+                                    run.bold = True
                                     for k in range(1, count[j]+1):
                                         curRow = table.rows[row].cells
                                         curRow[k].text = getClassName(data[j][k-1])
@@ -312,7 +320,9 @@ def exportData(years, email, name):
                                     for i in range(0, rowIterations):
                                         curRow = table.rows[row].cells
                                         if (i == 0):
-                                            curRow[0].text = getSemesterName(j)
+                                            paragraph = curRow[0].paragraphs[0]
+                                            run = paragraph.add_run(getSemesterName(j))
+                                            run.bold = True
                                             # print("adding ", getSemesterName(j), "to 0 in row ", row)
                                             for k in range(1, newNumCols):
                                                 curRow = table.rows[row].cells
@@ -680,7 +690,7 @@ def flowchart2(name):
             for i in range(0, 5):
                 years.append(int(yearData[i]))
             fileName = exportData(years, email, name)
-            return send_file(fileName,name,as_attachment=True, attachment_filename=fileName)
+            return send_file(fileName, name, as_attachment=True, download_name=fileName)
 
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
     if "email" in session: # GET
