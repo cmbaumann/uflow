@@ -329,39 +329,6 @@ def flowchart1():
         # appending elective info
         data.append(elNameArr)
         data.append(elHoursArr)
-
-        # data.append(d7el)
-        # data.append(d7hrs)
-        # data.append(d10el)
-        # data.append(d10hrs)
-        # data.append(d14el)
-        # data.append(d14hrs)
-        # data.append(d15el)
-        # data.append(d15hrs)
-        # data.append(d19el)
-        # data.append(d19hrs)
-        # data.append(d20el)
-        # data.append(d20hrs)
-        # data.append(d24el)
-        # data.append(d24hrs)
-        # data.append(d25el)
-        # data.append(d25hrs)
-        # data.append(d28el)
-        # data.append(d28hrs)
-        # data.append(d29el)
-        # data.append(d29hrs)
-        # data.append(d30el)
-        # data.append(d30hrs)
-        # data.append(d31el)
-        # data.append(d31hrs)
-        # data.append(d33el)
-        # data.append(d33hrs)
-        # data.append(d34el)
-        # data.append(d34hrs)
-        # data.append(d35el)
-        # data.append(d35hrs)
-        # data.append(d36el)
-        # data.append(d36hrs)
         
         if (name == ""):
             message = 'Please enter a name for your flowchart'
@@ -569,39 +536,6 @@ def flowchart2(name):
                     item['flowcharts'][i]["elective_names"] = elNameArr
                     item['flowcharts'][i]["elective_hours"] = elHoursArr
 
-                    # item['flowcharts'][i]["d7el"] = d7el
-                    # item['flowcharts'][i]["d7hrs"] = d7hrs
-                    # item['flowcharts'][i]["d10el"] = d10el
-                    # item['flowcharts'][i]["d10hrs"] = d10hrs
-                    # item['flowcharts'][i]["d14el"] = d14el
-                    # item['flowcharts'][i]["d14hrs"] = d14hrs
-                    # item['flowcharts'][i]["d15el"] = d15el
-                    # item['flowcharts'][i]["d15hrs"] = d15hrs
-                    # item['flowcharts'][i]["d19el"] = d19el
-                    # item['flowcharts'][i]["d19hrs"] = d19hrs
-                    # item['flowcharts'][i]["d20el"] = d20el
-                    # item['flowcharts'][i]["d20hrs"] = d20hrs
-                    # item['flowcharts'][i]["d24el"] = d24el
-                    # item['flowcharts'][i]["d24hrs"] = d24hrs
-                    # item['flowcharts'][i]["d25el"] = d25el
-                    # item['flowcharts'][i]["d25hrs"] = d25hrs
-                    # item['flowcharts'][i]["d28el"] = d28el
-                    # item['flowcharts'][i]["d28hrs"] = d28hrs
-                    # item['flowcharts'][i]["d29el"] = d29el
-                    # item['flowcharts'][i]["d29hrs"] = d29hrs
-                    # item['flowcharts'][i]["d30el"] = d30el
-                    # item['flowcharts'][i]["d30hrs"] = d30hrs
-                    # item['flowcharts'][i]["d31el"] = d31el
-                    # item['flowcharts'][i]["d31hrs"] = d31hrs
-                    # item['flowcharts'][i]["d33el"] = d33el
-                    # item['flowcharts'][i]["d33hrs"] = d33hrs
-                    # item['flowcharts'][i]["d34el"] = d34el
-                    # item['flowcharts'][i]["d34hrs"] = d34hrs
-                    # item['flowcharts'][i]["d35el"] = d35el
-                    # item['flowcharts'][i]["d35hrs"] = d35hrs
-                    # item['flowcharts'][i]["d36el"] = d36el
-                    # item['flowcharts'][i]["d36hrs"] = d36hrs
-
                 newData.append(item['flowcharts'][i])
         data = []
         data.append(name)
@@ -650,44 +584,7 @@ def flowchart2(name):
         data.append(elNameArr)
         data.append(elHoursArr)
         
-        # data.append(d7el)
-        # data.append(d7hrs)
-        # data.append(d10el)
-        # data.append(d10hrs)
-        # data.append(d14el)
-        # data.append(d14hrs)
-        # data.append(d15el)
-        # data.append(d15hrs)
-        # data.append(d19el)
-        # data.append(d19hrs)
-        # data.append(d20el)
-        # data.append(d20hrs)
-        # data.append(d24el)
-        # data.append(d24hrs)
-        # data.append(d25el)
-        # data.append(d25hrs)
-        # data.append(d28el)
-        # data.append(d28hrs)
-        # data.append(d29el)
-        # data.append(d29hrs)
-        # data.append(d30el)
-        # data.append(d30hrs)
-        # data.append(d31el)
-        # data.append(d31hrs)
-        # data.append(d33el)
-        # data.append(d33hrs)
-        # data.append(d34el)
-        # data.append(d34hrs)
-        # data.append(d35el)
-        # data.append(d35hrs)
-        # data.append(d36el)
-        # data.append(d36hrs)
-        
-        """FIXME: rather than appending this all to a new data array and rendering the page,
-        is it possible to render page with last flowchart in database (as the record gets
-        updated before rendering the template)
-
-        FIXME: possible to make these data.appends and editing flowchart duplicates 
+        """FIXME: possible to make these data.appends and editing flowchart duplicates 
         a function so it can be called in the 2-3 places it is used instead of copy/pasting
         """
 
@@ -768,40 +665,6 @@ def flowchart2(name):
                     # elective information - from dictionary
                     data.append(item['flowcharts'][i]["elective_names"])
                     data.append(item['flowcharts'][i]["elective_hours"])
-
-                    # data.append(item['flowcharts'][i]["d7el"])
-                    # data.append(item['flowcharts'][i]["d7hrs"])
-                    # data.append(item['flowcharts'][i]["d10el"])
-                    # data.append(item['flowcharts'][i]["d10hrs"])
-                    # data.append(item['flowcharts'][i]["d14el"])
-                    # data.append(item['flowcharts'][i]["d14hrs"])
-                    # data.append(item['flowcharts'][i]["d15el"])
-                    # data.append(item['flowcharts'][i]["d15hrs"])
-                    # data.append(item['flowcharts'][i]["d19el"])
-                    # data.append(item['flowcharts'][i]["d19hrs"])
-                    # data.append(item['flowcharts'][i]["d20el"])
-                    # data.append(item['flowcharts'][i]["d20hrs"])
-                    # data.append(item['flowcharts'][i]["d24el"])
-                    # data.append(item['flowcharts'][i]["d24hrs"])
-                    # data.append(item['flowcharts'][i]["d25el"])
-                    # data.append(item['flowcharts'][i]["d25hrs"])
-                    # data.append(item['flowcharts'][i]["d28el"])
-                    # data.append(item['flowcharts'][i]["d28hrs"])
-                    # data.append(item['flowcharts'][i]["d29el"])
-                    # data.append(item['flowcharts'][i]["d29hrs"])
-                    # data.append(item['flowcharts'][i]["d30el"])
-                    # data.append(item['flowcharts'][i]["d30hrs"])
-                    # data.append(item['flowcharts'][i]["d31el"])
-                    # data.append(item['flowcharts'][i]["d31hrs"])
-                    # data.append(item['flowcharts'][i]["d33el"])
-                    # data.append(item['flowcharts'][i]["d33hrs"])
-                    # data.append(item['flowcharts'][i]["d34el"])
-                    # data.append(item['flowcharts'][i]["d34hrs"])
-                    # data.append(item['flowcharts'][i]["d35el"])
-                    # data.append(item['flowcharts'][i]["d35hrs"])
-                    # data.append(item['flowcharts'][i]["d36el"])
-                    # data.append(item['flowcharts'][i]["d36hrs"])
-
 
         year = records.find({"email": email}, {"year": 1, "_id": 0})
         for item in year:
