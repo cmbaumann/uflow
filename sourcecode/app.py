@@ -96,6 +96,7 @@ def logged_in():
         )
 
         names = []
+        fcBgColors = []
         len = 0
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         for item in entry:
@@ -103,10 +104,12 @@ def logged_in():
                     len = len + 1
                 for i in range(0, len):
                     names.append(item['flowcharts'][i]["name"])
-        return render_template('logged_in.html', email=email, names=names)
+                    fcBgColors.append(item['flowcharts'][i]["colors"][12])
+        return render_template('logged_in.html', email=email, names=names, fcBgColors=fcBgColors)
     if "email" in session:
         email = session["email"]
         names = []
+        fcBgColors = []
         len = 0
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         for item in entry:
@@ -114,7 +117,8 @@ def logged_in():
                     len = len + 1
                 for i in range(0, len):
                     names.append(item['flowcharts'][i]["name"])
-        return render_template('logged_in.html', email=email, names=names)
+                    fcBgColors.append(item['flowcharts'][i]["colors"][12])
+        return render_template('logged_in.html', email=email, names=names, fcBgColors=fcBgColors)
     else:
         return redirect(url_for("login"))
 
