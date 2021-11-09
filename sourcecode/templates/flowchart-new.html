@@ -1341,7 +1341,7 @@ function click_button(id) {
         "{{data[21]}}", "{{data[22]}}", "{{data[23]}}", "{{data[24]}}", "{{data[25]}}", "{{data[26]}}", "{{data[27]}}", 
         "{{data[28]}}", "{{data[29]}}", "{{data[30]}}", "{{data[31]}}", "{{data[32]}}", "{{data[33]}}", "{{data[34]}}",
         "{{data[35]}}", "{{data[36]}}", "{{data[37]}}", "{{data[38]}}", "{{data[39]}}", "{{data[39]}}", "{{data[40]}}"];
-    console.log(DBcols);
+    // console.log(DBcols);
     
     // updating course information - taken, in progress, etc. 
     for (let i = 1; i < 38; i++) {
@@ -1417,9 +1417,11 @@ function click_button(id) {
         var returnArray = [];
 
         for(i=0; i<splitArray.length; i++) {
-            let temp = splitArray[i];
+            var temp = splitArray[i];
             // clean each string
             temp.replace(/[^0-9a-z]/gi, '');
+            // tempLen = temp.length;
+            temp = temp.slice(6,-5);
             returnArray.push(temp);
         }
         return returnArray;
@@ -1428,8 +1430,8 @@ function click_button(id) {
     // updating elective information
     var elNameArray = "{{data[39]}}";
     var elHoursArray = "{{data[40]}}";
-    const allNames = cleanArray(elNameArray);
-    const allHours = cleanArray(elHoursArray);
+    var allNames = cleanArray(elNameArray);
+    var allHours = cleanArray(elHoursArray);
 
     //TEST
     console.log(allNames, allHours);

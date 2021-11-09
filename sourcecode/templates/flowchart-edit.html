@@ -1364,6 +1364,22 @@ will then have to create my own loop of some kind assigning them
     //FIXME: consider controlling how empty elective info is sent to db 
     // (store as a default var?)
     
+        // function to create array of strings from jinja input
+    function cleanArray(input) {
+        const splitArray = input.split(",");
+        var returnArray = [];
+
+        for(i=0; i<splitArray.length; i++) {
+            let temp = splitArray[i];
+            // clean each string
+            temp.replace(/[^0-9a-z]/gi, '');
+            // tempLen = temp.length;
+            temp = temp.slice(6,-5);
+            returnArray.push(temp);
+        }
+        return returnArray;
+    }
+
     // updating elective information
     var elNameArray = "{{data[39]}}";
     var elHoursArray = "{{data[40]}}";
