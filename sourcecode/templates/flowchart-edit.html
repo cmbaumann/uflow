@@ -1364,17 +1364,17 @@ will then have to create my own loop of some kind assigning them
     //FIXME: consider controlling how empty elective info is sent to db 
     // (store as a default var?)
     
-        // function to create array of strings from jinja input
+    // function to create array of strings from jinja input
     function cleanArray(input) {
         const splitArray = input.split(",");
         var returnArray = [];
 
         for(i=0; i<splitArray.length; i++) {
-            let temp = splitArray[i];
             // clean each string
-            temp.replace(/[^0-9a-z]/gi, '');
-            // tempLen = temp.length;
+            let temp = splitArray[i];
             temp = temp.slice(6,-5);
+            temp = temp.replace(/&/g, '');
+            // temp = temp.replace(/[^0-9a-zA-Z]/gi, '');
             returnArray.push(temp);
         }
         return returnArray;
@@ -1386,38 +1386,46 @@ will then have to create my own loop of some kind assigning them
     const allNames = cleanArray(elNameArray);
     const allHours = cleanArray(elHoursArray);
 
-    //TEST
+    // FIXME: TEST
     console.log(allNames, allHours);
 
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
     var len_elec = elective_ids.length;
-
-    // FIXME: just a sanity check
-    // document.getElementById("7OutputElective").innerHTML = "{{data[39][0]}}";
-
     
-    // for(i=0; i<len_elec; i++) {
-    //     // declare variables - make more readable
-    //     var id = elective_ids[i];
-    //     var output_elective = document.getElementById(id+"OutputElective");
-    //     var elective_box = document.getElementById(id+"electiveText");
-    //     var hours_box = document.getElementById(id+"hours");
-    //     var button = document.getElementById(id+"Button")
-    //     // information from DB
+    // FIXME: just for testing
+    var newName = [];
+    var newHour = [];
 
-    //     //FIXME: use .at() or []?
-    //     elName = elNameArray.at(i);
-    //     elHour = elHoursArray.at(i);
+    for(i=0; i<len_elec; i++) {
+        // declare variables - make more readable
+        var id = elective_ids[i];
+        var output_elective = document.getElementById(id+"OutputElective");
+        var elective_box = document.getElementById(id+"electiveText");
+        var hours_box = document.getElementById(id+"hours");
+        var button = document.getElementById(id+"Button")
 
-    //     // FIXME: for now edit everything for now - will need to check for null / empty electives
-    //     if(elName && elHours) {
-    //         output_elective.innerHTML = elName + " (" + elHour + " hours)";
-    //         output_elective.style.display = "block";    // show output
-    //         elective_box.style.display = "none";       // do not show input form
-    //         hours_box.style.display = "none";          // do not show input form
-    //         button.innerHTML = "Edit Course";
-    //     }
-    // }
+        elName = allNames.at(i);
+        elHour = allHours.at(i);
+
+        if(!elName && !elHour) {
+            continue;
+        }
+        else { 
+            output_elective.style.display = "block";    // show output
+            elective_box.style.display = "none";       // do not show input form
+            hours_box.style.display = "none";          // do not show input form
+            button.innerHTML = "Edit Course";
+            if(elName && !elHour) {
+                output_elective.innerHTML = elName + " (__ hours)";
+            }
+            else if(!elName && elHour) {
+                output_elective.innerHTML = "__ (" + elHour + " hours)";
+            }
+            else {  // elName && elHour
+                output_elective.innerHTML = elName + " (" + elHour + " hours)";  
+            }
+        }        
+    }
 
 </script>
 
