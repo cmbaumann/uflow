@@ -1411,6 +1411,7 @@ function click_button(id) {
     document.getElementById("c11").value = "{{data[38][10]}}";
     document.getElementById("c12").value = "{{data[38][11]}}";
 
+    // adding elective information to existing flowchart
     // function to create array of strings from jinja input
     function cleanArray(input) {
         const splitArray = input.split(",");
@@ -1418,7 +1419,7 @@ function click_button(id) {
 
         for(i=0; i<splitArray.length; i++) {
             // clean each string
-            var temp = splitArray[i];
+            let temp = splitArray[i];
             temp = temp.slice(6,-5);
             temp = temp.replace(/&/g, '');
             // temp = temp.replace(/[^0-9a-zA-Z]/gi, '');
@@ -1430,15 +1431,15 @@ function click_button(id) {
     // updating elective information
     var elNameArray = "{{data[39]}}";
     var elHoursArray = "{{data[40]}}";
-    var allNames = cleanArray(elNameArray);
-    var allHours = cleanArray(elHoursArray);
+    const allNames = cleanArray(elNameArray);
+    const allHours = cleanArray(elHoursArray);
 
     // FIXME: TEST
     console.log(allNames, allHours);
 
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
     var len_elec = elective_ids.length;
-    
+
     for(i=0; i<len_elec; i++) {
         // declare variables - make more readable
         var id = elective_ids[i];
@@ -1447,17 +1448,27 @@ function click_button(id) {
         var hours_box = document.getElementById(id+"hours");
         var button = document.getElementById(id+"Button")
 
-        //FIXME: use .at() or []?
-        elName = elNameArray.at(i);
-        elHour = elHoursArray.at(i);
+        elName = allNames.at(i);
+        elHour = allHours.at(i);
 
-        // if(elName && elHours) {
-        //     output_elective.innerHTML = elName + " (" + elHour + " hours)";
-        //     output_elective.style.display = "block";    // show output
-        //     elective_box.style.display = "none";       // do not show input form
-        //     hours_box.style.display = "none";          // do not show input form
-        //     button.innerHTML = "Edit Course";
-        // }
+        if(!elName && !elHour) {
+            continue;
+        }
+        else { 
+            output_elective.style.display = "block";    // show output
+            elective_box.style.display = "none";       // do not show input form
+            hours_box.style.display = "none";          // do not show input form
+            button.innerHTML = "Edit Course";
+            if(elName && !elHour) {
+                output_elective.innerHTML = elName + " (__ hours)";
+            }
+            else if(!elName && elHour) {
+                output_elective.innerHTML = "__ (" + elHour + " hours)";
+            }
+            else {  // elName && elHour
+                output_elective.innerHTML = elName + " (" + elHour + " hours)";  
+            }
+        }        
     }
 
 </script>

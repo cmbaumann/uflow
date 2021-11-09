@@ -1360,10 +1360,7 @@ will then have to create my own loop of some kind assigning them
     document.getElementById("c11").value = "{{data[38][10]}}";
     document.getElementById("c12").value = "{{data[38][11]}}";
     
-    //adding elective information to existing flowchart
-    //FIXME: consider controlling how empty elective info is sent to db 
-    // (store as a default var?)
-    
+    // adding elective information to existing flowchart
     // function to create array of strings from jinja input
     function cleanArray(input) {
         const splitArray = input.split(",");
@@ -1391,10 +1388,6 @@ will then have to create my own loop of some kind assigning them
 
     var elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36];
     var len_elec = elective_ids.length;
-    
-    // FIXME: just for testing
-    var newName = [];
-    var newHour = [];
 
     for(i=0; i<len_elec; i++) {
         // declare variables - make more readable
