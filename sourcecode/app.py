@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, session, send_file
+from flask import Flask, render_template, request, url_for, redirect, session, send_file, request
 import pymongo
 import bcrypt
 from docx import Document
@@ -159,7 +159,7 @@ def logout():
     else:
         return render_template('index.html')
 
-def exportData(years, email, name):
+def exportData(years, email, name, electives, hours):
     #get student major
     entry = records.find({"email": email}, {"major": 1, "_id": 0})
     for item in entry:
@@ -202,45 +202,65 @@ def exportData(years, email, name):
         elif (num == 12): return "Fall " + str(years[4])
         elif (num == 13): return ""
 
+    def getElectiveName(index):
+        if (electives[index] != ""):
+            return electives[index] + " (" + hours[index] + ")"
+        elif (index == 0): return "HI/SB Elective"
+        elif (index == 1): return "HU/L/FA Elective"
+        elif (index == 2): return "HU/L/FA Elective"
+        elif (index == 3): return "Natural Science Elective"
+        elif (index == 4): return "Free Elective"
+        elif (index == 5): return "HI/SB Elective"
+        elif (index == 6): return "Free Elective"
+        elif (index == 7): return "HI/SB Elective"
+        elif (index == 8): return "CS 4xx"
+        elif (index == 9):  return "Free Elective"
+        elif (index == 10): return "HU/L/FA Elective"
+        elif (index == 11): return "Natural Sciene Sequence #1"
+        elif (index == 12): return "CS 4xx"
+        elif (index == 13): return "Free Elective"
+        elif (index == 14): return "Free Elective"
+        elif (index == 15): return "Natural Science Sequence #2"
+
     #helper function to get class name based on id
     def getClassName(id):
-        if (id == 1): return "EN 101"
-        elif (id == 2): return "ENGR 103"
-        elif (id == 3): return "MATH 125"
-        elif (id == 4): return "CS 100"
-        elif (id == 5): return "CS 121"
-        elif (id == 6): return "EN 102"
-        elif (id == 7): return "HI/SB Elective"
-        elif (id == 8): return "MATH 126"
-        elif (id == 9): return "CS 101"
-        elif (id == 10): return "HU/L/FA Elective"
-        elif (id == 11): return "MATH 301"
-        elif (id == 12): return "CS 200"
-        elif (id == 13): return "ECE 380"
-        elif (id == 14): return "HU/L/FA Elective"
-        elif (id == 15): return "Natural Science Elective"
-        elif (id == 16): return "MATH 302"
-        elif (id == 17): return "CS 201"
-        elif (id == 18): return "ECE 383"
-        elif (id == 19): return "Free Elective"
-        elif (id == 20): return "HI/SB Elective"
-        elif (id == 21): return "GES 255/ MATH 355"
-        elif (id == 22): return "CS 300"
-        elif (id == 23): return "CS 301"
-        elif (id == 24): return "Free Elective"
-        elif (id == 25): return "HI/SB Elective"
-        elif (id == 26): return "MATH 237"
-        elif (id == 27): return "CS 403"
-        elif (id == 28): return "CS 4xx"
-        elif (id == 29):  return "Free Elective"
-        elif (id == 30): return "HU/L/FA Elective"
-        elif (id == 31): return "Natural Sciene Sequence #1"
-        elif (id == 32): return "CS 470/ CS 475"
-        elif (id == 33): return "CS 4xx"
-        elif (id == 34): return "Free Elective"
-        elif (id == 35): return "Free Elective"
-        elif (id == 36): return "Natural Science Sequence #2"
-        elif (id == 37): return "CS 495"
+        if (id == 1): return "EN 101 (3)"
+        elif (id == 2): return "ENGR 103(3)"
+        elif (id == 3): return "MATH 125 (4)"
+        elif (id == 4): return "CS 100 (4)"
+        elif (id == 5): return "CS 121 (1)"
+        elif (id == 6): return "EN 102 (3)"
+        elif (id == 7): return getElectiveName(0)
+        elif (id == 8): return "MATH 126 (4)"
+        elif (id == 9): return "CS 101 (4)"
+        elif (id == 10): return getElectiveName(1)
+        elif (id == 11): return "MATH 301 (3)"
+        elif (id == 12): return "CS 200 (4)"
+        elif (id == 13): return "ECE 380 (4)"
+        elif (id == 14): return getElectiveName(2)
+        elif (id == 15): return getElectiveName(3)
+        elif (id == 16): return "MATH 302 (1)"
+        elif (id == 17): return "CS 201 (4)"
+        elif (id == 18): return "ECE 383 (4)"
+        elif (id == 19): return getElectiveName(4)
+        elif (id == 20): return getElectiveName(5)
+        elif (id == 21): return "GES 255/ MATH 355 (3)"
+        elif (id == 22): return "CS 300(3)"
+        elif (id == 23): return "CS 301 (3)"
+        elif (id == 24): return getElectiveName(6)
+        elif (id == 25): return getElectiveName(7)
+        elif (id == 26): return "MATH 237 (3)"
+        elif (id == 27): return "CS 403 (3)"
+        elif (id == 28): return getElectiveName(8)
+        elif (id == 29):  return getElectiveName(9)
+        elif (id == 30): return getElectiveName(10)
+        elif (id == 31): return getElectiveName(11)
+        elif (id == 32): return "CS 470/ CS 475 (3)"
+        elif (id == 33): return getElectiveName(12)
+        elif (id == 34): return getElectiveName(13)
+        elif (id == 35): return getElectiveName(14)
+        elif (id == 36): return getElectiveName(15)
+        elif (id == 37): return "CS 495 (3)"
 
     #get flowchart information and populate document
     entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
@@ -286,7 +306,9 @@ def exportData(years, email, name):
                         for j in range(1, 13):
                             if (count[j] > 0):
                                 curRow = table.rows[row].cells
-                                curRow[0].text = getSemesterName(j)
+                                paragraph = curRow[0].paragraphs[0]
+                                run = paragraph.add_run(getSemesterName(j))
+                                run.bold = True
                                 for k in range(1, count[j]+1):
                                     curRow = table.rows[row].cells
                                     curRow[k].text = getClassName(data[j][k-1])
@@ -302,6 +324,7 @@ def exportData(years, email, name):
                         table = document.add_table(rows=newNumRows, cols=newNumCols+1)
                         table.style = 'TableGrid'
                         for j in range(1, 13):
+                            print(j)
                             if (j != 1):
                                 if (count[j] > 0):
                                     # print("adding ", getSemesterName(j), "to 0 in row ", row)
@@ -338,9 +361,17 @@ def exportData(years, email, name):
                                                 place += 1
                                                 if (place >= count[1]):
                                                     break
-                                            row += 1
-    #send document to user to be downloaded            
-    saveName1 = "/tmp/" + title + ".docx"
+                                            row += 1  
+    
+    root_url = request.url_root
+    ip_local = 'http://127.0.0.1:5000/'
+    localhost = 'http://localhost:5000/'
+
+    #send document to user to be downloaded 
+    if ((root_url != ip_local) and (root_url != localhost)):
+        saveName1 = "/tmp/" + title + ".docx"
+    else:
+        saveName1 = title + ".docx"
     document.save(saveName1)
     return saveName1
 
@@ -471,45 +502,9 @@ def flowchart1():
                         name_found = True
                         break
 
-        data = []
-        data.append(name)
-        data.append(d1)
-        data.append(d2)
-        data.append(d3)
-        data.append(d4)
-        data.append(d5)
-        data.append(d6)
-        data.append(d7)
-        data.append(d8)
-        data.append(d9)
-        data.append(d10)
-        data.append(d11)
-        data.append(d12)
-        data.append(d13)
-        data.append(d14)
-        data.append(d15)
-        data.append(d16)
-        data.append(d17)
-        data.append(d18)
-        data.append(d19)
-        data.append(d20)
-        data.append(d21)
-        data.append(d22)
-        data.append(d23)
-        data.append(d24)
-        data.append(d25)
-        data.append(d26)
-        data.append(d27)
-        data.append(d28)
-        data.append(d29)
-        data.append(d30)
-        data.append(d31)
-        data.append(d32)
-        data.append(d33)
-        data.append(d34)
-        data.append(d35)
-        data.append(d36)
-        data.append(d37)
+        data = [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13,
+                d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, 
+                d26, d27, d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]
         
         # appending color array
         data.append(colArr)
@@ -725,45 +720,10 @@ def flowchart2(name):
                     item['flowcharts'][i]["elective_hours"] = elHoursArr
 
                 newData.append(item['flowcharts'][i])
-        data = []
-        data.append(name)
-        data.append(d1)
-        data.append(d2)
-        data.append(d3)
-        data.append(d4)
-        data.append(d5)
-        data.append(d6)
-        data.append(d7)
-        data.append(d8)
-        data.append(d9)
-        data.append(d10)
-        data.append(d11)
-        data.append(d12)
-        data.append(d13)
-        data.append(d14)
-        data.append(d15)
-        data.append(d16)
-        data.append(d17)
-        data.append(d18)
-        data.append(d19)
-        data.append(d20)
-        data.append(d21)
-        data.append(d22)
-        data.append(d23)
-        data.append(d24)
-        data.append(d25)
-        data.append(d26)
-        data.append(d27)
-        data.append(d28)
-        data.append(d29)
-        data.append(d30)
-        data.append(d31)
-        data.append(d32)
-        data.append(d33)
-        data.append(d34)
-        data.append(d35)
-        data.append(d36)
-        data.append(d37)
+        
+        data = [name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13,
+                d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, 
+                d26, d27, d28, d29, d30, d31, d32, d33, d34, d35, d36, d37]
         
         # appending color array - at index 38
         data.append(colArr)
@@ -801,7 +761,7 @@ def flowchart2(name):
             print("EXPORT")
             for i in range(0, 5):
                 years.append(int(yearData[i]))
-            fileName = exportData(years, email, name)
+            fileName = exportData(years, email, name, elNameArr, elHoursArr)
             return send_file(fileName, name, as_attachment=True, download_name=fileName)
 
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
