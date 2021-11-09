@@ -104,8 +104,12 @@
     <div class="msg_greeting">
             <section>You are logged in as {{ email }}</section>
     </div>
+    <div class="fc_block_new">
+        <form action="/flowchart-new">
+            <input class="fc_add" type="submit" value="Add a new flowchart +">
+        </form>
+    </div>
     <table width="100%">
-        <tr>
             <td>
                 <div class="fc_list">
                     {%for name in names %}
@@ -122,31 +126,31 @@
                                         <option selected value="{{name}}">{{name}}</option>
                                     </select>
                                 </form></td>
-                                <td><form onclick="addToFav(name)" name="{{name}}">
-                                    <input class="fc_add_To_Fav" type="submit" value="Add To Favorites">
-                                </form></td>
+                                <td>
+                                    <body>
+                                        <p class = "p1">
+                                            N/A% Complete
+                                        </p>
+                                    </body>
+                                </td>
                             </tr>
                             </table>
                         </div>
                     </div>
-                    {%endfor%}
-
-                    <div class="fc_block_new">
-                        <form action="/flowchart-new">
-                            <input class="fc_add" type="submit" value="Add a new flowchart +">
-                        </form>
-                    </div>
+                    {%endfor%}   
                 </div>
             </td>
-            <td>
-                <div class="favorites">
-                    <div class="heading">Favorites</div>
-                </div>
-            </td>
-        </tr>
     </table>
 </body>
-
 <!--Placeholders. When finished there should be a list of flowcharts that you have saved, added with a single button, each with an edit and delete button.-->
+
+
+<script>
+    x = document.getElementsByClassName("p1");
+    for(var i = 0; i < x.length; i++){
+        x[i].innerText="Getting somewhere";
+    }
+</script>
+
 
 {% endblock %}
