@@ -399,6 +399,8 @@ def flowchart1():
         d35 = request.form.get("d35")
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
+        
+        # color information 
         c1 = request.form.get("c1")
         c2 = request.form.get("c2")
         c3 = request.form.get("c3")
@@ -414,6 +416,47 @@ def flowchart1():
         c13 = request.form.get("c13")
         colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
         print(colArr)
+
+        # get elective information
+        # list of all elective ids
+        # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
+        d7el = request.form.get("7electiveText")
+        d7hrs = request.form.get("7hours")
+        d10el = request.form.get("10electiveText")
+        d10hrs = request.form.get("10hours")
+        d14el = request.form.get("14electiveText")
+        d14hrs = request.form.get("14hours")
+        d15el = request.form.get("15electiveText")
+        d15hrs = request.form.get("15hours")
+        d19el = request.form.get("19electiveText")
+        d19hrs = request.form.get("19hours")
+        d20el = request.form.get("20electiveText")
+        d20hrs = request.form.get("20hours")
+        d24el = request.form.get("24electiveText")
+        d24hrs = request.form.get("24hours")
+        d25el = request.form.get("25electiveText")
+        d25hrs = request.form.get("25hours")
+        d28el = request.form.get("28electiveText")
+        d28hrs = request.form.get("28hours")
+        d29el = request.form.get("29electiveText")
+        d29hrs = request.form.get("29hours")
+        d30el = request.form.get("30electiveText")
+        d30hrs = request.form.get("30hours")
+        d31el = request.form.get("31electiveText")
+        d31hrs = request.form.get("31hours")
+        d33el = request.form.get("33electiveText")
+        d33hrs = request.form.get("33hours")
+        d34el = request.form.get("34electiveText")
+        d34hrs = request.form.get("34hours")
+        d35el = request.form.get("35electiveText")
+        d35hrs = request.form.get("35hours")
+        d36el = request.form.get("36electiveText")
+        d36hrs = request.form.get("36hours")
+        elNameArr = [d7el, d10el, d14el, d15el, d19el, d20el, d24el, d25el,
+                     d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
+        elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
+                     d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
+        print(f'\nNAME ARR:\n{elNameArr}\nHOURS ARRAY:\n{elHoursArr}\n')
 
         #checking if name is found
         email = session["email"]
@@ -467,7 +510,14 @@ def flowchart1():
         data.append(d35)
         data.append(d36)
         data.append(d37)
+        
+        # appending color array
         data.append(colArr)
+
+        # appending elective info
+        data.append(elNameArr)
+        data.append(elHoursArr)
+        
         if (name == ""):
             message = 'Please enter a name for your flowchart'
             return render_template('flowchart-new.html', message=message, data=data, yearData=yearData)
@@ -493,7 +543,8 @@ def flowchart1():
                             "19": d19, "20": d20, "21": d21, "22": d22, "23": d23,
                             "24": d24, "25": d25, "26": d26, "27": d27, "28": d28,
                             "29": d29, "30": d30, "31": d31, "32": d32, "33": d33,
-                            "34": d34, "35": d35, "36": d36, "37": d37, "colors": colArr}],
+                            "34": d34, "35": d35, "36": d36, "37": d37, "colors": colArr,
+                            "elective_names": elNameArr, "elective_hours": elHoursArr}],
                         "$position": len
                     }
                 }
@@ -560,6 +611,8 @@ def flowchart2(name):
         d35 = request.form.get("d35")
         d36 = request.form.get("d36")
         d37 = request.form.get("d37")
+        
+        # color information 
         c1 = request.form.get("c1")
         c2 = request.form.get("c2")
         c3 = request.form.get("c3")
@@ -575,6 +628,47 @@ def flowchart2(name):
         c13 = request.form.get("c13")
         colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
         print(colArr)
+
+        # get elective information
+        # list of all elective ids
+        # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
+        d7el = request.form.get("7electiveText")
+        d7hrs = request.form.get("7hours")
+        d10el = request.form.get("10electiveText")
+        d10hrs = request.form.get("10hours")
+        d14el = request.form.get("14electiveText")
+        d14hrs = request.form.get("14hours")
+        d15el = request.form.get("15electiveText")
+        d15hrs = request.form.get("15hours")
+        d19el = request.form.get("19electiveText")
+        d19hrs = request.form.get("19hours")
+        d20el = request.form.get("20electiveText")
+        d20hrs = request.form.get("20hours")
+        d24el = request.form.get("24electiveText")
+        d24hrs = request.form.get("24hours")
+        d25el = request.form.get("25electiveText")
+        d25hrs = request.form.get("25hours")
+        d28el = request.form.get("28electiveText")
+        d28hrs = request.form.get("28hours")
+        d29el = request.form.get("29electiveText")
+        d29hrs = request.form.get("29hours")
+        d30el = request.form.get("30electiveText")
+        d30hrs = request.form.get("30hours")
+        d31el = request.form.get("31electiveText")
+        d31hrs = request.form.get("31hours")
+        d33el = request.form.get("33electiveText")
+        d33hrs = request.form.get("33hours")
+        d34el = request.form.get("34electiveText")
+        d34hrs = request.form.get("34hours")
+        d35el = request.form.get("35electiveText")
+        d35hrs = request.form.get("35hours")
+        d36el = request.form.get("36electiveText")
+        d36hrs = request.form.get("36hours")
+        elNameArr = [d7el, d10el, d14el, d15el, d19el, d20el, d24el, d25el,
+                     d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
+        elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
+                     d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
+        print(f'\nNAME ARR:\n{elNameArr}\nHOURS ARRAY:\n{elHoursArr}\n')
 
         email = session["email"]
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
@@ -622,7 +716,14 @@ def flowchart2(name):
                     item['flowcharts'][i]["35"] = d35
                     item['flowcharts'][i]["36"] = d36
                     item['flowcharts'][i]["37"] = d37
+                    
+                    # color info to database
                     item['flowcharts'][i]["colors"] = colArr
+
+                    # elective information
+                    item['flowcharts'][i]["elective_names"] = elNameArr
+                    item['flowcharts'][i]["elective_hours"] = elHoursArr
+
                 newData.append(item['flowcharts'][i])
         data = []
         data.append(name)
@@ -663,7 +764,18 @@ def flowchart2(name):
         data.append(d35)
         data.append(d36)
         data.append(d37)
+        
+        # appending color array - at index 38
         data.append(colArr)
+
+        # appending elective info - at index 39 & 40
+        data.append(elNameArr)
+        data.append(elHoursArr)
+        
+        """FIXME: possible to make these data.appends and editing flowchart duplicates 
+        a function so it can be called in the 2-3 places it is used instead of copy/pasting
+        """
+
         print("data: ", data)
         records.update_one(
             {"email": email},
@@ -693,6 +805,7 @@ def flowchart2(name):
             return send_file(fileName, name, as_attachment=True, download_name=fileName)
 
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
+    # GET METHOD
     if "email" in session: # GET
         print("edit name: ", name)
         email = session["email"]
@@ -742,7 +855,13 @@ def flowchart2(name):
                     data.append(item['flowcharts'][i]["35"])
                     data.append(item['flowcharts'][i]["36"])
                     data.append(item['flowcharts'][i]["37"])
+                    
+                    # color information - from dictionary
                     data.append(item['flowcharts'][i]["colors"])
+
+                    # elective information - from dictionary
+                    data.append(item['flowcharts'][i]["elective_names"])
+                    data.append(item['flowcharts'][i]["elective_hours"])
 
         year = records.find({"email": email}, {"year": 1, "_id": 0})
         for item in year:
@@ -763,6 +882,7 @@ def flowchart2(name):
         return redirect(url_for("login"))
 
 
+# FIXME: is this route being used?
 @app.route("/edit_elective", methods=["POST", "GET"])
 def edit_elective():
     if request.method == "POST":
