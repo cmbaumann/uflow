@@ -107,6 +107,7 @@ def logged_in():
     if "email" in session:
         email = session["email"]
         names = []
+        data = []
         len = 0
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         for item in entry:
@@ -114,10 +115,59 @@ def logged_in():
                     len = len + 1
                 for i in range(0, len):
                     names.append(item['flowcharts'][i]["name"])
-        return render_template('logged_in.html', email=email, names=names)
+        len = 0
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        print(entry)
+        for item in entry: #each flowchart
+            print("ITEM: ", item)
+            for thing in item['flowcharts']:
+                len += 1
+            for i in range(len): #going through the flowcharts for the user
+                    tempData = []
+                    tempData.append(item['flowcharts'][i]["1"])
+                    tempData.append(item['flowcharts'][i]["2"])
+                    tempData.append(item['flowcharts'][i]["3"])
+                    tempData.append(item['flowcharts'][i]["4"])
+                    tempData.append(item['flowcharts'][i]["5"])
+                    tempData.append(item['flowcharts'][i]["6"])
+                    tempData.append(item['flowcharts'][i]["7"])
+                    tempData.append(item['flowcharts'][i]["8"])
+                    tempData.append(item['flowcharts'][i]["9"])
+                    tempData.append(item['flowcharts'][i]["10"])
+                    tempData.append(item['flowcharts'][i]["11"])
+                    tempData.append(item['flowcharts'][i]["12"])
+                    tempData.append(item['flowcharts'][i]["13"])
+                    tempData.append(item['flowcharts'][i]["14"])
+                    tempData.append(item['flowcharts'][i]["15"])
+                    tempData.append(item['flowcharts'][i]["16"])
+                    tempData.append(item['flowcharts'][i]["17"])
+                    tempData.append(item['flowcharts'][i]["18"])
+                    tempData.append(item['flowcharts'][i]["19"])
+                    tempData.append(item['flowcharts'][i]["20"])
+                    tempData.append(item['flowcharts'][i]["21"])
+                    tempData.append(item['flowcharts'][i]["22"])
+                    tempData.append(item['flowcharts'][i]["23"])
+                    tempData.append(item['flowcharts'][i]["24"])
+                    tempData.append(item['flowcharts'][i]["25"])
+                    tempData.append(item['flowcharts'][i]["26"])
+                    tempData.append(item['flowcharts'][i]["27"])
+                    tempData.append(item['flowcharts'][i]["28"])
+                    tempData.append(item['flowcharts'][i]["29"])
+                    tempData.append(item['flowcharts'][i]["30"])
+                    tempData.append(item['flowcharts'][i]["31"])
+                    tempData.append(item['flowcharts'][i]["32"])
+                    tempData.append(item['flowcharts'][i]["33"])
+                    tempData.append(item['flowcharts'][i]["34"])
+                    tempData.append(item['flowcharts'][i]["35"])
+                    tempData.append(item['flowcharts'][i]["36"])
+                    tempData.append(item['flowcharts'][i]["37"])
+                    data.append(tempData)
+                    tempData = []
+            #         # data.append(item['flowcharts'][i]["colors"])
+        return render_template('logged_in.html', email=email, names=names, data=data)
     else:
         return redirect(url_for("login"))
-
+        
 @app.route("/login", methods=["POST", "GET"])
 def login():
     message = 'Please login to your account'

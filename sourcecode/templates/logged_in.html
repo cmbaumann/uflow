@@ -5,7 +5,6 @@
 {% block content %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<script src="../static/logged_in.js"></script>
 
 <style>
     div.fc_block {
@@ -147,9 +146,22 @@
 
 <script>
     x = document.getElementsByClassName("p1");
-    for(var i = 0; i < x.length; i++){
-        x[i].innerText="Getting somewhere";
-    }
+    var count = 0;
+    var percentage = 0;
+    var tempPercentage = 0;
+    var fcCounter=0;
+    "{%for i in data %}"
+        "{%for j in i %}"
+            if ("{{j}}" != "") count++;
+        "{%endfor%}"
+        tempPercentage = (count/37)*100;
+        percentage = tempPercentage.toFixed(0);
+        x[fcCounter].innerText=percentage+"% Complete";
+        count = 0;
+        fcCounter++;
+    "{%endfor%}"
+
+    
 </script>
 
 
