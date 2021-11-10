@@ -89,13 +89,13 @@ def logged_in():
             for i in range(len):
                 if (item['flowcharts'][i]["name"] != name):
                     newData.append(item['flowcharts'][i])
-        print(newData)
         records.update_one(
             {"email": email},
             {"$set": {"flowcharts": newData}}
         )
 
         names = []
+        data = []
         len = 0
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         for item in entry:
@@ -103,7 +103,49 @@ def logged_in():
                     len = len + 1
                 for i in range(0, len):
                     names.append(item['flowcharts'][i]["name"])
-        return render_template('logged_in.html', email=email, names=names)
+
+        for item in newData: #each flowchart
+            tempData = []
+            tempData.append(item["1"])
+            tempData.append(item["2"])
+            tempData.append(item["3"])
+            tempData.append(item["4"])
+            tempData.append(item["5"])
+            tempData.append(item["6"])
+            tempData.append(item["7"])
+            tempData.append(item["8"])
+            tempData.append(item["9"])
+            tempData.append(item["10"])
+            tempData.append(item["11"])
+            tempData.append(item["12"])
+            tempData.append(item["13"])
+            tempData.append(item["14"])
+            tempData.append(item["15"])
+            tempData.append(item["16"])
+            tempData.append(item["17"])
+            tempData.append(item["18"])
+            tempData.append(item["19"])
+            tempData.append(item["20"])
+            tempData.append(item["21"])
+            tempData.append(item["22"])
+            tempData.append(item["23"])
+            tempData.append(item["24"])
+            tempData.append(item["25"])
+            tempData.append(item["26"])
+            tempData.append(item["27"])
+            tempData.append(item["28"])
+            tempData.append(item["29"])
+            tempData.append(item["30"])
+            tempData.append(item["31"])
+            tempData.append(item["32"])
+            tempData.append(item["33"])
+            tempData.append(item["34"])
+            tempData.append(item["35"])
+            tempData.append(item["36"])
+            tempData.append(item["37"])
+            data.append(tempData)
+            tempData = []
+        return render_template('logged_in.html', email=email, names=names, data=data)
     if "email" in session:
         email = session["email"]
         names = []
@@ -119,7 +161,6 @@ def logged_in():
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         print(entry)
         for item in entry: #each flowchart
-            print("ITEM: ", item)
             for thing in item['flowcharts']:
                 len += 1
             for i in range(len): #going through the flowcharts for the user
@@ -163,11 +204,10 @@ def logged_in():
                     tempData.append(item['flowcharts'][i]["37"])
                     data.append(tempData)
                     tempData = []
-            #         # data.append(item['flowcharts'][i]["colors"])
         return render_template('logged_in.html', email=email, names=names, data=data)
     else:
         return redirect(url_for("login"))
-        
+
 @app.route("/login", methods=["POST", "GET"])
 def login():
     message = 'Please login to your account'
