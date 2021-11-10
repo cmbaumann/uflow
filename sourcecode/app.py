@@ -262,6 +262,65 @@ def exportData(years, email, name, electives, hours):
         elif (id == 36): return getElectiveName(15)
         elif (id == 37): return "CS 495 (3)"
 
+    def getElectiveHours(index):
+        if (electives[index] != ""):
+            return hours[index]
+        elif (index == 0): return 3
+        elif (index == 1): return 3
+        elif (index == 2): return 3
+        elif (index == 3): return 4
+        elif (index == 4): return 3
+        elif (index == 5): return 3
+        elif (index == 6): return 3
+        elif (index == 7): return 3
+        elif (index == 8): return 3
+        elif (index == 9):  return 3
+        elif (index == 10): return 3
+        elif (index == 11): return 4
+        elif (index == 12): return 3
+        elif (index == 13): return 3
+        elif (index == 14): return 3
+        elif (index == 15): return 4
+
+    def getHours(id):
+        if (id == 1): return 3
+        elif (id == 2): return 3
+        elif (id == 3): return 4
+        elif (id == 4): return 4
+        elif (id == 5): return 1
+        elif (id == 6): return 3
+        elif (id == 7): return getElectiveHours(0)
+        elif (id == 8): return 4
+        elif (id == 9): return 4
+        elif (id == 10): return getElectiveHours(1)
+        elif (id == 11): return 3
+        elif (id == 12): return 4
+        elif (id == 13): return 4
+        elif (id == 14): return getElectiveHours(2)
+        elif (id == 15): return getElectiveHours(3)
+        elif (id == 16): return 1
+        elif (id == 17): return 4
+        elif (id == 18): return 4
+        elif (id == 19): return getElectiveHours(4)
+        elif (id == 20): return getElectiveHours(5)
+        elif (id == 21): return 3
+        elif (id == 22): return 3
+        elif (id == 23): return 3
+        elif (id == 24): return getElectiveHours(6)
+        elif (id == 25): return getElectiveHours(7)
+        elif (id == 26): return 3
+        elif (id == 27): return 3
+        elif (id == 28): return getElectiveHours(8)
+        elif (id == 29): return getElectiveHours(9)
+        elif (id == 30): return getElectiveHours(10)
+        elif (id == 31): return getElectiveHours(11)
+        elif (id == 32): return 3
+        elif (id == 33): return getElectiveHours(12)
+        elif (id == 34): return getElectiveHours(13)
+        elif (id == 35): return getElectiveHours(14)
+        elif (id == 36): return getElectiveHours(15)
+        elif (id == 37): return 3
+
     #get flowchart information and populate document
     entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
     len = 0
@@ -300,11 +359,13 @@ def exportData(years, email, name, electives, hours):
                     line2 = "Modified on " + str(today)
                     document.add_paragraph(line1)
                     document.add_paragraph(line2)
+                    document.add_paragraph("Note: If you have not specified all course names and hours for electives the total semester hours may not be accurate")
                     if (largestCol != 1):
-                        table = document.add_table(rows=numRows, cols=numCols)
+                        table = document.add_table(rows=numRows, cols=numCols+1)
                         table.style = 'TableGrid'
                         for j in range(1, 13):
                             if (count[j] > 0):
+                                hours = 0
                                 curRow = table.rows[row].cells
                                 paragraph = curRow[0].paragraphs[0]
                                 run = paragraph.add_run(getSemesterName(j))
@@ -312,6 +373,8 @@ def exportData(years, email, name, electives, hours):
                                 for k in range(1, count[j]+1):
                                     curRow = table.rows[row].cells
                                     curRow[k].text = getClassName(data[j][k-1])
+                                    hours += getHours(data[j][k-1])
+                                curRow[numCols].text = str(hours) + " hours"
                                 row += 1
                     else: 
                         newNumCols = 0
@@ -321,10 +384,10 @@ def exportData(years, email, name, electives, hours):
                         rowIterations = count[1] / newNumCols
                         rowIterations = math.ceil(rowIterations)
                         newNumRows = numRows + rowIterations - 1
-                        table = document.add_table(rows=newNumRows, cols=newNumCols+1)
+                        table = document.add_table(rows=newNumRows, cols=newNumCols+2)
                         table.style = 'TableGrid'
                         for j in range(1, 13):
-                            print(j)
+                            hours = 0
                             if (j != 1):
                                 if (count[j] > 0):
                                     # print("adding ", getSemesterName(j), "to 0 in row ", row)
@@ -335,7 +398,9 @@ def exportData(years, email, name, electives, hours):
                                     for k in range(1, count[j]+1):
                                         curRow = table.rows[row].cells
                                         curRow[k].text = getClassName(data[j][k-1])
+                                        hours += getHours(data[j][k-1])
                                         # print("adding ", getClassName(data[j][k-1]), "to ", k, "in row ", row, "class ", data[j][k-1])
+                                    curRow[newNumCols+1].text = str(hours) + " hours"
                                     row += 1
                             else:
                                 place = 0
@@ -347,9 +412,10 @@ def exportData(years, email, name, electives, hours):
                                             run = paragraph.add_run(getSemesterName(j))
                                             run.bold = True
                                             # print("adding ", getSemesterName(j), "to 0 in row ", row)
-                                            for k in range(1, newNumCols):
+                                            for k in range(1, newNumCols+1):
                                                 curRow = table.rows[row].cells
                                                 curRow[k].text = getClassName(data[j][place])
+                                                hours += getHours(data[j][k-1])
                                                 # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
                                                 place += 1
                                             row += 1
@@ -357,11 +423,14 @@ def exportData(years, email, name, electives, hours):
                                             for k in range(1, newNumCols+1):
                                                 curRow = table.rows[row].cells
                                                 curRow[k].text = getClassName(data[j][place])
+                                                hours += getHours(data[j][k-1])
                                                 # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
                                                 place += 1
                                                 if (place >= count[1]):
                                                     break
                                             row += 1  
+                                            if (row == rowIterations):
+                                                curRow[newNumCols+1].text = str(hours) + " hours"
     
     root_url = request.url_root
     ip_local = 'http://127.0.0.1:5000/'
@@ -762,7 +831,15 @@ def flowchart2(name):
             for i in range(0, 5):
                 years.append(int(yearData[i]))
             fileName = exportData(years, email, name, elNameArr, elHoursArr)
-            return send_file(fileName, name, as_attachment=True, download_name=fileName)
+            newFileName = fileName
+            if (fileName[0] == "/"):
+                a = 0
+                newFileName = ""
+                for char in fileName:
+                    if (a > 3):
+                        newFileName += char
+                    a += 1
+            return send_file(newFileName, name, as_attachment=True, download_name=fileName)
 
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
     # GET METHOD
