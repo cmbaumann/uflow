@@ -1,3 +1,4 @@
+import re
 from flask import Flask, render_template, request, url_for, redirect, session
 import pymongo
 import bcrypt
@@ -231,43 +232,68 @@ def flowchart1():
 
         # get elective information
         # list of all elective ids
-        # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
-        d7el = request.form.get("7electiveText")
-        d7hrs = request.form.get("7hours")
-        d10el = request.form.get("10electiveText")
-        d10hrs = request.form.get("10hours")
-        d14el = request.form.get("14electiveText")
-        d14hrs = request.form.get("14hours")
-        d15el = request.form.get("15electiveText")
-        d15hrs = request.form.get("15hours")
-        d19el = request.form.get("19electiveText")
-        d19hrs = request.form.get("19hours")
-        d20el = request.form.get("20electiveText")
-        d20hrs = request.form.get("20hours")
-        d24el = request.form.get("24electiveText")
-        d24hrs = request.form.get("24hours")
-        d25el = request.form.get("25electiveText")
-        d25hrs = request.form.get("25hours")
-        d28el = request.form.get("28electiveText")
-        d28hrs = request.form.get("28hours")
-        d29el = request.form.get("29electiveText")
-        d29hrs = request.form.get("29hours")
-        d30el = request.form.get("30electiveText")
-        d30hrs = request.form.get("30hours")
-        d31el = request.form.get("31electiveText")
-        d31hrs = request.form.get("31hours")
-        d33el = request.form.get("33electiveText")
-        d33hrs = request.form.get("33hours")
-        d34el = request.form.get("34electiveText")
-        d34hrs = request.form.get("34hours")
-        d35el = request.form.get("35electiveText")
-        d35hrs = request.form.get("35hours")
-        d36el = request.form.get("36electiveText")
-        d36hrs = request.form.get("36hours")
-        elNameArr = [d7el, d10el, d14el, d15el, d19el, d20el, d24el, d25el,
-                     d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
-        elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
-                     d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
+        elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
+        elNameArr = []
+        elHoursArr = []
+
+        # for loop to be sure DB is not overwritten with every save
+        for i in elective_ids:
+            id = elective_ids[i]
+            temp_el = id + "electiveText"
+            temp_hour = id + "hours"
+            temp_output_elective = request.form.get(id+"OutputElective")
+
+            # check if elective already input
+            check_html = temp_output_elective.get_attribute('innerHTML')
+            if check_html != '':
+                split_str = check_html.split('(')
+                input_el = split_str[0].strip()
+                input_hour = split_str[1][0]       # take just the first item in 2nd substring (the hour)
+            else:
+                input_el = request.form.get(temp_el)
+                input_hour = request.form.get(temp_hour)
+            
+            # append to data arrays 
+            elNameArr.append(input_el)
+            elHoursArr.append(input_hour)
+
+
+        # d7el = request.form.get("7electiveText")
+        # d7hrs = request.form.get("7hours")
+        # d10el = request.form.get("10electiveText")
+        # d10hrs = request.form.get("10hours")
+        # d14el = request.form.get("14electiveText")
+        # d14hrs = request.form.get("14hours")
+        # d15el = request.form.get("15electiveText")
+        # d15hrs = request.form.get("15hours")
+        # d19el = request.form.get("19electiveText")
+        # d19hrs = request.form.get("19hours")
+        # d20el = request.form.get("20electiveText")
+        # d20hrs = request.form.get("20hours")
+        # d24el = request.form.get("24electiveText")
+        # d24hrs = request.form.get("24hours")
+        # d25el = request.form.get("25electiveText")
+        # d25hrs = request.form.get("25hours")
+        # d28el = request.form.get("28electiveText")
+        # d28hrs = request.form.get("28hours")
+        # d29el = request.form.get("29electiveText")
+        # d29hrs = request.form.get("29hours")
+        # d30el = request.form.get("30electiveText")
+        # d30hrs = request.form.get("30hours")
+        # d31el = request.form.get("31electiveText")
+        # d31hrs = request.form.get("31hours")
+        # d33el = request.form.get("33electiveText")
+        # d33hrs = request.form.get("33hours")
+        # d34el = request.form.get("34electiveText")
+        # d34hrs = request.form.get("34hours")
+        # d35el = request.form.get("35electiveText")
+        # d35hrs = request.form.get("35hours")
+        # d36el = request.form.get("36electiveText")
+        # d36hrs = request.form.get("36hours")
+        # elNameArr = [d7el, d10el, d14el, d15el, d19el, d20el, d24el, d25el,
+        #              d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
+        # elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
+        #              d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
         print(f'\nNAME ARR:\n{elNameArr}\nHOURS ARRAY:\n{elHoursArr}\n')
 
         #checking if name is found
@@ -443,43 +469,68 @@ def flowchart2(name):
 
         # get elective information
         # list of all elective ids
-        # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
-        d7el = request.form.get("7electiveText")
-        d7hrs = request.form.get("7hours")
-        d10el = request.form.get("10electiveText")
-        d10hrs = request.form.get("10hours")
-        d14el = request.form.get("14electiveText")
-        d14hrs = request.form.get("14hours")
-        d15el = request.form.get("15electiveText")
-        d15hrs = request.form.get("15hours")
-        d19el = request.form.get("19electiveText")
-        d19hrs = request.form.get("19hours")
-        d20el = request.form.get("20electiveText")
-        d20hrs = request.form.get("20hours")
-        d24el = request.form.get("24electiveText")
-        d24hrs = request.form.get("24hours")
-        d25el = request.form.get("25electiveText")
-        d25hrs = request.form.get("25hours")
-        d28el = request.form.get("28electiveText")
-        d28hrs = request.form.get("28hours")
-        d29el = request.form.get("29electiveText")
-        d29hrs = request.form.get("29hours")
-        d30el = request.form.get("30electiveText")
-        d30hrs = request.form.get("30hours")
-        d31el = request.form.get("31electiveText")
-        d31hrs = request.form.get("31hours")
-        d33el = request.form.get("33electiveText")
-        d33hrs = request.form.get("33hours")
-        d34el = request.form.get("34electiveText")
-        d34hrs = request.form.get("34hours")
-        d35el = request.form.get("35electiveText")
-        d35hrs = request.form.get("35hours")
-        d36el = request.form.get("36electiveText")
-        d36hrs = request.form.get("36hours")
-        elNameArr = [d7el, d10el, d14el, d15el, d19el, d20el, d24el, d25el,
-                     d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
-        elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
-                     d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
+        elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
+        elNameArr = []
+        elHoursArr = []
+
+        # for loop to be sure DB is not overwritten with every save
+        for i in elective_ids:
+            id = elective_ids[i]
+            temp_el = id + "electiveText"
+            temp_hour = id + "hours"
+            temp_output_elective = request.form.get(id+"OutputElective")
+
+            # check if elective already input
+            check_html = temp_output_elective.get_attribute('innerHTML')
+            if check_html != '':
+                split_str = check_html.split('(')
+                input_el = split_str[0].strip()
+                input_hour = split_str[1][0]       # take just the first item in 2nd substring (the hour)
+            else:
+                input_el = request.form.get(temp_el)
+                input_hour = request.form.get(temp_hour)
+            
+            # append to data arrays 
+            elNameArr.append(input_el)
+            elHoursArr.append(input_hour)
+
+
+        # d7el = request.form.get("7electiveText")
+        # d7hrs = request.form.get("7hours")
+        # d10el = request.form.get("10electiveText")
+        # d10hrs = request.form.get("10hours")
+        # d14el = request.form.get("14electiveText")
+        # d14hrs = request.form.get("14hours")
+        # d15el = request.form.get("15electiveText")
+        # d15hrs = request.form.get("15hours")
+        # d19el = request.form.get("19electiveText")
+        # d19hrs = request.form.get("19hours")
+        # d20el = request.form.get("20electiveText")
+        # d20hrs = request.form.get("20hours")
+        # d24el = request.form.get("24electiveText")
+        # d24hrs = request.form.get("24hours")
+        # d25el = request.form.get("25electiveText")
+        # d25hrs = request.form.get("25hours")
+        # d28el = request.form.get("28electiveText")
+        # d28hrs = request.form.get("28hours")
+        # d29el = request.form.get("29electiveText")
+        # d29hrs = request.form.get("29hours")
+        # d30el = request.form.get("30electiveText")
+        # d30hrs = request.form.get("30hours")
+        # d31el = request.form.get("31electiveText")
+        # d31hrs = request.form.get("31hours")
+        # d33el = request.form.get("33electiveText")
+        # d33hrs = request.form.get("33hours")
+        # d34el = request.form.get("34electiveText")
+        # d34hrs = request.form.get("34hours")
+        # d35el = request.form.get("35electiveText")
+        # d35hrs = request.form.get("35hours")
+        # d36el = request.form.get("36electiveText")
+        # d36hrs = request.form.get("36hours")
+        # elNameArr = [d7el, d10el, d14el, d15el, d19el, d20el, d24el, d25el,
+        #              d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
+        # elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
+        #              d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
         print(f'\nNAME ARR:\n{elNameArr}\nHOURS ARRAY:\n{elHoursArr}\n')
 
         email = session["email"]
@@ -583,10 +634,6 @@ def flowchart2(name):
         # appending elective info - at index 39 & 40
         data.append(elNameArr)
         data.append(elHoursArr)
-        
-        """FIXME: possible to make these data.appends and editing flowchart duplicates 
-        a function so it can be called in the 2-3 places it is used instead of copy/pasting
-        """
 
         print("data: ", data)
         records.update_one(
