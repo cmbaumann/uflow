@@ -831,15 +831,7 @@ def flowchart2(name):
             for i in range(0, 5):
                 years.append(int(yearData[i]))
             fileName = exportData(years, email, name, elNameArr, elHoursArr)
-            newFileName = fileName
-            if (fileName[0] == "/"):
-                a = 0
-                newFileName = ""
-                for char in fileName:
-                    if (a > 3):
-                        newFileName += char
-                    a += 1
-            return send_file(newFileName, name, as_attachment=True, download_name=fileName)
+            return send_file(fileName, name, as_attachment=True, download_name=fileName)
 
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
     # GET METHOD
