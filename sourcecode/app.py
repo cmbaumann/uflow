@@ -16,6 +16,14 @@ majors = ['Aerospace Engineering', 'Architecural Engineering', 'Chemical Enginee
 
 years = [2017, 2018, 2019, 2020, 2021, 2022, 2023]
 
+def getPercentage(x):
+    x_size = len(x) - 2
+    T = 0
+    for i in range(1, x_size):
+        if (x[str(i)] == 'taken'):
+            T += 1
+    return round((T/x_size * 100), 1)
+
 @app.route('/', methods=['post', 'get'])
 def index():
     if request.method == "POST":
@@ -590,3 +598,45 @@ def edit_elective():
 #end of code to run it
 if __name__ == "__main__":
   app.run(debug=True)
+
+
+        
+
+# -----------------------------------------------------------
+# getPercentage( item['flowcharts'][i] )
+# -----------------------------------------------------------
+# def getPercentage( x ):
+#   Get size of list - 2 (Omit name and colors array) -> SIZE = 37
+#   Variable T to track number of "takens"
+#   for i in range(1, SIZE):
+#       Convert (i) into string s
+#       if (x[s] == 'taken'):
+#           T++
+#   return T/SIZE
+# -----------------------------------------------------------  
+#        names = []
+# -->    fcPercentages = []
+#        len = 0
+#        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+#        for item in entry:
+#                for thing in item['flowcharts']:
+#                    len = len + 1
+#                for i in range(0, len):
+#                    names.append(item['flowcharts'][i]["name"])
+# -->                fcPercentages.append(getPercentage( item['flowcharts'][i] ))
+# -->    return render_template('logged_in.html', email=email, names=names, fcPercentages=fcPercentages)
+#    if "email" in session:
+#        email = session["email"]
+#        names = []
+# -->    fcPercentages = []
+#        len = 0
+#        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+#        for item in entry:
+#                for thing in item['flowcharts']:
+#                    len = len + 1
+#                for i in range(0, len):
+#                    names.append(item['flowcharts'][i]["name"])
+# -->                fcPercentages.append(getPercentage( item['flowcharts'][i] ))
+# -->    return render_template('logged_in.html', email=email, names=names, fcPercentages=fcPercentages)
+#    else:
+#        return redirect(url_for("login"))
