@@ -153,20 +153,34 @@
     </div>
 {% endif %}
 
+<form id="nested" action="\export\{{data[0]}}"></form>
+<form id="landing" action="\logged_in"></form>
 <form action="" method="post">
 
     <div class="form-group">
         <label for="FlowchartName">Flowchart Name</label>
         <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder={{data[0]}} style="width: 40%" disabled>
         <small id="flowchartname" class="form-text text-muted"></small>
-        <button type="submit" class="btn btn-primary" onclick="enable()">Save</button>
-  </div>
+        <table>
+            <tr>
+                <td><button type="submit" class="btn btn-primary" onclick="enable()">Save</button></td>
+                <td><input class="btn btn-primary" type="submit" value="Return to Flowcharts" form="landing"></td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="export" id="export">
+                        <label class="form-check-label" for="exampleCheck1">Export Flowchart With Save</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 <div>
     <div class="column chart-color" id="fc-color" onclick="color('fc-color')">Chart color</div>
 </div>
 <div>
     <button type="button" class="color-pick" id="btn-change" onclick="colorChange()">Change colors</button>
 </div>
+
 <div id="color-chooser" class="color-choose-section" style="display: none">
     <button type="button" class="btn-default" id="btn-default" onclick="colorDefault()">Set default colors</button><br>
     <div class="ccs-1">
