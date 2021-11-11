@@ -19,14 +19,6 @@ majors = ['Aerospace Engineering', 'Architecural Engineering', 'Chemical Enginee
 
 years = [2017, 2018, 2019, 2020, 2021, 2022, 2023]
 
-def getPercentage(x):
-    x_size = len(x) - 2
-    T = 0
-    for i in range(1, x_size):
-        if (x[str(i)] == 'taken'):
-            T += 1
-    return round((T/x_size * 100), 1)
-
 @app.route('/', methods=['post', 'get'])
 def index():
     if request.method == "POST":
