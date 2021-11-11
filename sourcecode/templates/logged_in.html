@@ -17,7 +17,7 @@
         border-width: 2px;
     }
 
-    .fc_edit, .fc_delete, .fc_add_To_Fav {
+    .fc_edit, .fc_delete {
         font-weight: bold;
         border-style: solid;
         border-radius: 10px;
@@ -35,11 +35,6 @@
     .fc_delete {
         color:black;
         background-color: #ffffff;
-    }
-
-    .fc_add_To_Fav {
-        color:black;
-        background-color: #d7ec12;
     }
 
     .fc_add {
@@ -70,10 +65,6 @@
         border-color: black;
     }
 
-    .fc_add_To_Fav:hover {
-        border-color: black;
-    }
-
     .msg_greeting {
         background-color: #e0c7c7;
         color:rgb(73, 62, 62);
@@ -81,22 +72,9 @@
         padding: 5px 0 5px 20px;
     }
 
-    .favorites {
-        position: center;
-        background-color: rgb(236, 211, 177);
-        margin: 0 50% 10px 20px;
-        padding: 0 0 50px 50px;
-        border-radius: 10px;
-        border-color:black;
-        border-style: solid;
-        border-width: 2px;
-    }
-
     .heading {
         position: center;
     }
-
-
 </style>
 
 <body>
@@ -143,7 +121,6 @@
 </body>
 <!--Placeholders. When finished there should be a list of flowcharts that you have saved, added with a single button, each with an edit and delete button.-->
 
-
 <script>
     x = document.getElementsByClassName("p1");
     var count = 0;
@@ -160,9 +137,5 @@
         count = 0;
         fcCounter++;
     "{%endfor%}"
-
-    
 </script>
-
-
 {% endblock %}
