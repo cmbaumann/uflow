@@ -107,6 +107,7 @@ window.onload = function() {
         }
     }*/
     DBtoOpts();
+    document.getElementById("fc-color").style.backgroundColor = document.getElementById("c13").value;
 }
 
 //On click event for option buttons
@@ -117,7 +118,7 @@ function color(id) {
         for (var i = 0; i < optionList.length; i++) {
             //console.log(i);
             if (id != optionList[i] || id == "deselect") {}
-            else { 
+            else if (id != "fc-color") { 
                 if (curColor == optionCols[i]) { curColor = document.getElementById("c-display").value; }
                 optionCols[i] = document.getElementById("c-display").value;
                 document.getElementById("c"+(i+1).toString()).value=optionCols[i];
@@ -129,6 +130,10 @@ function color(id) {
                     }
                 }
             }
+        }
+        if (id == "fc-color") {
+            document.getElementById("c13").value=document.getElementById("c-display").value;
+            document.getElementById(id).style.backgroundColor=document.getElementById("c-display").value;
         }
 
     } else {

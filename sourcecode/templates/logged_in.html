@@ -12,7 +12,6 @@
         margin: 0 50% 10px 20px;
         padding: 0 0 20px 20px;
         border-radius: 10px;
-        border-color:black;
         border-style: solid;
         border-width: 2px;
     }
@@ -89,18 +88,18 @@
     <table width="100%">
             <td>
                 <div class="fc_list">
-                    {%for name in names %}
-                    <div class="fc_block">
-                        <br><h3>{{name}}</h3>
+                    {%for x in range(names|length)%}
+                    <div class="fc_block" style="background: repeating-linear-gradient(45deg,#F0D0A0,#F0D0A0 70%, {{fcBgColors[x]}} 70%, {{fcBgColors[x]}} 100% );">
+                        <br><h3>{{names[x]}}</h3>
                         <table>
                             <tr>
-                                <td><form action="/flowchart-edit/{{name}}">
+                                <td><form action="/flowchart-edit/{{names[x]}}">
                                     <input class="fc_edit" type="submit" value="Edit">
                                 </form></td>
                                 <td><form action="" method="post">
                                     <input class="fc_delete" type="submit" value="Delete">
                                     <select hidden name="name" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                        <option selected value="{{name}}">{{name}}</option>
+                                        <option selected value="{{names[x]}}">{{names[x]}}</option>
                                     </select>
                                 </form></td>
                                 <td>

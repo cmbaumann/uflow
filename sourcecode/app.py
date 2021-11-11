@@ -98,6 +98,7 @@ def logged_in():
         )
 
         names = []
+        fcBgColors = []
         data = []
         len = 0
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
@@ -106,7 +107,7 @@ def logged_in():
                     len = len + 1
                 for i in range(0, len):
                     names.append(item['flowcharts'][i]["name"])
-
+                    fcBgColors.append(item['flowcharts'][i]["colors"][12])
         for item in newData: #each flowchart
             tempData = []
             tempData.append(item["1"])
@@ -148,10 +149,11 @@ def logged_in():
             tempData.append(item["37"])
             data.append(tempData)
             tempData = []
-        return render_template('logged_in.html', email=email, names=names, data=data)
+        return render_template('logged_in.html', email=email, names=names, data=data, fcBgColors=fcBgColors)
     if "email" in session:
         email = session["email"]
         names = []
+        fcBgColors = []
         data = []
         len = 0
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
@@ -160,6 +162,7 @@ def logged_in():
                     len = len + 1
                 for i in range(0, len):
                     names.append(item['flowcharts'][i]["name"])
+                    fcBgColors.append(item['flowcharts'][i]["colors"][12])
         len = 0
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         print(entry)
@@ -207,7 +210,7 @@ def logged_in():
                     tempData.append(item['flowcharts'][i]["37"])
                     data.append(tempData)
                     tempData = []
-        return render_template('logged_in.html', email=email, names=names, data=data)
+        return render_template('logged_in.html', email=email, names=names, data=data, fcBgColors=fcBgColors)
     else:
         return redirect(url_for("login"))
 
