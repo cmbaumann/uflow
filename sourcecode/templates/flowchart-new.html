@@ -147,6 +147,19 @@
         cursor: pointer;
     }
 
+    .outer {
+        width: 100%;
+        table-layout:fixed;
+    }
+
+    .data {
+        width: 50%;
+    }
+
+    .hours {
+        padding: 0px 20px 0px 50px;
+    }
+
 </style>
 
 <script>
@@ -165,10 +178,13 @@
 
 <form id="landing" action="\logged_in"></form>
 <form action="" method="post">
-
+    
+    <table class="outer">
+    <tr>
+    <td class="data">
     <div class="form-group">
         <label for="FlowchartName">Flowchart Name</label>
-        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" style="width: 40%">
+        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" style="width: 85%">
         <small id="flowchartname" class="form-text text-muted"></small>
         <table>
             <tr>
@@ -176,7 +192,14 @@
                 <td><input class="btn btn-primary" type="submit" value="Return to Flowcharts" onclick="saveMessage()" form="landing"></td>
             </tr>
         </table>
-  </div>
+    </div>
+    </td>
+    <td class="data, hours">
+        <p id="hoursTaken" align="right">Hours Taken: 0</p>
+        <p id="hoursPlanned" align="right">Hours Planned: 0</p>
+    </td>
+    </tr>
+  </table>
 <div>
     <button type="button" class="color-pick" id="btn-change" onclick="colorChange()">Change colors</button>
 </div>
