@@ -1436,7 +1436,8 @@ function click_button(id) {
         var output_elective = document.getElementById(id+"OutputElective");
         var elective_box = document.getElementById(id+"electiveText");
         var hours_box = document.getElementById(id+"hours");
-        var button = document.getElementById(id+"Button")
+        var elective_help = document.getElementById(id+"ElectiveHelp");
+        var button = document.getElementById(id+"Button");
 
         elName = allNames.at(i);
         elHour = allHours.at(i);
@@ -1448,6 +1449,7 @@ function click_button(id) {
             output_elective.style.display = "block";    // show output
             elective_box.style.display = "none";       // do not show input form
             hours_box.style.display = "none";          // do not show input form
+            elective_help.style.display = "none";      // do not show the instructions
             button.innerHTML = "Edit Course";
             if(elName && !elHour) {
                 output_elective.innerHTML = elName + " (__ hours)";

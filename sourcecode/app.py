@@ -454,7 +454,7 @@ def flowchart2(name):
                     testName = item['flowcharts'][i]["elective_names"]
                     testHours = item['flowcharts'][i]["elective_hours"]
                 
-        #FIXME
+        # FIXME: for troubleshooting
         print(f'\t**Arrays from DB\n\ttestName: {testName}\n\ttestHours: {testHours}\n')
 
         # check to see what elective information is already added
@@ -463,21 +463,27 @@ def flowchart2(name):
         elHoursArr = []
         for (id, temp_name, temp_hour) in zip(elective_ids, testName, testHours):
             id = str(id)
+            formName = request.form.get(str(id+"electiveText"))
+            formHour = request.form.get(str(id+"hours"))
+
             if temp_name == '':
-                # There is NOT information in the DB
-                formName = request.form.get(str(id+"electiveText"))
-                formHour = request.form.get(str(id+"hours"))
-                
-                # For troubleshooting - uncomment following 2 lines
+                # There is NOT information in the DB                
+                ### For troubleshooting - uncomment following 2 lines ###
                 # print(f'\t** name id: {str(id+"electiveText")}\thour id: {str(id+"hours")} **')
                 # print(f'\t** formName: {formName}\tformHour: {formHour} **')
-                
                 elNameArr.append(formName)
                 elHoursArr.append(formHour)
             else:
-                # There is information in the DB
-                elNameArr.append(temp_name)
-                elHoursArr.append(temp_hour)
+                # There is information in the DB #
+                # Check if there is conflicting info submitted to the form
+                if(formName != '' and formName != temp_name):
+                    # Overwrite DB with new info
+                    elNameArr.append(formName)
+                    elHoursArr.append(formHour)                    
+                else:
+                    # Get info from DB
+                    elNameArr.append(temp_name)
+                    elHoursArr.append(temp_hour)
 
         print(f'\nNAME ARR:\n{elNameArr}\nHOURS ARRAY:\n{elHoursArr}\n')
 
