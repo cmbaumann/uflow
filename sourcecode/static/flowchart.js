@@ -299,29 +299,26 @@ function getHours(id) {
     else if (id == 37) { return 3; }
 }
 
+//increments the hours taken and hours planned by the correct amount when a course is clicked
 function incrementHours(id) {
-    // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
-    //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
-    //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+    if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+        (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+        (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
             var taken = document.getElementById("hoursTaken").innerHTML;
             var planned = document.getElementById("hoursPlanned").innerHTML;
             var hoursTaken = taken.match(/\d/g);
-            console.log("hoursTaken:", hoursTaken);
             var hours1 = "";
             for (var i = 0; i < hoursTaken.length; ++i) {
                 hours1 += hoursTaken[i];
             }
             hoursTaken = parseInt(hours1, 10);
-            console.log("hoursTaken:", hoursTaken);
             var hoursPlanned = planned.match(/\d/g);
-            console.log("hoursPlanned:", hoursPlanned);
             var hours2 = "";
             for (var i = 0; i < hoursPlanned.length; ++i) {
                 hours2 += hoursPlanned[i];
             }
             hoursPlanned = parseInt(hours2);
-            console.log("hoursPlanned:", hoursPlanned);
-            if (optionList[curOption] == "taken") {
+            if (curOption == 0) {
                 hoursTaken += getHours(id);
                 hoursPlanned += getHours(id);
             }
@@ -332,7 +329,66 @@ function incrementHours(id) {
             plannedString = "Hours Planned: " + hoursPlanned
             document.getElementById("hoursTaken").innerHTML = takenString;
             document.getElementById("hoursPlanned").innerHTML = plannedString;
-    // }
+    }
+}
+
+function rgbToHex(r,g,b) {
+    r = r.toString(16);
+    g = g.toString(16);
+    b = b.toString(16);
+  
+    if (r.length == 1)
+        r = "0" + r;
+    if (g.length == 1)
+        g = "0" + g;
+    if (b.length == 1)
+        b = "0" + b;
+  
+    return "#" + r + g + b;
+}
+
+function getRGB(str){
+    var match = str.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
+    return match ? [
+      match[1],
+      match[2],
+      match[3]
+    ] : [];
+}
+
+//decrements the hours taken and hours planned by the correct amount when a course is deselected
+function decrementHours(id) {
+    if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+        (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+        (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+            var taken = document.getElementById("hoursTaken").innerHTML;
+            var planned = document.getElementById("hoursPlanned").innerHTML;
+            var hoursTaken = taken.match(/\d/g);
+            var hours1 = "";
+            for (var i = 0; i < hoursTaken.length; ++i) {
+                hours1 += hoursTaken[i];
+            }
+            hoursTaken = parseInt(hours1, 10);
+            var hoursPlanned = planned.match(/\d/g);
+            var hours2 = "";
+            for (var i = 0; i < hoursPlanned.length; ++i) {
+                hours2 += hoursPlanned[i];
+            }
+            hoursPlanned = parseInt(hours2);
+            background = getRGB(document.getElementById(id).style.backgroundColor);
+            backgroundHex = rgbToHex(parseInt(background[0], 10), parseInt(background[1], 10), parseInt(background[2], 10));
+            if (backgroundHex == optionCols[0]) {
+                hoursTaken -= getHours(id);
+                hoursPlanned -= getHours(id);
+            }
+            else {
+                hoursPlanned -= getHours(id);
+            }
+            takenString = "Hours Taken: " + hoursTaken
+            plannedString = "Hours Planned: " + hoursPlanned
+            document.getElementById("hoursTaken").innerHTML = takenString;
+            document.getElementById("hoursPlanned").innerHTML = plannedString;
+    }
 }
 
 //Checks if the clicked class has a prerequisite and/or postrequisite before setting its value and color
@@ -342,8 +398,13 @@ function prereqCheck(id) {
         if (prereq.length == 0) {
             postreq = searchPostreqArray(id);
             if (postreq.length == 0) {
+                if (curOption != 12) {
+                    incrementHours(id);
+                }
+                else {
+                    decrementHours(id);
+                }
                 change(id);
-                incrementHours(id);
             }
             else {
                 alertstring = "You need this class as a prerequisite for ";
