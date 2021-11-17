@@ -89,6 +89,9 @@ let optionList = ["taken",   "inprogress", "spring0", "fall0",   "spring1", "fal
 //                 green      blue          red        purple     yellow     olive      lime       fuchsia    sdybrn     mstyrose   aqua       teal       white  
 //                 0          1             2          3          4          5          6          7          8          9          10         11         12
 
+var chosen = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+                 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,]
+
 window.onload = function() {
     /*var path = window.location.pathname;
     var page = path.split("/")[1];
@@ -301,6 +304,12 @@ function getHours(id) {
 
 //increments the hours taken and hours planned by the correct amount when a course is clicked
 function incrementHours(id) {
+    if (chosen[id] != 0) {
+        return;
+    }
+    else {
+        chosen[id] = 1;
+    }
     if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
         (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
         (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
@@ -329,6 +338,8 @@ function incrementHours(id) {
             plannedString = "Hours Planned: " + hoursPlanned
             document.getElementById("hoursTaken").innerHTML = takenString;
             document.getElementById("hoursPlanned").innerHTML = plannedString;
+            document.getElementById("hoursTaken2").value = hoursTaken;
+            document.getElementById("hoursPlanned2").value = hoursPlanned;
     }
 }
 
@@ -358,6 +369,12 @@ function getRGB(str){
 
 //decrements the hours taken and hours planned by the correct amount when a course is deselected
 function decrementHours(id) {
+    if (chosen[id] != 1) {
+        return;
+    }
+    else {
+        chosen[id] = 0;
+    }
     if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
         (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
         (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
@@ -388,6 +405,8 @@ function decrementHours(id) {
             plannedString = "Hours Planned: " + hoursPlanned
             document.getElementById("hoursTaken").innerHTML = takenString;
             document.getElementById("hoursPlanned").innerHTML = plannedString;
+            document.getElementById("hoursTaken2").value = hoursTaken;
+            document.getElementById("hoursPlanned2").value = hoursPlanned;
     }
 }
 

@@ -159,7 +159,7 @@ def logout():
     else:
         return render_template('index.html')
 
-def exportData(years, email, name, electives, hours):
+def exportData(years, email, name, electives, hours, hoursTaken, hoursPlanned):
     #get student major
     entry = records.find({"email": email}, {"major": 1, "_id": 0})
     for item in entry:
@@ -360,6 +360,10 @@ def exportData(years, email, name, electives, hours):
                     document.add_paragraph(line1)
                     document.add_paragraph(line2)
                     document.add_paragraph("Note: If you have not specified all course names and hours for electives the total semester hours may not be accurate")
+                    lineTaken = "Hours Taken: " + str(hoursTaken)
+                    linePlanned = "Hours Planned: " + str(hoursPlanned)
+                    document.add_paragraph(lineTaken)
+                    document.add_paragraph(linePlanned)
                     if (largestCol != 1):
                         table = document.add_table(rows=numRows, cols=numCols+1)
                         table.style = 'TableGrid'
@@ -828,9 +832,11 @@ def flowchart2(name):
         export = request.form.get("export")
         if (export == "on"):
             print("EXPORT")
+            hoursTaken = request.form.get("hoursTaken")
+            hoursPlanned = request.form.get("hoursPlanned")
             for i in range(0, 5):
                 years.append(int(yearData[i]))
-            fileName = exportData(years, email, name, elNameArr, elHoursArr)
+            fileName = exportData(years, email, name, elNameArr, elHoursArr, hoursTaken, hoursPlanned)
             return send_file(fileName, name, as_attachment=True, download_name=fileName)
 
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
