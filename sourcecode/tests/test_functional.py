@@ -3,10 +3,9 @@ from flask import Flask, request
 from selenium import webdriver 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
 
 # must be the chromedriver file path specific to your machine
-chromepath = "/Users/peytonreed/Downloads/chromedriver" 
+chromepath = "C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe"
 
 def test_login(app, client):
     page = client.post('/login', data=dict(
@@ -224,7 +223,7 @@ def test_color_save(app, client):
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 0, 0, 1)"
 
-def test_delete(app, client):
+def test_export(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
     element = driver.find_element_by_id("InputEmail")
@@ -244,5 +243,22 @@ def test_delete(app, client):
     else:
         assert True
 
-
-    
+def test_delete(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_delete")
+    element.click()
+    page = driver.page_source
+    print(page)
+    if "testflowchart" in page:
+        assert False
+    else:
+        assert True
