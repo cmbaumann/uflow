@@ -404,3 +404,16 @@ function getClassName(id) {
     else if (id == 36) return "Natural Science Sequence #2";
     else if (id == 37) return "CS 495";
 }
+
+function saveMessage() {
+    var proceed = confirm("Your flowchart will not be saved.")
+    if (proceed == true) {
+        return
+    }
+    else {
+        e = window.event;
+        e.cancelBubble = true;
+        e.stopPropagation();
+        e.preventDefault();
+    }
+}
