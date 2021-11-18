@@ -7,23 +7,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='flowchart.js') }}"></script>
 
-<!-- FIXME: get js script to work -->
-<!-- Ultimately: have arg so this can be done for any elective -->
-<!-- <script>
-    function clickSubmit() {
-        document.getElementById("7Submit").style.visibility = "hidden";
-        document.getElementById("7ElectiveHelp").style.visibility = "hidden";
-        var elective_name = document.getElementById("fillOutElective").value;
-        document.getElementById("7OutputElective").innerHTML = elective_name;
-        alert("input" + elective_name)
-        document.getElementById("7Edit").style.visibility = "visible"
-    }
-</script> -->
-
 
 <style>
     
-    .course, .color, .color-pick {
+    .course, .color, .color-pick, .chart-color {
         border: 2px solid grey;
         font-weight:initial;
         color:black;
@@ -36,7 +23,7 @@
         background-color: white;
     }
 
-    .color, .color-pick {
+    .color, .color-pick, .chart-color {
         height: 30px;
         padding: 2px 2px 2px 2px;
     }
@@ -201,6 +188,9 @@
     </tr>
   </table>
 <div>
+    <div class="column chart-color" id="fc-color" onclick="color('fc-color')">Chart color</div>
+</div>
+<div>
     <button type="button" class="color-pick" id="btn-change" onclick="colorChange()">Change colors</button>
 </div>
 <div id="color-chooser" class="color-choose-section" style="display: none">
@@ -241,7 +231,7 @@
         <input type="text" name="c10" id="c10" style="display:none" value="#ffe4e1" placeholder="CHICKEN"></input>
         <input type="text" name="c11" id="c11" style="display:none" value="#00ffff" placeholder="CHICKEN"></input>
         <input type="text" name="c12" id="c12" style="display:none" value="#008080" placeholder="CHICKEN"></input>
-        <input type="text" name="c13" id="c13" style="display:none" value="#aaaaaa" placeholder="CHICKEN"></input>
+        <input type="text" name="c13" id="c13" style="display:none" value="#F0D0A0" placeholder="CHICKEN"></input> <!--Fc list color-->
     </div>
     <div class="row">
         <div class="column course" id="1" onclick="prereqCheck('1')">
@@ -1441,7 +1431,7 @@ function click_button(id) {
         "{{data[14]}}", "{{data[15]}}", "{{data[16]}}", "{{data[17]}}", "{{data[18]}}", "{{data[19]}}", "{{data[20]}}",
         "{{data[21]}}", "{{data[22]}}", "{{data[23]}}", "{{data[24]}}", "{{data[25]}}", "{{data[26]}}", "{{data[27]}}", 
         "{{data[28]}}", "{{data[29]}}", "{{data[30]}}", "{{data[31]}}", "{{data[32]}}", "{{data[33]}}", "{{data[34]}}",
-        "{{data[35]}}", "{{data[36]}}", "{{data[37]}}", "{{data[38]}}", "{{data[39]}}", "{{data[39]}}", "{{data[40]}}"];
+        "{{data[35]}}", "{{data[36]}}", "{{data[37]}}", "{{data[38]}}", "{{data[39]}}", "{{data[40]}}"];
     // console.log(DBcols);
     
     // updating course information - taken, in progress, etc. 
@@ -1512,6 +1502,9 @@ function click_button(id) {
     document.getElementById("c11").value = "{{data[38][10]}}";
     document.getElementById("c12").value = "{{data[38][11]}}";
 
+    document.getElementById("fc-color").style.backgroundColor = "{{data[38][12]}}"
+    document.getElementById("c13").value = "{{data[38][12]}}";
+
     // adding elective information to existing flowchart
     // function to create array of strings from jinja input
     function cleanArray(input) {
@@ -1547,7 +1540,8 @@ function click_button(id) {
         var output_elective = document.getElementById(id+"OutputElective");
         var elective_box = document.getElementById(id+"electiveText");
         var hours_box = document.getElementById(id+"hours");
-        var button = document.getElementById(id+"Button")
+        var elective_help = document.getElementById(id+"ElectiveHelp");
+        var button = document.getElementById(id+"Button");
 
         elName = allNames.at(i);
         elHour = allHours.at(i);
@@ -1559,6 +1553,7 @@ function click_button(id) {
             output_elective.style.display = "block";    // show output
             elective_box.style.display = "none";       // do not show input form
             hours_box.style.display = "none";          // do not show input form
+            elective_help.style.display = "none";      // do not show the instructions
             button.innerHTML = "Edit Course";
             if(elName && !elHour) {
                 output_elective.innerHTML = elName + " (__ hours)";
