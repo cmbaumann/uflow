@@ -234,11 +234,15 @@ def test_export(app, client):
     element.click()
     wait = WebDriverWait(driver, 10)
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
-    element = driver.find_element_by_class_name("fc_delete")
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_class_name("form-check-label")
+    element.click()
+    element = driver.find_element_by_class_name("btn")
     element.click()
     page = driver.page_source
-    print(page)
-    if "testflowchart" in page:
+    if "Werkzeug" in page: #Werkzeug indicates that there was an error creating the file
         assert False
     else:
         assert True
@@ -257,7 +261,6 @@ def test_delete(app, client):
     element = driver.find_element_by_class_name("fc_delete")
     element.click()
     page = driver.page_source
-    print(page)
     if "testflowchart" in page:
         assert False
     else:
