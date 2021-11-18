@@ -146,6 +146,7 @@ function color(id) {
                 document.getElementById(id).style.backgroundColor=curColor;
             }
         }
+        markInvalidCourses();
     }
 }
 
@@ -288,6 +289,53 @@ function prereqCheck(id) {
     }
 }
 
+//Marks courses that cannot be changed due to their pre/postrequisites. Designated by lower opacity and dashed borders.
+function markInvalidCourses() {
+    var colorStatus = getColorStatus();
+    colorStatus = getNumericalColorStatus(colorStatus);
+    console.log(colorStatus);
+    var temp;
+    var courseList = document.getElementsByClassName("course");
+
+    //Set all courses to have normal borders and 1 opacity
+    for (var i = 0; i < courseList.length; i++) {
+        courseList[i].style.borderStyle = "solid";
+        courseList[i].style.opacity = "1.0";
+    }
+
+    if (colorStatus == 1) return;
+
+    //Set all invalid prereq courses to have lower opacity
+    for (var i = 1; i < prereqArray.length; i++) {
+        //If prereq(s) exist for a course
+        if (prereqArray[i].length) {
+            for (var j = 0; j < prereqArray[i].length; j++) {
+                temp = document.getElementById("d"+prereqArray[i][j]).value;
+                temp = getNumericalColorStatus(temp);
+                if (temp >= colorStatus) {
+                    document.getElementById(i).style.borderStyle = "dashed";
+                    document.getElementById(i).style.opacity = "0.5";
+                }
+            }
+        }
+    }
+
+    //Set all invalid postreq courses to have lower opacity
+    for (var i = 1; i < postreqArray.length; i++) {
+        //If postreq(s) exist for a course
+        if (postreqArray[i].length) {
+            for (var j = 0; j < postreqArray[i].length; j++) {
+                temp = document.getElementById("d"+postreqArray[i][j]).value;
+                temp = getNumericalColorStatus(temp);
+                if (temp <= colorStatus) {
+                    document.getElementById(i).style.borderStyle = "dashed";
+                    document.getElementById(i).style.opacity = "0.5";
+                }
+            }
+        }
+    }
+}
+
 //Searches the prerequisite array
 function searchPrereqArray(id) {
     returnarray = [];
@@ -302,6 +350,7 @@ function searchPrereqArray(id) {
             returnarray.push(getClassName(prereqArray[id][i]));
         }
     }
+    console.log(returnarray);
     return returnarray;
 }
 
@@ -311,6 +360,7 @@ function searchPostreqArray(id) {
     var colorStatus = getColorStatus();
     colorStatus = getNumericalColorStatus(colorStatus);
     console.log(colorStatus);
+    console.log(id);
     var temp;
     if (colorStatus == 1) return returnarray;
     for (var i=0; i<postreqArray[id].length; i++) {
