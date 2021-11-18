@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, session, send_file, request
+import enum
+import re
 import pymongo
 import bcrypt
 from docx import Document
@@ -92,13 +94,14 @@ def logged_in():
             for i in range(len):
                 if (item['flowcharts'][i]["name"] != name):
                     newData.append(item['flowcharts'][i])
-        print(newData)
         records.update_one(
             {"email": email},
             {"$set": {"flowcharts": newData}}
         )
 
         names = []
+        fcBgColors = []
+        data = []
         len = 0
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         for item in entry:
@@ -106,10 +109,54 @@ def logged_in():
                     len = len + 1
                 for i in range(0, len):
                     names.append(item['flowcharts'][i]["name"])
-        return render_template('logged_in.html', email=email, names=names)
+                    fcBgColors.append(item['flowcharts'][i]["colors"][12])
+        for item in newData: #each flowchart
+            tempData = []
+            tempData.append(item["1"])
+            tempData.append(item["2"])
+            tempData.append(item["3"])
+            tempData.append(item["4"])
+            tempData.append(item["5"])
+            tempData.append(item["6"])
+            tempData.append(item["7"])
+            tempData.append(item["8"])
+            tempData.append(item["9"])
+            tempData.append(item["10"])
+            tempData.append(item["11"])
+            tempData.append(item["12"])
+            tempData.append(item["13"])
+            tempData.append(item["14"])
+            tempData.append(item["15"])
+            tempData.append(item["16"])
+            tempData.append(item["17"])
+            tempData.append(item["18"])
+            tempData.append(item["19"])
+            tempData.append(item["20"])
+            tempData.append(item["21"])
+            tempData.append(item["22"])
+            tempData.append(item["23"])
+            tempData.append(item["24"])
+            tempData.append(item["25"])
+            tempData.append(item["26"])
+            tempData.append(item["27"])
+            tempData.append(item["28"])
+            tempData.append(item["29"])
+            tempData.append(item["30"])
+            tempData.append(item["31"])
+            tempData.append(item["32"])
+            tempData.append(item["33"])
+            tempData.append(item["34"])
+            tempData.append(item["35"])
+            tempData.append(item["36"])
+            tempData.append(item["37"])
+            data.append(tempData)
+            tempData = []
+        return render_template('logged_in.html', email=email, names=names, data=data, fcBgColors=fcBgColors)
     if "email" in session:
         email = session["email"]
         names = []
+        fcBgColors = []
+        data = []
         len = 0
         entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
         for item in entry:
@@ -117,7 +164,55 @@ def logged_in():
                     len = len + 1
                 for i in range(0, len):
                     names.append(item['flowcharts'][i]["name"])
-        return render_template('logged_in.html', email=email, names=names)
+                    fcBgColors.append(item['flowcharts'][i]["colors"][12])
+        len = 0
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        print(entry)
+        for item in entry: #each flowchart
+            for thing in item['flowcharts']:
+                len += 1
+            for i in range(len): #going through the flowcharts for the user
+                    tempData = []
+                    tempData.append(item['flowcharts'][i]["1"])
+                    tempData.append(item['flowcharts'][i]["2"])
+                    tempData.append(item['flowcharts'][i]["3"])
+                    tempData.append(item['flowcharts'][i]["4"])
+                    tempData.append(item['flowcharts'][i]["5"])
+                    tempData.append(item['flowcharts'][i]["6"])
+                    tempData.append(item['flowcharts'][i]["7"])
+                    tempData.append(item['flowcharts'][i]["8"])
+                    tempData.append(item['flowcharts'][i]["9"])
+                    tempData.append(item['flowcharts'][i]["10"])
+                    tempData.append(item['flowcharts'][i]["11"])
+                    tempData.append(item['flowcharts'][i]["12"])
+                    tempData.append(item['flowcharts'][i]["13"])
+                    tempData.append(item['flowcharts'][i]["14"])
+                    tempData.append(item['flowcharts'][i]["15"])
+                    tempData.append(item['flowcharts'][i]["16"])
+                    tempData.append(item['flowcharts'][i]["17"])
+                    tempData.append(item['flowcharts'][i]["18"])
+                    tempData.append(item['flowcharts'][i]["19"])
+                    tempData.append(item['flowcharts'][i]["20"])
+                    tempData.append(item['flowcharts'][i]["21"])
+                    tempData.append(item['flowcharts'][i]["22"])
+                    tempData.append(item['flowcharts'][i]["23"])
+                    tempData.append(item['flowcharts'][i]["24"])
+                    tempData.append(item['flowcharts'][i]["25"])
+                    tempData.append(item['flowcharts'][i]["26"])
+                    tempData.append(item['flowcharts'][i]["27"])
+                    tempData.append(item['flowcharts'][i]["28"])
+                    tempData.append(item['flowcharts'][i]["29"])
+                    tempData.append(item['flowcharts'][i]["30"])
+                    tempData.append(item['flowcharts'][i]["31"])
+                    tempData.append(item['flowcharts'][i]["32"])
+                    tempData.append(item['flowcharts'][i]["33"])
+                    tempData.append(item['flowcharts'][i]["34"])
+                    tempData.append(item['flowcharts'][i]["35"])
+                    tempData.append(item['flowcharts'][i]["36"])
+                    tempData.append(item['flowcharts'][i]["37"])
+                    data.append(tempData)
+                    tempData = []
+        return render_template('logged_in.html', email=email, names=names, data=data, fcBgColors=fcBgColors)
     else:
         return redirect(url_for("login"))
 
@@ -517,9 +612,6 @@ def flowchart1():
         colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
         print(colArr)
 
-        # get elective information
-        # list of all elective ids
-        # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
         d7el = request.form.get("7electiveText")
         d7hrs = request.form.get("7hours")
         d10el = request.form.get("10electiveText")
@@ -693,45 +785,51 @@ def flowchart2(name):
         colArr = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
         print(colArr)
 
-        # get elective information
-        # list of all elective ids
-        # elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
-        d7el = request.form.get("7electiveText")
-        d7hrs = request.form.get("7hours")
-        d10el = request.form.get("10electiveText")
-        d10hrs = request.form.get("10hours")
-        d14el = request.form.get("14electiveText")
-        d14hrs = request.form.get("14hours")
-        d15el = request.form.get("15electiveText")
-        d15hrs = request.form.get("15hours")
-        d19el = request.form.get("19electiveText")
-        d19hrs = request.form.get("19hours")
-        d20el = request.form.get("20electiveText")
-        d20hrs = request.form.get("20hours")
-        d24el = request.form.get("24electiveText")
-        d24hrs = request.form.get("24hours")
-        d25el = request.form.get("25electiveText")
-        d25hrs = request.form.get("25hours")
-        d28el = request.form.get("28electiveText")
-        d28hrs = request.form.get("28hours")
-        d29el = request.form.get("29electiveText")
-        d29hrs = request.form.get("29hours")
-        d30el = request.form.get("30electiveText")
-        d30hrs = request.form.get("30hours")
-        d31el = request.form.get("31electiveText")
-        d31hrs = request.form.get("31hours")
-        d33el = request.form.get("33electiveText")
-        d33hrs = request.form.get("33hours")
-        d34el = request.form.get("34electiveText")
-        d34hrs = request.form.get("34hours")
-        d35el = request.form.get("35electiveText")
-        d35hrs = request.form.get("35hours")
-        d36el = request.form.get("36electiveText")
-        d36hrs = request.form.get("36hours")
-        elNameArr = [d7el, d10el, d14el, d15el, d19el, d20el, d24el, d25el,
-                     d28el, d29el, d30el, d31el, d33el, d34el, d35el, d36el]
-        elHoursArr = [d7hrs, d10hrs, d14hrs, d15hrs, d19hrs, d20hrs, d24hrs, d25hrs,
-                     d28hrs, d29hrs, d30hrs, d31hrs, d33hrs, d34hrs, d35hrs, d36hrs]
+
+        """ Check elective info. - Render template with elective info from DB """
+        # get the name and hours arrays from the database 
+        email = session["email"]
+        entry = records.find({"email": email}, {"flowcharts": 1, "_id": 0})
+        length = 0
+        for item in entry:
+            for thing in item['flowcharts']: # Get number of flowcharts an account has
+                length += 1
+            for i in range(length):
+                if (item['flowcharts'][i]["name"] == name): # Get a specific flowchart using the name to find it; set the data
+                    testName = item['flowcharts'][i]["elective_names"]
+                    testHours = item['flowcharts'][i]["elective_hours"]
+                
+        # FIXME: for troubleshooting
+        print(f'\t**Arrays from DB\n\ttestName: {testName}\n\ttestHours: {testHours}\n')
+
+        # check to see what elective information is already added
+        elective_ids = [7,10,14,15,19,20,24,25,28,29,30,31,33,34,35,36]
+        elNameArr = []
+        elHoursArr = []
+        for (id, temp_name, temp_hour) in zip(elective_ids, testName, testHours):
+            id = str(id)
+            formName = request.form.get(str(id+"electiveText"))
+            formHour = request.form.get(str(id+"hours"))
+
+            if temp_name == '':
+                # There is NOT information in the DB                
+                ### For troubleshooting - uncomment following 2 lines ###
+                # print(f'\t** name id: {str(id+"electiveText")}\thour id: {str(id+"hours")} **')
+                # print(f'\t** formName: {formName}\tformHour: {formHour} **')
+                elNameArr.append(formName)
+                elHoursArr.append(formHour)
+            else:
+                # There is information in the DB #
+                # Check if there is conflicting info submitted to the form
+                if(formName != '' and formName != temp_name):
+                    # Overwrite DB with new info
+                    elNameArr.append(formName)
+                    elHoursArr.append(formHour)                    
+                else:
+                    # Get info from DB
+                    elNameArr.append(temp_name)
+                    elHoursArr.append(temp_hour)
+
         print(f'\nNAME ARR:\n{elNameArr}\nHOURS ARRAY:\n{elHoursArr}\n')
 
         email = session["email"]
@@ -800,10 +898,6 @@ def flowchart2(name):
         # appending elective info - at index 39 & 40
         data.append(elNameArr)
         data.append(elHoursArr)
-        
-        """FIXME: possible to make these data.appends and editing flowchart duplicates 
-        a function so it can be called in the 2-3 places it is used instead of copy/pasting
-        """
 
         print("data: ", data)
         records.update_one(

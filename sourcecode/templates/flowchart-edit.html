@@ -8,7 +8,7 @@
 
 <style>
     
-    .course, .color, .color-pick {
+    .course, .color, .color-pick, .chart-color {
         border: 2px solid grey;
         font-weight:initial;
         color:black;
@@ -20,7 +20,7 @@
         text-align: center;
     }
 
-    .color, .color-pick {
+    .color, .color-pick, .chart-color {
         height: 30px;
         padding: 2px 2px 2px 2px;
         text-align: center;
@@ -117,6 +117,14 @@
         text-align: center;
     }
 
+    .row1 {
+        background-color: #E0E0E0;
+    }
+
+    .row2 {
+        background-color: #F0F0F0;
+    }
+
     .c-picker::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -167,6 +175,9 @@
         </table>
     </div>
 <div>
+    <div class="column chart-color" id="fc-color" onclick="color('fc-color')">Chart color</div>
+</div>
+<div>
     <button type="button" class="color-pick" id="btn-change" onclick="colorChange()">Change colors</button>
 </div>
 
@@ -196,21 +207,22 @@
         <div class="column color" id="spring4" onclick="color('spring4')">Spring {{yearData[4]}}</div>
         <div class="column color" id="fall4" onclick="color('fall4')">Fall {{yearData[4]}}</div>
         <div class="column color" id="deselect" onclick="color('deselect')">Deselect</div>
-        <input type="text" name="c1" id="c1" style="display:none" value="#008000" placeholder="CHICKEN"></input>
-        <input type="text" name="c2" id="c2" style="display:none" value="#0000ff" placeholder="CHICKEN"></input>
-        <input type="text" name="c3" id="c3" style="display:none" value="#ff0000" placeholder="CHICKEN"></input>
-        <input type="text" name="c4" id="c4" style="display:none" value="#800080" placeholder="CHICKEN"></input>
-        <input type="text" name="c5" id="c5" style="display:none" value="#ffff00" placeholder="CHICKEN"></input>
-        <input type="text" name="c6" id="c6" style="display:none" value="#808000" placeholder="CHICKEN"></input>
-        <input type="text" name="c7" id="c7" style="display:none" value="#00ff00" placeholder="CHICKEN"></input>
-        <input type="text" name="c8" id="c8" style="display:none" value="#ff00ff" placeholder="CHICKEN"></input>
-        <input type="text" name="c9" id="c9" style="display:none" value="#f4a460" placeholder="CHICKEN"></input>
-        <input type="text" name="c10" id="c10" style="display:none" value="#ffe4e1" placeholder="CHICKEN"></input>
-        <input type="text" name="c11" id="c11" style="display:none" value="#00ffff" placeholder="CHICKEN"></input>
-        <input type="text" name="c12" id="c12" style="display:none" value="#008080" placeholder="CHICKEN"></input>
-        <input type="text" name="c13" id="c13" style="display:none" value="#aaaaaa" placeholder="CHICKEN"></input>
+        <input type="text" name="c1" id="c1" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c2" id="c2" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c3" id="c3" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c4" id="c4" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c5" id="c5" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c6" id="c6" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c7" id="c7" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c8" id="c8" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c9" id="c9" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c10" id="c10" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c11" id="c11" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c12" id="c12" style="display:none" placeholder="CHICKEN"></input>
+        <input type="text" name="c13" id="c13" style="display:none" value="#F0D0A0" placeholder="CHICKEN"></input> <!--Fc list color-->
+
     </div>
-    <div class="row">
+    <div class="row row1">
         <div class="column course" id="1" onclick="prereqCheck('1')">
             EN 101<br>
             <select hidden name="d1" class="form-select form-select-sm" id="d1" aria-label=".form-select-sm example">
@@ -307,7 +319,7 @@
               </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row row2">
         <div  class="column course" id="6" onclick="prereqCheck('6')">
             EN 102<br>
             <select hidden name="d6" class="form-select form-select-sm" id="d6" aria-label=".form-select-sm example">
@@ -407,7 +419,7 @@
               </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row row1">
         <div class="column course" id="10" onclick="prereqCheck('10')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">HU/L/FA Elective #1 (sequence)</label>
@@ -507,7 +519,7 @@
               </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row row2">
         <div class="column course" id="14" onclick="prereqCheck('14')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">HU/L/FA Elective #2 (sequence)</label>
@@ -648,7 +660,7 @@
               </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row row1">
         <div class="column course" id="19" onclick="prereqCheck('19')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Free Elective</label>
@@ -789,7 +801,7 @@
               </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row row2">
         <div  class="column course" id="24" onclick="prereqCheck('24')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Free Elective</label>
@@ -952,7 +964,7 @@
               </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row row1">
         <div class="column course" id="29" onclick="prereqCheck('29')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Free Elective</label>
@@ -1137,7 +1149,7 @@
               </select>
         </div>
     </div>
-    <div class="row">
+    <div class="row row2">
         <div class="column course" id="34" onclick="prereqCheck('34')">
             <!-- information needed for elective editing -->
             <label for="fillOutElective">Free Elective</label>
@@ -1373,6 +1385,9 @@ will then have to create my own loop of some kind assigning them
     document.getElementById("c10").value = "{{data[38][9]}}";
     document.getElementById("c11").value = "{{data[38][10]}}";
     document.getElementById("c12").value = "{{data[38][11]}}";
+
+    document.getElementById("fc-color").style.backgroundColor = "{{data[38][12]}}"
+    document.getElementById("c13").value = "{{data[38][12]}}";
     
     // adding elective information to existing flowchart
     // function to create array of strings from jinja input
@@ -1409,7 +1424,8 @@ will then have to create my own loop of some kind assigning them
         var output_elective = document.getElementById(id+"OutputElective");
         var elective_box = document.getElementById(id+"electiveText");
         var hours_box = document.getElementById(id+"hours");
-        var button = document.getElementById(id+"Button")
+        var elective_help = document.getElementById(id+"ElectiveHelp");
+        var button = document.getElementById(id+"Button");
 
         elName = allNames.at(i);
         elHour = allHours.at(i);
@@ -1421,6 +1437,7 @@ will then have to create my own loop of some kind assigning them
             output_elective.style.display = "block";    // show output
             elective_box.style.display = "none";       // do not show input form
             hours_box.style.display = "none";          // do not show input form
+            elective_help.style.display = "none";      // do not show the instructions
             button.innerHTML = "Edit Course";
             if(elName && !elHour) {
                 output_elective.innerHTML = elName + " (__ hours)";

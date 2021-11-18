@@ -4,13 +4,14 @@
 
 {% block content %}
 
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
 <style>
     div.fc_block {
         background-color: rgb(236, 211, 177);
         margin: 0 50% 10px 20px;
         padding: 0 0 20px 20px;
         border-radius: 10px;
-        border-color:black;
         border-style: solid;
         border-width: 2px;
     }
@@ -70,43 +71,70 @@
         padding: 5px 0 5px 20px;
     }
 
-
+    .heading {
+        position: center;
+    }
 </style>
 
 <body>
     <div class="msg_greeting">
-        <section>You are logged in as {{ email }}</section>
+            <section>You are logged in as {{ email }}</section>
     </div>
-
-    <div class="fc_list">
-        {%for name in names %}
-        <div class="fc_block">
-            <br><h3>{{name}}</h3>
-            <table>
-                <tr>
-                    <td><form action="/flowchart-edit/{{name}}">
-                        <input class="fc_edit" type="submit" value="Edit">
-                    </form></td>
-                    <td><form action="" method="post">
-                        <input class="fc_delete" type="submit" value="Delete">
-                        <select hidden name="name" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                            <option selected value="{{name}}">{{name}}</option>
-                        </select>
-                    </form></td>
-                </tr>
-                </table>
-            </div>
-        </div>
-        {%endfor%}
-
-        <div class="fc_block_new">
-            <form action="/flowchart-new">
-                <input class="fc_add" type="submit" value="Add a new flowchart +">
-            </form>
-        </div>
+    <div class="fc_block_new">
+        <form action="/flowchart-new">
+            <input class="fc_add" type="submit" value="Add a new flowchart +">
+        </form>
     </div>
+    <table width="100%">
+            <td>
+                <div class="fc_list">
+                    {%for x in range(names|length)%}
+                    <div class="fc_block" style="background: repeating-linear-gradient(45deg,#F0D0A0,#F0D0A0 70%, {{fcBgColors[x]}} 70%, {{fcBgColors[x]}} 100% );">
+                        <br><h3>{{names[x]}}</h3>
+                        <table>
+                            <tr>
+                                <td><form action="/flowchart-edit/{{names[x]}}">
+                                    <input class="fc_edit" type="submit" value="Edit">
+                                </form></td>
+                                <td><form action="" method="post">
+                                    <input class="fc_delete" type="submit" value="Delete">
+                                    <select hidden name="name" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                        <option selected value="{{names[x]}}">{{names[x]}}</option>
+                                    </select>
+                                </form></td>
+                                <td>
+                                    <body>
+                                        <p class = "p1">
+                                            N/A% Complete
+                                        </p>
+                                    </body>
+                                </td>
+                            </tr>
+                            </table>
+                        </div>
+                    </div>
+                    {%endfor%}   
+                </div>
+            </td>
+    </table>
 </body>
-
 <!--Placeholders. When finished there should be a list of flowcharts that you have saved, added with a single button, each with an edit and delete button.-->
 
+<script>
+    x = document.getElementsByClassName("p1");
+    var count = 0;
+    var percentage = 0;
+    var tempPercentage = 0;
+    var fcCounter=0;
+    "{%for i in data %}"
+        "{%for j in i %}"
+            if ("{{j}}" != "") count++;
+        "{%endfor%}"
+        tempPercentage = (count/37)*100;
+        percentage = tempPercentage.toFixed(0);
+        x[fcCounter].innerText=percentage+"% Complete";
+        count = 0;
+        fcCounter++;
+    "{%endfor%}"
+</script>
 {% endblock %}
