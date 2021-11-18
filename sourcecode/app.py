@@ -299,7 +299,7 @@ def exportData(years, email, name, electives, hours):
 
     def getElectiveName(index):
         if (electives[index] != ""):
-            return electives[index] + " (" + hours[index] + ")"
+            return electives[index] + " (" + str(hours[index]) + ")"
         elif (index == 0): return "HI/SB Elective"
         elif (index == 1): return "HU/L/FA Elective"
         elif (index == 2): return "HU/L/FA Elective"
@@ -359,7 +359,7 @@ def exportData(years, email, name, electives, hours):
 
     def getElectiveHours(index):
         if (electives[index] != ""):
-            return hours[index]
+            return int(hours[index])
         elif (index == 0): return 3
         elif (index == 1): return 3
         elif (index == 2): return 3
@@ -460,7 +460,7 @@ def exportData(years, email, name, electives, hours):
                         table.style = 'TableGrid'
                         for j in range(1, 13):
                             if (count[j] > 0):
-                                hours = 0
+                                hoursRow = 0
                                 curRow = table.rows[row].cells
                                 paragraph = curRow[0].paragraphs[0]
                                 run = paragraph.add_run(getSemesterName(j))
@@ -468,8 +468,8 @@ def exportData(years, email, name, electives, hours):
                                 for k in range(1, count[j]+1):
                                     curRow = table.rows[row].cells
                                     curRow[k].text = getClassName(data[j][k-1])
-                                    hours += getHours(data[j][k-1])
-                                curRow[numCols].text = str(hours) + " hours"
+                                    hoursRow += getHours(data[j][k-1])
+                                curRow[numCols].text = str(hoursRow) + " hours"
                                 row += 1
                     else: 
                         newNumCols = 0
@@ -482,7 +482,7 @@ def exportData(years, email, name, electives, hours):
                         table = document.add_table(rows=newNumRows, cols=newNumCols+2)
                         table.style = 'TableGrid'
                         for j in range(1, 13):
-                            hours = 0
+                            hoursRow = 0
                             if (j != 1):
                                 if (count[j] > 0):
                                     # print("adding ", getSemesterName(j), "to 0 in row ", row)
@@ -493,9 +493,9 @@ def exportData(years, email, name, electives, hours):
                                     for k in range(1, count[j]+1):
                                         curRow = table.rows[row].cells
                                         curRow[k].text = getClassName(data[j][k-1])
-                                        hours += getHours(data[j][k-1])
+                                        hoursRow += getHours(data[j][k-1])
                                         # print("adding ", getClassName(data[j][k-1]), "to ", k, "in row ", row, "class ", data[j][k-1])
-                                    curRow[newNumCols+1].text = str(hours) + " hours"
+                                    curRow[newNumCols+1].text = str(hoursRow) + " hours"
                                     row += 1
                             else:
                                 place = 0
@@ -510,7 +510,7 @@ def exportData(years, email, name, electives, hours):
                                             for k in range(1, newNumCols+1):
                                                 curRow = table.rows[row].cells
                                                 curRow[k].text = getClassName(data[j][place])
-                                                hours += getHours(data[j][k-1])
+                                                hoursRow += getHours(data[j][k-1])
                                                 # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
                                                 place += 1
                                             row += 1
@@ -518,14 +518,14 @@ def exportData(years, email, name, electives, hours):
                                             for k in range(1, newNumCols+1):
                                                 curRow = table.rows[row].cells
                                                 curRow[k].text = getClassName(data[j][place])
-                                                hours += getHours(data[j][k-1])
+                                                hoursRow += getHours(data[j][k-1])
                                                 # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
                                                 place += 1
                                                 if (place >= count[1]):
                                                     break
                                             row += 1  
                                             if (row == rowIterations):
-                                                curRow[newNumCols+1].text = str(hours) + " hours"
+                                                curRow[newNumCols+1].text = str(hoursRow) + " hours"
     
     root_url = request.url_root
     ip_local = 'http://127.0.0.1:5000/'
