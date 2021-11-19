@@ -101,7 +101,7 @@
         padding: 10px 0px 5px 10px; /*top, right, bottom, left*/
         margin: 0px 0px 0px 10px;
         width: 13em;
-        height: 120px;
+        height: 150px;
         overflow: hidden;
     }
 
@@ -166,6 +166,7 @@
 </div>
 <div id="color-chooser" class="color-choose-section" style="display: none">
     <button type="button" class="btn-default" id="btn-default" onclick="colorDefault()">Set default colors</button><br>
+    <input type="checkbox" id="cb_default"> - Default chart color</input><br>
     <div class="ccs-1">
         <input type="range" class="c-picker c-red" min="0" max="255" value="0" oninput="colCanvasChange()"></input><br>
         <input type="range" class="c-picker c-green" min="0" max="255" value="0" oninput="colCanvasChange()"></input><br>
