@@ -244,6 +244,7 @@ function change(id) {
         document.getElementById(newid).value = optionList[curOption];
     }
     //console.log("changed: "+ document.getElementById(newid).value + " color: " + document.getElementById(id).style.backgroundColor);
+    markInvalidCourses();
 }
 
 //Checks if the clicked class has a prerequisite and/or postrequisite before setting its value and color
