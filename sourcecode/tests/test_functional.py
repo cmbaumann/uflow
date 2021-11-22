@@ -272,7 +272,7 @@ def test_render_elective(app, client):
     element.click()
 
     # save flowchart to DB
-    element = driver.find_element_by_id("saveButton")
+    element = driver.find_element_by_name("saveButton")
     element.click()
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
 
