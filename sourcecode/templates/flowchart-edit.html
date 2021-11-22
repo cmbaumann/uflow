@@ -1424,6 +1424,8 @@ will then have to create my own loop of some kind assigning them
         else {
             document.getElementById(i).style.backgroundColor="#ffffff";
         }
+        console.log("hoursPlanned:", hoursPlanned);
+        console.log("hoursTaken:", hoursTaken);
     }
 
     //color array at index 38
@@ -1501,32 +1503,32 @@ will then have to create my own loop of some kind assigning them
             else if(!elName && elHour) {
                 output_elective.innerHTML = "__ (" + elHour + " hours)";
                 if (array[elID] == "taken") {
-                    hoursTaken -= getHours(i);
-                    hoursPlanned -= getHours(i);
+                    hoursTaken -= getHours(elective_ids[i]);
+                    hoursPlanned -= getHours(elective_ids[i]);
                     hoursTaken += parseInt(elHour);
                     hoursPlanned += parseInt(elHour);
                 }
                 else {
-                    hoursPlanned -= getHours(i);
+                    hoursPlanned -= getHours(elective_ids[i]);
                     hoursPlanned += parseInt(elHour);
                 }
             }
             else {  // elName && elHour
                 output_elective.innerHTML = elName + " (" + elHour + " hours)";  
                 if (array[elID] == "taken") {
-                    hoursTaken -= getHours(i);
-                    hoursPlanned -= getHours(i);
+                    hoursTaken -= getHours(elective_ids[i]);
+                    hoursPlanned -= getHours(elective_ids[i]);
                     hoursTaken += parseInt(elHour);
                     hoursPlanned += parseInt(elHour);
                 }
                 else {
-                    hoursPlanned -= getHours(i);
+                    hoursPlanned -= getHours(elective_ids[i]);
                     hoursPlanned += parseInt(elHour);
                 }
             }
         }        
     }
-
+    
     takenString = "Hours Taken: " + hoursTaken
     plannedString = "Hours Planned: " + hoursPlanned
     document.getElementById("hoursTaken").innerHTML = takenString;

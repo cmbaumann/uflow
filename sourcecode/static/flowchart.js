@@ -268,6 +268,7 @@ function getElectiveHours(index) {
 }
 
 function getHours(id) {
+    console.log("GETHOURS", id);
     if (id == 1) { return 3; }
     else if (id == 2) { return 3; }
     else if (id == 3) { return 4; }
