@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 
 # must be the chromedriver file path specific to your machine
-chromepath = "/Users/peytonreed/Downloads/chromedriver" 
+chromepath = "/Users/bradywachs/Downloads/chromedriver" 
 
 
 #1
@@ -246,30 +246,10 @@ def test_color_save(app, client):
 
 
 #11
-def test_delete(app, client):
-    driver = webdriver.Chrome(chromepath)
-    driver.get("https://uflow-alabama.herokuapp.com/login")
-    element = driver.find_element_by_id("InputEmail")
-    element.send_keys("test@crimson.ua.edu")
-    element = driver.find_element_by_id("InputPassword")
-    element.send_keys("password")
-    element = driver.find_element_by_class_name("btn")
-    element.click()
-    wait = WebDriverWait(driver, 10)
-    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
-    element = driver.find_element_by_class_name("fc_delete")
-    element.click()
-    page = driver.page_source
-    print(page)
-    if "testflowchart" in page:
-        assert False
-    else:
-        assert True
-
-
-#12
 def test_render_elective(app, client):
-    chromepath = "/Users/bradywachs/Downloads/chromedriver" 
+    """
+    Test that the elective information still renders after website is saved
+    """
     
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
@@ -291,13 +271,34 @@ def test_render_elective(app, client):
     element = driver.find_element_by_id("7Button")
     element.click()
 
-    """NEXT STEPS:
-    - save the flowchart
-    - test that the value is still there? 
-    - OR: edit 1st and then save again and test output
-    """
-    element = driver.find_element_by_id("")
+    # save flowchart to DB
+    element = driver.find_element_by_id("saveButton")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
 
+    # Assert that the information still renders after the save
     element = driver.find_element_by_id("7OutputElective")
     value = element.get_attribute('innerHTML')
     assert value == "MUS 121 (3 hours)"
+
+
+#15
+def test_delete(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_delete")
+    element.click()
+    page = driver.page_source
+    print(page)
+    if "testflowchart" in page:
+        assert False
+    else:
+        assert True
