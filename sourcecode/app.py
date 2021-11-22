@@ -480,6 +480,8 @@ def exportData(years, email, name, electives, hours, hoursTaken, hoursPlanned):
                         for j in range(1, 13):
                             if ((count[j] > newNumCols) and (j != 1)):
                                     newNumCols = count[j]
+                        if (newNumCols == 0):
+                            newNumCols = count[1]
                         rowIterations = count[1] / newNumCols
                         rowIterations = math.ceil(rowIterations)
                         newNumRows = numRows + rowIterations - 1
@@ -928,9 +930,11 @@ def flowchart2(name):
             print("EXPORT")
             hoursTaken = request.form.get("hoursTaken")
             hoursPlanned = request.form.get("hoursPlanned")
+            years2 = []
             for i in range(0, 5):
-                years.append(int(yearData[i]))
-            fileName = exportData(years, email, name, elNameArr, elHoursArr, hoursTaken, hoursPlanned)
+                years2.append(yearData[i])
+            print("years:",  years2)
+            fileName = exportData(years2, email, name, elNameArr, elHoursArr)
             return send_file(fileName, name, as_attachment=True, download_name=fileName)
 
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
