@@ -1366,67 +1366,77 @@ will then have to create my own loop of some kind assigning them
             document.getElementById(newid).value="taken";
             hoursTaken += getHours(i);
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "inprogress") {
             document.getElementById(i).style.backgroundColor="{{data[38][1]}}";
             document.getElementById(newid).value="inprogress";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "spring0") {
             document.getElementById(i).style.backgroundColor="{{data[38][2]}}";
             document.getElementById(newid).value="spring0";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "fall0") {
             document.getElementById(i).style.backgroundColor="{{data[38][3]}}";
             document.getElementById(newid).value="fall0";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "spring1") {
             document.getElementById(i).style.backgroundColor="{{data[38][4]}}";
             document.getElementById(newid).value="spring1";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "fall1") {
             document.getElementById(i).style.backgroundColor="{{data[38][5]}}";
             document.getElementById(newid).value="fall1";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "spring2") {
             document.getElementById(i).style.backgroundColor="{{data[38][6]}}";
             document.getElementById(newid).value="spring2";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "fall2") {
             document.getElementById(i).style.backgroundColor="{{data[38][7]}}";
             document.getElementById(newid).value="fall2";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "spring3") {
             document.getElementById(i).style.backgroundColor="{{data[38][8]}}";
             document.getElementById(newid).value="spring3";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "fall3") {
             document.getElementById(i).style.backgroundColor="{{data[38][9]}}";
             document.getElementById(newid).value="fall3";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "spring4") {
             document.getElementById(i).style.backgroundColor="{{data[38][10]}}";
             document.getElementById(newid).value="spring4";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else if (array[i] == "fall4") {
             document.getElementById(i).style.backgroundColor="{{data[38][11]}}";
             document.getElementById(newid).value="fall4";
             hoursPlanned += getHours(i);
+            chosen[i] = 1;
         }
         else {
             document.getElementById(i).style.backgroundColor="#ffffff";
         }
-        console.log("hoursPlanned:", hoursPlanned);
-        console.log("hoursTaken:", hoursTaken);
     }
 
     //color array at index 38

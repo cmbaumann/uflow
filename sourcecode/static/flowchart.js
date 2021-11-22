@@ -410,6 +410,7 @@ function getRGB(str){
 
 //decrements the hours taken and hours planned by the correct amount when a course is deselected
 function decrementHours(id) {
+    console.log("chosen:", chosen[id]);
     if (chosen[id] != 1) {
         return;
     }
