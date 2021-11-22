@@ -214,7 +214,12 @@ function colCanvasChange() {
 function colorDefault() {
     var opts = document.getElementsByClassName('color');
     var courses = document.getElementsByClassName('course');
+    var cb = document.getElementById('cb_default');
     //Set option colors to default
+    if (cb.checked) {
+        document.getElementById("c13").value="#F0D0A0";
+        document.getElementById("fc-color").style.backgroundColor="#F0D0A0";
+    }
     for (var i = 0; i < optionCols.length-1; i++) {
         if (curColor == optionCols[i]) { curColor = default_optionCols[i]; }
         optionCols[i] = default_optionCols[i];
