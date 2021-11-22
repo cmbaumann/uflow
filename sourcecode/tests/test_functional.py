@@ -5,12 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 # must be the chromedriver file path specific to your machine
-<<<<<<< HEAD
 chromepath = "C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe"
-=======
-chromepath = "/Users/bradywachs/Downloads/chromedriver" 
->>>>>>> Brady_test3
-
 
 #1
 def test_login(app, client):
