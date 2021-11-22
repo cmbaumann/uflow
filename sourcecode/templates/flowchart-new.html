@@ -150,13 +150,19 @@
     </div>
 {% endif %}
 
+<form id="landing" action="\logged_in"></form>
 <form action="" method="post">
 
     <div class="form-group">
         <label for="FlowchartName">Flowchart Name</label>
         <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" style="width: 40%">
         <small id="flowchartname" class="form-text text-muted"></small>
-        <button type="submit" class="btn btn-primary" onclick="enable()">Save</button>
+        <table>
+            <tr>
+                <td><button type="submit" class="btn btn-primary" onclick="enable()">Save</button></td>
+                <td><input class="btn btn-primary" type="submit" value="Return to Flowcharts" onclick="saveMessage()" form="landing"></td>
+            </tr>
+        </table>
   </div>
 <div>
     <div class="column chart-color" id="fc-color" onclick="color('fc-color')">Chart color</div>
