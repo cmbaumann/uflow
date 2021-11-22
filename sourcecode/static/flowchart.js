@@ -90,7 +90,10 @@ let optionList = ["taken",   "inprogress", "spring0", "fall0",   "spring1", "fal
 //                 0          1             2          3          4          5          6          7          8          9          10         11         12
 
 var chosen = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-                 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,]
+                 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0]
+
+var electiveChosen = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+                0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0]
 
 window.onload = function() {
     /*var path = window.location.pathname;
@@ -243,9 +246,34 @@ function colorDefault() {
 function change(id) {
 
     newid = "d" + id;
+    id2 = parseInt(id);
     if (curOption == 12) {  //deselect option
         document.getElementById(id).style.backgroundColor = "#ffffff";
         document.getElementById(newid).value="";
+        console.log("DESELECT");
+        if ((id2 == 7) || (id2 == 10) || (id2 == 14) || (id2 == 15) || (id2 == 19) || (id2 == 20) || (id2 == 24) || 
+            (id2 == 25) || (id2 == 28) || (id2 == 29) || (id2 == 30) || (id2 == 31) || (id2 == 10) || (id2 == 33) || 
+            (id2 == 34) || (id2 == 35) || (id2 == 36)) {
+                console.log("ELECTIVE");
+                var course_input = document.getElementById(id+"electiveText");
+                var course_hours = document.getElementById(id+"hours")
+                var course_text = document.getElementById(id+"courseText");
+                var hours_text = document.getElementById(id+"hoursText")
+                var button = document.getElementById(id+"Button");
+                var elective_help = document.getElementById(id+"ElectiveHelp");
+                var output_elective = document.getElementById(id+"OutputElective");
+
+                button.innerHTML = "Submit";
+            
+                output_elective.style.display = "none";
+                elective_help.style.display = "block";
+                course_input.style.display = "block";
+                course_input.value = "";
+                course_hours.style.display = "block";
+                course_hours.value = "";
+                course_text.style.display = "block";
+                hours_text.style.display = "block";
+            }
     } 
     else { 
         document.getElementById(id).style.backgroundColor = curColor;
@@ -275,6 +303,7 @@ function getElectiveHours(index) {
 }
 
 function getHours(id) {
+    console.log("GETHOURS", id);
     if (id == 1) { return 3; }
     else if (id == 2) { return 3; }
     else if (id == 3) { return 4; }
@@ -322,9 +351,9 @@ function incrementHours(id) {
     else {
         chosen[id] = 1;
     }
-    if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
-        (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
-        (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+    // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+    //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+    //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
             var taken = document.getElementById("hoursTaken").innerHTML;
             var planned = document.getElementById("hoursPlanned").innerHTML;
             var hoursTaken = taken.match(/\d/g);
@@ -352,7 +381,7 @@ function incrementHours(id) {
             document.getElementById("hoursPlanned").innerHTML = plannedString;
             document.getElementById("hoursTaken2").value = hoursTaken;
             document.getElementById("hoursPlanned2").value = hoursPlanned;
-    }
+    // }
 }
 
 function rgbToHex(r,g,b) {
@@ -381,15 +410,16 @@ function getRGB(str){
 
 //decrements the hours taken and hours planned by the correct amount when a course is deselected
 function decrementHours(id) {
+    console.log("chosen:", chosen[id]);
     if (chosen[id] != 1) {
         return;
     }
     else {
         chosen[id] = 0;
     }
-    if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
-        (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
-        (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+    // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+    //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+    //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
             var taken = document.getElementById("hoursTaken").innerHTML;
             var planned = document.getElementById("hoursPlanned").innerHTML;
             var hoursTaken = taken.match(/\d/g);
@@ -419,7 +449,7 @@ function decrementHours(id) {
             document.getElementById("hoursPlanned").innerHTML = plannedString;
             document.getElementById("hoursTaken2").value = hoursTaken;
             document.getElementById("hoursPlanned2").value = hoursPlanned;
-    }
+    // }
 }
 
 //Checks if the clicked class has a prerequisite and/or postrequisite before setting its value and color

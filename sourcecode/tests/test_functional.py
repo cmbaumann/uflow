@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 # must be the chromedriver file path specific to your machine
-chromepath = "/Users/peytonreed/Downloads/chromedriver"
+chromepath = "C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe"
 
 #1
 def test_login(app, client):

@@ -516,7 +516,8 @@ def exportData(years, email, name, electives, hours, hoursTaken, hoursPlanned):
                                             for k in range(1, newNumCols+1):
                                                 curRow = table.rows[row].cells
                                                 curRow[k].text = getClassName(data[j][place])
-                                                hoursRow += getHours(data[j][k-1])
+                                                hoursRow += getHours(data[j][place])
+                                                print("hours1:", hoursRow)
                                                 # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
                                                 place += 1
                                             row += 1
@@ -524,7 +525,8 @@ def exportData(years, email, name, electives, hours, hoursTaken, hoursPlanned):
                                             for k in range(1, newNumCols+1):
                                                 curRow = table.rows[row].cells
                                                 curRow[k].text = getClassName(data[j][place])
-                                                hoursRow += getHours(data[j][k-1])
+                                                hoursRow += getHours(data[j][place])
+                                                print("hours2:", hoursRow, data[j][place])
                                                 # print("adding ", getClassName(data[j][place]), "to ", k, "in row ", row, "class ", data[j][place])
                                                 place += 1
                                                 if (place >= count[1]):
@@ -933,7 +935,7 @@ def flowchart2(name):
             for i in range(0, 5):
                 years2.append(yearData[i])
             print("years:",  years2)
-            fileName = exportData(years2, email, name, elNameArr, elHoursArr)
+            fileName = exportData(years2, email, name, elNameArr, elHoursArr, hoursTaken, hoursPlanned)
             return send_file(fileName, name, as_attachment=True, download_name=fileName)
 
         return render_template('flowchart-edit.html', message=message, name=name, data=data, yearData=yearData)
