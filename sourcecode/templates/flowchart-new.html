@@ -1332,10 +1332,13 @@ function electiveIncrementHours(id, hours) {
             hoursPlanned = parseInt(hours2);
             hours = parseInt(hours);
             if (curOption == 0) {
+                hoursTaken -= getHours(id);
+                hoursPlanned -= getHours(id);
                 hoursTaken += hours;
                 hoursPlanned += hours;
             }
             else {
+                hoursPlanned -= getHours(id);
                 hoursPlanned += hours;
             }
             takenString = "Hours Taken: " + hoursTaken
@@ -1368,9 +1371,13 @@ function electiveDecrementHours(id, hours) {
             if (curOption == 0) {
                 hoursTaken -= hours;
                 hoursPlanned -= hours;
+                hoursTaken += getHours(id);
+                hoursPlanned += getHours(id);
             }
             else {
                 hoursPlanned -= hours;
+                hoursTaken += getHours(id);
+                hoursPlanned += getHours(id);
             }
             takenString = "Hours Taken: " + hoursTaken
             plannedString = "Hours Planned: " + hoursPlanned

@@ -90,7 +90,10 @@ let optionList = ["taken",   "inprogress", "spring0", "fall0",   "spring1", "fal
 //                 0          1             2          3          4          5          6          7          8          9          10         11         12
 
 var chosen = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-                 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,]
+                 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0]
+
+var electiveChosen = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+                0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0]
 
 window.onload = function() {
     /*var path = window.location.pathname;
@@ -323,9 +326,9 @@ function incrementHours(id) {
     else {
         chosen[id] = 1;
     }
-    if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
-        (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
-        (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+    // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+    //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+    //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
             var taken = document.getElementById("hoursTaken").innerHTML;
             var planned = document.getElementById("hoursPlanned").innerHTML;
             var hoursTaken = taken.match(/\d/g);
@@ -353,7 +356,7 @@ function incrementHours(id) {
             document.getElementById("hoursPlanned").innerHTML = plannedString;
             document.getElementById("hoursTaken2").value = hoursTaken;
             document.getElementById("hoursPlanned2").value = hoursPlanned;
-    }
+    // }
 }
 
 function rgbToHex(r,g,b) {
@@ -388,9 +391,9 @@ function decrementHours(id) {
     else {
         chosen[id] = 0;
     }
-    if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
-        (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
-        (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+    // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+    //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+    //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
             var taken = document.getElementById("hoursTaken").innerHTML;
             var planned = document.getElementById("hoursPlanned").innerHTML;
             var hoursTaken = taken.match(/\d/g);
@@ -420,7 +423,7 @@ function decrementHours(id) {
             document.getElementById("hoursPlanned").innerHTML = plannedString;
             document.getElementById("hoursTaken2").value = hoursTaken;
             document.getElementById("hoursPlanned2").value = hoursPlanned;
-    }
+    // }
 }
 
 //Checks if the clicked class has a prerequisite and/or postrequisite before setting its value and color

@@ -193,9 +193,9 @@
     </td>
     <td class="data, hours">
         <p id="hoursTaken" align="right">Hours Taken: 0</p>
-        <input hidden name="hoursTaken" id="hoursTaken2" placeholder="0">
+        <input hidden name="hoursTaken" id="hoursTaken2" value="0">
         <p id="hoursPlanned" align="right">Hours Planned: 0</p>
-        <input hidden name="hoursPlanned" id="hoursPlanned2" placeholder="0">
+        <input hidden name="hoursPlanned" id="hoursPlanned2" value="0">
     </td>
     </tr>
   </table>
@@ -1564,10 +1564,13 @@ function electiveIncrementHours(id, hours) {
             hoursPlanned = parseInt(hours2);
             hours = parseInt(hours);
             if (curOption == 0) {
+                hoursTaken -= getHours(id);
+                hoursPlanned -= getHours(id);
                 hoursTaken += hours;
                 hoursPlanned += hours;
             }
             else {
+                hoursPlanned -= getHours(id);
                 hoursPlanned += hours;
             }
             takenString = "Hours Taken: " + hoursTaken
@@ -1602,9 +1605,13 @@ function electiveDecrementHours(id, hours) {
             if (curOption == 0) {
                 hoursTaken -= hours;
                 hoursPlanned -= hours;
+                hoursTaken += getHours(id);
+                hoursPlanned += getHours(id);
             }
             else {
                 hoursPlanned -= hours;
+                hoursTaken += getHours(id);
+                hoursPlanned += getHours(id);
             }
             takenString = "Hours Taken: " + hoursTaken
             plannedString = "Hours Planned: " + hoursPlanned
