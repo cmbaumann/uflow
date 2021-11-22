@@ -224,6 +224,33 @@ def test_color_save(app, client):
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 0, 0, 1)"
 
+#Check if program marks invalid courses correctly, signified by having 0.5 opacity
+def test_invalid_mark(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("spring0")
+    element.click()
+    element = driver.find_element_by_id("1")
+    element.click()
+    element = driver.find_element_by_id("fall0")
+    element.click()
+    element = driver.find_element_by_id("6")
+    element.click()
+    element = driver.find_element_by_id("1")
+    value = element.value_of_css_property("opacity")
+    assert value == "0.5"
+
 def test_delete(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
