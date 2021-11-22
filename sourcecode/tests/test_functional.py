@@ -248,7 +248,6 @@ def test_color_save(app, client):
     assert value == "rgba(0, 0, 0, 1)"
 
 
-
 #11
 def test_render_elective(app, client):
     """
@@ -287,6 +286,7 @@ def test_render_elective(app, client):
     assert value == "MUS 121 (3 hours)"
 
 
+#12
 #Check if program marks invalid courses correctly, signified by having 0.5 opacity
 def test_invalid_mark(app, client):
     driver = webdriver.Chrome(chromepath)
@@ -315,6 +315,7 @@ def test_invalid_mark(app, client):
     value = element.value_of_css_property("opacity")
     assert value == "0.5"
 
+#13
 def test_export(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
@@ -338,8 +339,6 @@ def test_export(app, client):
         assert False
     else:
         assert True
-
-
 
 
 #15
