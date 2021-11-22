@@ -89,6 +89,9 @@ let optionList = ["taken",   "inprogress", "spring0", "fall0",   "spring1", "fal
 //                 green      blue          red        purple     yellow     olive      lime       fuchsia    sdybrn     mstyrose   aqua       teal       white  
 //                 0          1             2          3          4          5          6          7          8          9          10         11         12
 
+var chosen = [0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+                 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,]
+
 window.onload = function() {
     /*var path = window.location.pathname;
     var page = path.split("/")[1];
@@ -252,6 +255,173 @@ function change(id) {
     markInvalidCourses();
 }
 
+function getElectiveHours(index) {
+    if (index == 0) { return 3; }
+    else if (index == 1) { return 3; }
+    else if (index == 2) { return 3; }
+    else if (index == 3) { return 4; }
+    else if (index == 4) { return 3; }
+    else if (index == 5) { return 3; }
+    else if (index == 6) { return 3; }
+    else if (index == 7) { return 3; }
+    else if (index == 8) { return 3; }
+    else if (index == 9) { return 3; }
+    else if (index == 10) { return 3; }
+    else if (index == 11) { return 4; }
+    else if (index == 12) { return 3; }
+    else if (index == 13) { return 3; }
+    else if (index == 14) { return 3; }
+    else if (index == 15) { return 4; }
+}
+
+function getHours(id) {
+    if (id == 1) { return 3; }
+    else if (id == 2) { return 3; }
+    else if (id == 3) { return 4; }
+    else if (id == 4) { return 4; }
+    else if (id == 5) { return 1; }
+    else if (id == 6) { return 3; }
+    else if (id == 7) { return getElectiveHours(0); }
+    else if (id == 8) { return 4; }
+    else if (id == 9) { return 4; }
+    else if (id == 10) { return getElectiveHours(1); }
+    else if (id == 11) { return 3; }
+    else if (id == 12) { return 4; }
+    else if (id == 13) { return 4; }
+    else if (id == 14) { return getElectiveHours(2); }
+    else if (id == 15) { return getElectiveHours(3); }
+    else if (id == 16) { return 1; }
+    else if (id == 17) { return 4; }
+    else if (id == 18) { return 4; }
+    else if (id == 19) { return getElectiveHours(4); }
+    else if (id == 20) { return getElectiveHours(5); }
+    else if (id == 21) { return 3; }
+    else if (id == 22) { return 3; }
+    else if (id == 23) { return 3; }
+    else if (id == 24) { return getElectiveHours(6); }
+    else if (id == 25) { return getElectiveHours(7); }
+    else if (id == 26) { return 3; }
+    else if (id == 27) { return 3; }
+    else if (id == 28) { return getElectiveHours(8); }
+    else if (id == 29) { return getElectiveHours(9); }
+    else if (id == 30) { return getElectiveHours(10); }
+    else if (id == 31) { return getElectiveHours(11); }
+    else if (id == 32) { return 3; }
+    else if (id == 33) { return getElectiveHours(12); }
+    else if (id == 34) { return getElectiveHours(13); }
+    else if (id == 35) { return getElectiveHours(14); }
+    else if (id == 36) { return getElectiveHours(15); }
+    else if (id == 37) { return 3; }
+}
+
+//increments the hours taken and hours planned by the correct amount when a course is clicked
+function incrementHours(id) {
+    if (chosen[id] != 0) {
+        return;
+    }
+    else {
+        chosen[id] = 1;
+    }
+    if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+        (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+        (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+            var taken = document.getElementById("hoursTaken").innerHTML;
+            var planned = document.getElementById("hoursPlanned").innerHTML;
+            var hoursTaken = taken.match(/\d/g);
+            var hours1 = "";
+            for (var i = 0; i < hoursTaken.length; ++i) {
+                hours1 += hoursTaken[i];
+            }
+            hoursTaken = parseInt(hours1, 10);
+            var hoursPlanned = planned.match(/\d/g);
+            var hours2 = "";
+            for (var i = 0; i < hoursPlanned.length; ++i) {
+                hours2 += hoursPlanned[i];
+            }
+            hoursPlanned = parseInt(hours2);
+            if (curOption == 0) {
+                hoursTaken += getHours(id);
+                hoursPlanned += getHours(id);
+            }
+            else {
+                hoursPlanned += getHours(id);
+            }
+            takenString = "Hours Taken: " + hoursTaken
+            plannedString = "Hours Planned: " + hoursPlanned
+            document.getElementById("hoursTaken").innerHTML = takenString;
+            document.getElementById("hoursPlanned").innerHTML = plannedString;
+            document.getElementById("hoursTaken2").value = hoursTaken;
+            document.getElementById("hoursPlanned2").value = hoursPlanned;
+    }
+}
+
+function rgbToHex(r,g,b) {
+    r = r.toString(16);
+    g = g.toString(16);
+    b = b.toString(16);
+  
+    if (r.length == 1)
+        r = "0" + r;
+    if (g.length == 1)
+        g = "0" + g;
+    if (b.length == 1)
+        b = "0" + b;
+  
+    return "#" + r + g + b;
+}
+
+function getRGB(str){
+    var match = str.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
+    return match ? [
+      match[1],
+      match[2],
+      match[3]
+    ] : [];
+}
+
+//decrements the hours taken and hours planned by the correct amount when a course is deselected
+function decrementHours(id) {
+    if (chosen[id] != 1) {
+        return;
+    }
+    else {
+        chosen[id] = 0;
+    }
+    if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+        (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+        (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+            var taken = document.getElementById("hoursTaken").innerHTML;
+            var planned = document.getElementById("hoursPlanned").innerHTML;
+            var hoursTaken = taken.match(/\d/g);
+            var hours1 = "";
+            for (var i = 0; i < hoursTaken.length; ++i) {
+                hours1 += hoursTaken[i];
+            }
+            hoursTaken = parseInt(hours1, 10);
+            var hoursPlanned = planned.match(/\d/g);
+            var hours2 = "";
+            for (var i = 0; i < hoursPlanned.length; ++i) {
+                hours2 += hoursPlanned[i];
+            }
+            hoursPlanned = parseInt(hours2);
+            background = getRGB(document.getElementById(id).style.backgroundColor);
+            backgroundHex = rgbToHex(parseInt(background[0], 10), parseInt(background[1], 10), parseInt(background[2], 10));
+            if (backgroundHex == optionCols[0]) {
+                hoursTaken -= getHours(id);
+                hoursPlanned -= getHours(id);
+            }
+            else {
+                hoursPlanned -= getHours(id);
+            }
+            takenString = "Hours Taken: " + hoursTaken
+            plannedString = "Hours Planned: " + hoursPlanned
+            document.getElementById("hoursTaken").innerHTML = takenString;
+            document.getElementById("hoursPlanned").innerHTML = plannedString;
+            document.getElementById("hoursTaken2").value = hoursTaken;
+            document.getElementById("hoursPlanned2").value = hoursPlanned;
+    }
+}
+
 //Checks if the clicked class has a prerequisite and/or postrequisite before setting its value and color
 function prereqCheck(id) {
     if(!pickColMode) {
@@ -259,6 +429,12 @@ function prereqCheck(id) {
         if (prereq.length == 0) {
             postreq = searchPostreqArray(id);
             if (postreq.length == 0) {
+                if (curOption != 12) {
+                    incrementHours(id);
+                }
+                else {
+                    decrementHours(id);
+                }
                 change(id);
             }
             else {

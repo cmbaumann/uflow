@@ -141,6 +141,19 @@
         cursor: pointer;
     }
 
+    .outer {
+        width: 100%;
+        table-layout:fixed;
+    }
+
+    .data {
+        width: 50%;
+    }
+
+    .hours {
+        padding: 0px 20px 0px 50px;
+    }
+
 </style>
 
 {% endblock %}
@@ -157,9 +170,12 @@
 <form id="landing" action="\logged_in"></form>
 <form action="" method="post">
 
+    <table class="outer">
+    <tr>
+    <td class="data">
     <div class="form-group">
         <label for="FlowchartName">Flowchart Name</label>
-        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder={{data[0]}} style="width: 40%" disabled>
+        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder={{data[0]}} style="width: 85%" disabled>
         <small id="flowchartname" class="form-text text-muted"></small>
         <table>
             <tr>
@@ -174,6 +190,15 @@
             </tr>
         </table>
     </div>
+    </td>
+    <td class="data, hours">
+        <p id="hoursTaken" align="right">Hours Taken: 0</p>
+        <input hidden name="hoursTaken" id="hoursTaken2" placeholder="0">
+        <p id="hoursPlanned" align="right">Hours Planned: 0</p>
+        <input hidden name="hoursPlanned" id="hoursPlanned2" placeholder="0">
+    </td>
+    </tr>
+  </table>
 <div>
     <div class="column chart-color" id="fc-color" onclick="color('fc-color')">Chart color</div>
 </div>
@@ -225,7 +250,7 @@
     </div>
     <div class="row row1">
         <div class="column course" id="1" onclick="prereqCheck('1')">
-            EN 101<br>
+            <h4>EN 101</h4><br>
             <select hidden name="d1" class="form-select form-select-sm" id="d1" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -244,7 +269,7 @@
               </select>
         </div>
         <div class="column course" id="2" onclick="prereqCheck('2')">
-            ENGR 103<br>
+            <h4>ENGR 103</h4><br>
             <select hidden name="d2" class="form-select form-select-sm" id="d2" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -263,7 +288,7 @@
               </select>
         </div>
         <div class="column course" id="3" onclick="prereqCheck('3')">
-            MATH 125<br>
+            <h4>MATH 125</h4><br>
             <select hidden name="d3" class="form-select form-select-sm" id="d3" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -282,7 +307,7 @@
               </select>
         </div>
         <div class="column course" id="4" onclick="prereqCheck('4')">
-            CS 100<br>
+            <h4>CS 100</h4><br>
             <select hidden name="d4" class="form-select form-select-sm" id="d4" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -301,7 +326,7 @@
               </select>
         </div>
         <div class="column course" id="5" onclick="prereqCheck('5')">
-            CS 121<br>
+            <h4>CS 121</h4><br>
             <select hidden name="d5" class="form-select form-select-sm" id="d5" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -322,7 +347,7 @@
     </div>
     <div class="row row2">
         <div  class="column course" id="6" onclick="prereqCheck('6')">
-            EN 102<br>
+            <h4>EN 102</h4><br>
             <select hidden name="d6" class="form-select form-select-sm" id="d6" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -342,8 +367,8 @@
         </div>
         <div class="column course" id="7" onclick="prereqCheck('7')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HI/SB Elective</label>
-            <h3 id="7OutputElective"></h3>
+            <h4 for="fillOutElective">HI/SB Elective</h4>
+            <h5 id="7OutputElective"></h5>
             <script> document.getElementById("7OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="7Box" style="margin: 0 auto;">                
@@ -382,7 +407,7 @@
               </select>
         </div>
         <div class="column course" id="8" onclick="prereqCheck('8')">
-            MATH 126<br>
+            <h4>MATH 126</h4><br>
             <select hidden name="d8" class="form-select form-select-sm" id="d8" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -401,7 +426,7 @@
               </select>
         </div>
         <div  class="column course" id="9" onclick="prereqCheck('9')">
-            CS 101<br>
+            <h4>CS 101</h4><br>
             <select hidden name="d9" class="form-select form-select-sm" id="d9" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -423,8 +448,8 @@
     <div class="row row1">
         <div class="column course" id="10" onclick="prereqCheck('10')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HU/L/FA Elective #1 (sequence)</label>
-            <h3 id="10OutputElective"></h3>
+            <h4 for="fillOutElective">HU/L/FA Elective #1 (sequence)</h4>
+            <h5 id="10OutputElective"></h5>
             <script> document.getElementById("10OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="10Box" style="margin: 0 auto;">                
@@ -463,7 +488,7 @@
               </select>
         </div>
         <div class="column course" id="11" onclick="prereqCheck('11')">
-            MATH 301<br>
+            <h4>MATH 301</h4><br>
             <select hidden name="d11" class="form-select form-select-sm" id="d11" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -482,7 +507,7 @@
               </select>
         </div>
         <div class="column course" id="12" onclick="prereqCheck('12')">
-            CS 200<br>
+            <h4>CS 200</h4><br>
             <select hidden name="d12" class="form-select form-select-sm" id="d12" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -501,7 +526,7 @@
               </select>
         </div>
         <div class="column course" id="13" onclick="prereqCheck('13')">
-            ECE 380<br>
+            <h4>ECE 380</h4><br>
             <select hidden name="d13" class="form-select form-select-sm" id="d13" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -523,8 +548,8 @@
     <div class="row row2">
         <div class="column course" id="14" onclick="prereqCheck('14')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HU/L/FA Elective #2 (sequence)</label>
-            <h3 id="14OutputElective"></h3>
+            <h4 for="fillOutElective">HU/L/FA Elective #2 (sequence)</h4>
+            <h5 id="14OutputElective"></h5>
             <script> document.getElementById("7OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="14Box" style="margin: 0 auto;">                
@@ -564,8 +589,8 @@
         </div>
         <div class="column course" id="15" onclick="prereqCheck('15')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Nat Science Elective (N)</label>
-            <h3 id="15OutputElective"></h3>
+            <h4 for="fillOutElective">Nat Science Elective (N)</h4>
+            <h5 id="15OutputElective"></h5>
             <script> document.getElementById("15OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="15Box" style="margin: 0 auto;">                
@@ -604,7 +629,7 @@
               </select>
         </div>
         <div class="column course" id="16" onclick="prereqCheck('16')">
-            MATH 302<br>
+            <h4>MATH 302</h4><br>
             <select hidden name="d16" class="form-select form-select-sm" id="d16" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -623,7 +648,7 @@
               </select>
         </div>
         <div class="column course" id="17" onclick="prereqCheck('17')">
-            CS 201<br>
+            <h4>CS 201</h4><br>
             <select hidden name="d17" class="form-select form-select-sm" id="d17" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -642,7 +667,7 @@
               </select>
         </div>
         <div class="column course" id="18" onclick="prereqCheck('18')">
-            ECE 383<br>
+            <h4>ECE 383</h4><br>
             <select hidden name="d18" class="form-select form-select-sm" id="d18" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -664,8 +689,8 @@
     <div class="row row1">
         <div class="column course" id="19" onclick="prereqCheck('19')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="19OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="19OutputElective"></h5>
             <script> document.getElementById("19OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="19Box" style="margin: 0 auto;">                
@@ -705,8 +730,8 @@
         </div>
         <div class="column course" id="20" onclick="prereqCheck('20')">
            <!-- information needed for elective editing -->
-           <label for="fillOutElective">HI/SB Elective</label>
-           <h3 id="20OutputElective"></h3>
+           <h4 for="fillOutElective">HI/SB Elective</h4>
+           <h5 id="20OutputElective"></h5>
            <script> document.getElementById("20OutputElective").style.display="none" </script>
 
            <div class="row w-125 mb-4" id="20Box" style="margin: 0 auto;">                
@@ -745,7 +770,7 @@
               </select>
         </div>
         <div class="column course" id="21" onclick="prereqCheck('21')">
-            GES 255/ MATH 355<br>
+            <h4>GES 255/ MATH 355</h4><br>
             <select hidden name="d21" class="form-select form-select-sm" id="d21" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -764,7 +789,7 @@
               </select>
         </div>
         <div class="column course" id="22" onclick="prereqCheck('22')">
-            CS 300<br>
+            <h4>CS 300</h4><br>
             <select hidden name="d22" class="form-select form-select-sm" id="d22" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -783,7 +808,7 @@
               </select>
         </div>
         <div class="column course" id="23" onclick="prereqCheck('23')">
-            CS 301<br>
+            <h4>CS 301</h4><br>
             <select hidden name="d23" class="form-select form-select-sm" id="d23" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -805,8 +830,8 @@
     <div class="row row2">
         <div  class="column course" id="24" onclick="prereqCheck('24')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="24OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="24OutputElective"></h5>
             <script> document.getElementById("24OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="24Box" style="margin: 0 auto;">                
@@ -846,8 +871,8 @@
         </div>
         <div class="column course" id="25" onclick="prereqCheck('25')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HI/SB Elective</label>
-            <h3 id="25OutputElective"></h3>
+            <h4 for="fillOutElective">HI/SB Elective</h4>
+            <h5 id="25OutputElective"></h5>
             <script> document.getElementById("25OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="25Box" style="margin: 0 auto;">                
@@ -886,7 +911,7 @@
               </select>
         </div>
         <div class="column course" id="26" onclick="prereqCheck('26')">
-            MATH 237<br>
+            <h4>MATH 237</h4><br>
             <select hidden name="d26" class="form-select form-select-sm" id="d26" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -905,7 +930,7 @@
               </select>
         </div>
         <div class="column course" id="27" onclick="prereqCheck('27')">
-            CS 403<br>
+            <h4>CS 403</h4><br>
             <select hidden name="d27" class="form-select form-select-sm" id="d27" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -925,8 +950,8 @@
         </div>
         <div class="column course" id="28" onclick="prereqCheck('28')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">CS 4xx</label>
-            <h3 id="28OutputElective"></h3>
+            <h4 for="fillOutElective">CS 4xx</h4>
+            <h5 id="28OutputElective"></h5>
             <script> document.getElementById("28OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="28Box" style="margin: 0 auto;">                
@@ -968,8 +993,8 @@
     <div class="row row1">
         <div class="column course" id="29" onclick="prereqCheck('29')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="29OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="29OutputElective"></h5>
             <script> document.getElementById("29OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="29Box" style="margin: 0 auto;">                
@@ -1009,8 +1034,8 @@
         </div>
         <div class="column course" id="30" onclick="prereqCheck('30')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HU/L/FA Elective</label>
-            <h3 id="30OutputElective"></h3>
+            <h4 for="fillOutElective">HU/L/FA Elective</h4>
+            <h5 id="30OutputElective"></h5>
             <script> document.getElementById("30OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="30Box" style="margin: 0 auto;">                
@@ -1050,8 +1075,8 @@
         </div>
         <div class="column course" id="31" onclick="prereqCheck('31')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Nat Science #1 (sequence, N)</label>
-            <h3 id="31OutputElective"></h3>
+            <h4 for="fillOutElective">Nat Science #1 (sequence, N)</h4>
+            <h5 id="31OutputElective"></h5>
             <script> document.getElementById("31OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="31Box" style="margin: 0 auto;">                
@@ -1090,7 +1115,7 @@
               </select>
         </div>
         <div class="column course" id="32" onclick="prereqCheck('32')">
-            CS 470/475<br>
+            <h4>CS 470/475</h4><br>
             <select hidden name="d32" class="form-select form-select-sm" id="d32" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -1110,8 +1135,8 @@
         </div>
         <div class="column course" id="33" onclick="prereqCheck('33')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">CS 4xx</label>
-            <h3 id="33OutputElective"></h3>
+            <h4 for="fillOutElective">CS 4xx</h4>
+            <h5 id="33OutputElective"></h5>
             <script> document.getElementById("33OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="33Box" style="margin: 0 auto;">                
@@ -1153,8 +1178,8 @@
     <div class="row row2">
         <div class="column course" id="34" onclick="prereqCheck('34')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="34OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="34OutputElective"></h5>
             <script> document.getElementById("34OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="34Box" style="margin: 0 auto;">                
@@ -1194,8 +1219,8 @@
         </div>
         <div class="column course" id="35" onclick="prereqCheck('35')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="35OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="35OutputElective"></h5>
             <script> document.getElementById("35OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="35Box" style="margin: 0 auto;">                
@@ -1235,8 +1260,8 @@
         </div>
         <div class="column course" id="36" onclick="prereqCheck('36')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Nat Science #2 (sequence, N)</label>
-            <h3 id="36OutputElective"></h3>
+            <h4 for="fillOutElective">Nat Science #2 (sequence, N)</h4>
+            <h5 id="36OutputElective"></h5>
             <script> document.getElementById("36OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="36Box" style="margin: 0 auto;">                
@@ -1275,7 +1300,7 @@
               </select>
         </div>
         <div class="column course" id="37" onclick="prereqCheck('37')">
-            CS 495<br>
+            <h4>CS 495</h4><br>
             <select hidden name="d37" class="form-select form-select-sm" id="d37" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -1317,56 +1342,85 @@ will then have to create my own loop of some kind assigning them
         "{{data[21]}}", "{{data[22]}}", "{{data[23]}}", "{{data[24]}}", "{{data[25]}}", "{{data[26]}}", "{{data[27]}}", 
         "{{data[28]}}", "{{data[29]}}", "{{data[30]}}", "{{data[31]}}", "{{data[32]}}", "{{data[33]}}", "{{data[34]}}",
         "{{data[35]}}", "{{data[36]}}", "{{data[37]}}", "{{data[38]}}", "{{data[39]}}", "{{data[40]}}"];
+
+        var taken = document.getElementById("hoursTaken").innerHTML;
+        var planned = document.getElementById("hoursPlanned").innerHTML;
+        var hoursTaken = taken.match(/\d/g);
+        var hours1 = "";
+        for (var i = 0; i < hoursTaken.length; ++i) {
+            hours1 += hoursTaken[i];
+        }
+        hoursTaken = parseInt(hours1, 10);
+        var hoursPlanned = planned.match(/\d/g);
+        var hours2 = "";
+        for (var i = 0; i < hoursPlanned.length; ++i) {
+            hours2 += hoursPlanned[i];
+        }
+        hoursPlanned = parseInt(hours2);
+
     for (let i = 1; i < 38; i++) {
         newid = "d" + i;
         console.log(array[i]);
         if (array[i] == "taken") {
             document.getElementById(i).style.backgroundColor="{{data[38][0]}}";
             document.getElementById(newid).value="taken";
+            hoursTaken += getHours(i);
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "inprogress") {
             document.getElementById(i).style.backgroundColor="{{data[38][1]}}";
             document.getElementById(newid).value="inprogress";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring0") {
             document.getElementById(i).style.backgroundColor="{{data[38][2]}}";
             document.getElementById(newid).value="spring0";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall0") {
             document.getElementById(i).style.backgroundColor="{{data[38][3]}}";
             document.getElementById(newid).value="fall0";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring1") {
             document.getElementById(i).style.backgroundColor="{{data[38][4]}}";
             document.getElementById(newid).value="spring1";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall1") {
             document.getElementById(i).style.backgroundColor="{{data[38][5]}}";
             document.getElementById(newid).value="fall1";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring2") {
             document.getElementById(i).style.backgroundColor="{{data[38][6]}}";
             document.getElementById(newid).value="spring2";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall2") {
             document.getElementById(i).style.backgroundColor="{{data[38][7]}}";
             document.getElementById(newid).value="fall2";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring3") {
             document.getElementById(i).style.backgroundColor="{{data[38][8]}}";
             document.getElementById(newid).value="spring3";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall3") {
             document.getElementById(i).style.backgroundColor="{{data[38][9]}}";
             document.getElementById(newid).value="fall3";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring4") {
             document.getElementById(i).style.backgroundColor="{{data[38][10]}}";
             document.getElementById(newid).value="spring4";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall4") {
             document.getElementById(i).style.backgroundColor="{{data[38][11]}}";
             document.getElementById(newid).value="fall4";
+            hoursPlanned += getHours(i);
         }
         else {
             document.getElementById(i).style.backgroundColor="#ffffff";
@@ -1412,6 +1466,7 @@ will then have to create my own loop of some kind assigning them
     var elHoursArray = "{{data[40]}}";
     const allNames = cleanArray(elNameArray);
     const allHours = cleanArray(elHoursArray);
+    const allIds = [7, 10, 14, 15, 19, 20, 24, 25, 28, 29, 30, 31, 33, 34, 35, 36];
 
     // FIXME: TEST
     console.log(allNames, allHours);
@@ -1430,6 +1485,7 @@ will then have to create my own loop of some kind assigning them
 
         elName = allNames.at(i);
         elHour = allHours.at(i);
+        elID = allIds.at(i);
 
         if(!elName && !elHour) {
             continue;
@@ -1445,17 +1501,118 @@ will then have to create my own loop of some kind assigning them
             }
             else if(!elName && elHour) {
                 output_elective.innerHTML = "__ (" + elHour + " hours)";
+                if (array[elID] == "taken") {
+                    hoursTaken -= getHours(i);
+                    hoursPlanned -= getHours(i);
+                    hoursTaken += parseInt(elHour);
+                    hoursPlanned += parseInt(elHour);
+                }
+                else {
+                    hoursPlanned -= getHours(i);
+                    hoursPlanned += parseInt(elHour);
+                }
             }
             else {  // elName && elHour
                 output_elective.innerHTML = elName + " (" + elHour + " hours)";  
+                if (array[elID] == "taken") {
+                    hoursTaken -= getHours(i);
+                    hoursPlanned -= getHours(i);
+                    hoursTaken += parseInt(elHour);
+                    hoursPlanned += parseInt(elHour);
+                }
+                else {
+                    hoursPlanned -= getHours(i);
+                    hoursPlanned += parseInt(elHour);
+                }
             }
         }        
     }
+
+    takenString = "Hours Taken: " + hoursTaken
+    plannedString = "Hours Planned: " + hoursPlanned
+    document.getElementById("hoursTaken").innerHTML = takenString;
+    document.getElementById("hoursPlanned").innerHTML = plannedString;
+    document.getElementById("hoursTaken2").value = hoursTaken;
+    document.getElementById("hoursPlanned2").value = hoursPlanned;
 
 </script>
 
 <!---Script to edit electives when clicking the submit/edit button-->
 <script>
+//ensures hours taken and planned are consistent with saved elective information
+function electiveIncrementHours(id, hours) {
+    // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+    //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+    //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+            var taken = document.getElementById("hoursTaken").innerHTML;
+            var planned = document.getElementById("hoursPlanned").innerHTML;
+            var hoursTaken = taken.match(/\d/g);
+            var hours1 = "";
+            for (var i = 0; i < hoursTaken.length; ++i) {
+                hours1 += hoursTaken[i];
+            }
+            hoursTaken = parseInt(hours1, 10);
+            var hoursPlanned = planned.match(/\d/g);
+            var hours2 = "";
+            console.log("taken:", hoursTaken);
+            console.log("planned:", hoursPlanned);
+            for (var i = 0; i < hoursPlanned.length; ++i) {
+                hours2 += hoursPlanned[i];
+            }
+            hoursPlanned = parseInt(hours2);
+            hours = parseInt(hours);
+            if (curOption == 0) {
+                hoursTaken += hours;
+                hoursPlanned += hours;
+            }
+            else {
+                hoursPlanned += hours;
+            }
+            takenString = "Hours Taken: " + hoursTaken
+            plannedString = "Hours Planned: " + hoursPlanned
+            document.getElementById("hoursTaken").innerHTML = takenString;
+            document.getElementById("hoursPlanned").innerHTML = plannedString;
+            document.getElementById("hoursTaken2").value = hoursTaken;
+            document.getElementById("hoursPlanned2").value = hoursPlanned;
+    // }
+}
+
+//ensures hours taken and planned are consistent with saved elective information
+function electiveDecrementHours(id, hours) {
+    // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+    //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+    //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+            var taken = document.getElementById("hoursTaken").innerHTML;
+            var planned = document.getElementById("hoursPlanned").innerHTML;
+            var hoursTaken = taken.match(/\d/g);
+            var hours1 = "";
+            for (var i = 0; i < hoursTaken.length; ++i) {
+                hours1 += hoursTaken[i];
+            }
+            hoursTaken = parseInt(hours1, 10);
+            var hoursPlanned = planned.match(/\d/g);
+            var hours2 = "";
+            for (var i = 0; i < hoursPlanned.length; ++i) {
+                hours2 += hoursPlanned[i];
+            }
+            hoursPlanned = parseInt(hours2);
+            hours = parsesInt(hours);
+            if (curOption == 0) {
+                hoursTaken -= hours;
+                hoursPlanned -= hours;
+            }
+            else {
+                hoursPlanned -= hours;
+            }
+            takenString = "Hours Taken: " + hoursTaken
+            plannedString = "Hours Planned: " + hoursPlanned
+            document.getElementById("hoursTaken").innerHTML = takenString;
+            document.getElementById("hoursPlanned").innerHTML = plannedString;
+            document.getElementById("hoursTaken2").value = hoursTaken;
+            document.getElementById("hoursPlanned2").value = hoursPlanned;
+    // }
+}
+
     function click_button(id) {
         var course_input = document.getElementById(id+"electiveText");
         var course_hours = document.getElementById(id+"hours")
@@ -1469,6 +1626,7 @@ will then have to create my own loop of some kind assigning them
             var course_name = course_input.value; 
             var hours = course_hours.value;
             button.innerHTML = "Edit Course";
+            electiveIncrementHours(id, hours);
     
             output_elective.style.display = "block"
             output_elective.innerHTML = course_name + " (" + hours + " hours)";
@@ -1488,6 +1646,9 @@ will then have to create my own loop of some kind assigning them
             course_hours.style.display = "block";
             course_text.style.display = "block";
             hours_text.style.display = "block";
+
+            var hours = course_hours.value;
+            electiveDecrementHours(id, hours);
         }
     }
 </script>
