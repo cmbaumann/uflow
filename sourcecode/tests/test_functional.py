@@ -158,9 +158,18 @@ def test_completion_percentage(app, client):
     element.click()
     element = driver.find_element_by_id("5")
     element.click()
-    element = driver.find_element(By.XPATH, "//button[@id='first-btn']")
+    element = driver.find_element(By.XPATH, "//button[@id='saveButton']")
     element.click()
-    assert True
+    element = driver.find_element(By.XPATH, "//input[@id='returnButton']")
+    element.click()
+    element = driver.find_element(By.XPATH, "//p")
+    str = element.get_attribute("innerHTML")
+    if str == "14% Complete":
+        assert True
+    else:
+        assert False
+
+
 
 # def test_deselect(app, client):
 #     driver = webdriver.Chrome(chromepath)
