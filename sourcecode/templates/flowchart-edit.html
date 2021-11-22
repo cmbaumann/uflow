@@ -141,6 +141,19 @@
         cursor: pointer;
     }
 
+    .outer {
+        width: 100%;
+        table-layout:fixed;
+    }
+
+    .data {
+        width: 50%;
+    }
+
+    .hours {
+        padding: 0px 20px 0px 50px;
+    }
+
 </style>
 
 {% endblock %}
@@ -157,9 +170,12 @@
 <form id="landing" action="\logged_in"></form>
 <form action="" method="post">
 
+    <table class="outer">
+    <tr>
+    <td class="data">
     <div class="form-group">
         <label for="FlowchartName">Flowchart Name</label>
-        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder={{data[0]}} style="width: 40%" disabled>
+        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder={{data[0]}} style="width: 85%" disabled>
         <small id="flowchartname" class="form-text text-muted"></small>
         <table>
             <tr>
@@ -174,6 +190,15 @@
             </tr>
         </table>
     </div>
+    </td>
+    <td class="data, hours">
+        <p id="hoursTaken" align="right">Hours Taken: 0</p>
+        <input hidden name="hoursTaken" id="hoursTaken2" placeholder="0">
+        <p id="hoursPlanned" align="right">Hours Planned: 0</p>
+        <input hidden name="hoursPlanned" id="hoursPlanned2" placeholder="0">
+    </td>
+    </tr>
+  </table>
 <div>
     <div class="column chart-color" id="fc-color" onclick="color('fc-color')">Chart color</div>
 </div>
@@ -1316,56 +1341,85 @@ will then have to create my own loop of some kind assigning them
         "{{data[21]}}", "{{data[22]}}", "{{data[23]}}", "{{data[24]}}", "{{data[25]}}", "{{data[26]}}", "{{data[27]}}", 
         "{{data[28]}}", "{{data[29]}}", "{{data[30]}}", "{{data[31]}}", "{{data[32]}}", "{{data[33]}}", "{{data[34]}}",
         "{{data[35]}}", "{{data[36]}}", "{{data[37]}}", "{{data[38]}}", "{{data[39]}}", "{{data[40]}}"];
+
+        var taken = document.getElementById("hoursTaken").innerHTML;
+        var planned = document.getElementById("hoursPlanned").innerHTML;
+        var hoursTaken = taken.match(/\d/g);
+        var hours1 = "";
+        for (var i = 0; i < hoursTaken.length; ++i) {
+            hours1 += hoursTaken[i];
+        }
+        hoursTaken = parseInt(hours1, 10);
+        var hoursPlanned = planned.match(/\d/g);
+        var hours2 = "";
+        for (var i = 0; i < hoursPlanned.length; ++i) {
+            hours2 += hoursPlanned[i];
+        }
+        hoursPlanned = parseInt(hours2);
+
     for (let i = 1; i < 38; i++) {
         newid = "d" + i;
         console.log(array[i]);
         if (array[i] == "taken") {
             document.getElementById(i).style.backgroundColor="{{data[38][0]}}";
             document.getElementById(newid).value="taken";
+            hoursTaken += getHours(i);
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "inprogress") {
             document.getElementById(i).style.backgroundColor="{{data[38][1]}}";
             document.getElementById(newid).value="inprogress";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring0") {
             document.getElementById(i).style.backgroundColor="{{data[38][2]}}";
             document.getElementById(newid).value="spring0";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall0") {
             document.getElementById(i).style.backgroundColor="{{data[38][3]}}";
             document.getElementById(newid).value="fall0";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring1") {
             document.getElementById(i).style.backgroundColor="{{data[38][4]}}";
             document.getElementById(newid).value="spring1";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall1") {
             document.getElementById(i).style.backgroundColor="{{data[38][5]}}";
             document.getElementById(newid).value="fall1";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring2") {
             document.getElementById(i).style.backgroundColor="{{data[38][6]}}";
             document.getElementById(newid).value="spring2";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall2") {
             document.getElementById(i).style.backgroundColor="{{data[38][7]}}";
             document.getElementById(newid).value="fall2";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring3") {
             document.getElementById(i).style.backgroundColor="{{data[38][8]}}";
             document.getElementById(newid).value="spring3";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall3") {
             document.getElementById(i).style.backgroundColor="{{data[38][9]}}";
             document.getElementById(newid).value="fall3";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "spring4") {
             document.getElementById(i).style.backgroundColor="{{data[38][10]}}";
             document.getElementById(newid).value="spring4";
+            hoursPlanned += getHours(i);
         }
         else if (array[i] == "fall4") {
             document.getElementById(i).style.backgroundColor="{{data[38][11]}}";
             document.getElementById(newid).value="fall4";
+            hoursPlanned += getHours(i);
         }
         else {
             document.getElementById(i).style.backgroundColor="#ffffff";
@@ -1411,6 +1465,7 @@ will then have to create my own loop of some kind assigning them
     var elHoursArray = "{{data[40]}}";
     const allNames = cleanArray(elNameArray);
     const allHours = cleanArray(elHoursArray);
+    const allIds = [7, 10, 14, 15, 19, 20, 24, 25, 28, 29, 30, 31, 33, 34, 35, 36];
 
     // FIXME: TEST
     console.log(allNames, allHours);
@@ -1429,6 +1484,7 @@ will then have to create my own loop of some kind assigning them
 
         elName = allNames.at(i);
         elHour = allHours.at(i);
+        elID = allIds.at(i);
 
         if(!elName && !elHour) {
             continue;
@@ -1444,17 +1500,118 @@ will then have to create my own loop of some kind assigning them
             }
             else if(!elName && elHour) {
                 output_elective.innerHTML = "__ (" + elHour + " hours)";
+                if (array[elID] == "taken") {
+                    hoursTaken -= getHours(i);
+                    hoursPlanned -= getHours(i);
+                    hoursTaken += parseInt(elHour);
+                    hoursPlanned += parseInt(elHour);
+                }
+                else {
+                    hoursPlanned -= getHours(i);
+                    hoursPlanned += parseInt(elHour);
+                }
             }
             else {  // elName && elHour
                 output_elective.innerHTML = elName + " (" + elHour + " hours)";  
+                if (array[elID] == "taken") {
+                    hoursTaken -= getHours(i);
+                    hoursPlanned -= getHours(i);
+                    hoursTaken += parseInt(elHour);
+                    hoursPlanned += parseInt(elHour);
+                }
+                else {
+                    hoursPlanned -= getHours(i);
+                    hoursPlanned += parseInt(elHour);
+                }
             }
         }        
     }
+
+    takenString = "Hours Taken: " + hoursTaken
+    plannedString = "Hours Planned: " + hoursPlanned
+    document.getElementById("hoursTaken").innerHTML = takenString;
+    document.getElementById("hoursPlanned").innerHTML = plannedString;
+    document.getElementById("hoursTaken2").value = hoursTaken;
+    document.getElementById("hoursPlanned2").value = hoursPlanned;
 
 </script>
 
 <!---Script to edit electives when clicking the submit/edit button-->
 <script>
+//ensures hours taken and planned are consistent with saved elective information
+function electiveIncrementHours(id, hours) {
+    // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+    //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+    //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+            var taken = document.getElementById("hoursTaken").innerHTML;
+            var planned = document.getElementById("hoursPlanned").innerHTML;
+            var hoursTaken = taken.match(/\d/g);
+            var hours1 = "";
+            for (var i = 0; i < hoursTaken.length; ++i) {
+                hours1 += hoursTaken[i];
+            }
+            hoursTaken = parseInt(hours1, 10);
+            var hoursPlanned = planned.match(/\d/g);
+            var hours2 = "";
+            console.log("taken:", hoursTaken);
+            console.log("planned:", hoursPlanned);
+            for (var i = 0; i < hoursPlanned.length; ++i) {
+                hours2 += hoursPlanned[i];
+            }
+            hoursPlanned = parseInt(hours2);
+            hours = parseInt(hours);
+            if (curOption == 0) {
+                hoursTaken += hours;
+                hoursPlanned += hours;
+            }
+            else {
+                hoursPlanned += hours;
+            }
+            takenString = "Hours Taken: " + hoursTaken
+            plannedString = "Hours Planned: " + hoursPlanned
+            document.getElementById("hoursTaken").innerHTML = takenString;
+            document.getElementById("hoursPlanned").innerHTML = plannedString;
+            document.getElementById("hoursTaken2").value = hoursTaken;
+            document.getElementById("hoursPlanned2").value = hoursPlanned;
+    // }
+}
+
+//ensures hours taken and planned are consistent with saved elective information
+function electiveDecrementHours(id, hours) {
+    // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
+    //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
+    //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
+            var taken = document.getElementById("hoursTaken").innerHTML;
+            var planned = document.getElementById("hoursPlanned").innerHTML;
+            var hoursTaken = taken.match(/\d/g);
+            var hours1 = "";
+            for (var i = 0; i < hoursTaken.length; ++i) {
+                hours1 += hoursTaken[i];
+            }
+            hoursTaken = parseInt(hours1, 10);
+            var hoursPlanned = planned.match(/\d/g);
+            var hours2 = "";
+            for (var i = 0; i < hoursPlanned.length; ++i) {
+                hours2 += hoursPlanned[i];
+            }
+            hoursPlanned = parseInt(hours2);
+            hours = parsesInt(hours);
+            if (curOption == 0) {
+                hoursTaken -= hours;
+                hoursPlanned -= hours;
+            }
+            else {
+                hoursPlanned -= hours;
+            }
+            takenString = "Hours Taken: " + hoursTaken
+            plannedString = "Hours Planned: " + hoursPlanned
+            document.getElementById("hoursTaken").innerHTML = takenString;
+            document.getElementById("hoursPlanned").innerHTML = plannedString;
+            document.getElementById("hoursTaken2").value = hoursTaken;
+            document.getElementById("hoursPlanned2").value = hoursPlanned;
+    // }
+}
+
     function click_button(id) {
         var course_input = document.getElementById(id+"electiveText");
         var course_hours = document.getElementById(id+"hours")
@@ -1468,6 +1625,7 @@ will then have to create my own loop of some kind assigning them
             var course_name = course_input.value; 
             var hours = course_hours.value;
             button.innerHTML = "Edit Course";
+            electiveIncrementHours(id, hours);
     
             output_elective.style.display = "block"
             output_elective.innerHTML = course_name + " (" + hours + " hours)";
@@ -1487,6 +1645,9 @@ will then have to create my own loop of some kind assigning them
             course_hours.style.display = "block";
             course_text.style.display = "block";
             hours_text.style.display = "block";
+
+            var hours = course_hours.value;
+            electiveDecrementHours(id, hours);
         }
     }
 </script>
