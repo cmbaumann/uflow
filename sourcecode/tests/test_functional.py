@@ -296,6 +296,7 @@ def test_render_elective(app, client):
     - test that the value is still there? 
     - OR: edit 1st and then save again and test output
     """
+    element = driver.find_element_by_id("")
 
     element = driver.find_element_by_id("7OutputElective")
     value = element.get_attribute('innerHTML')
