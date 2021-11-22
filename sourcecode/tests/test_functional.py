@@ -3,6 +3,7 @@ from flask import Flask, request
 from selenium import webdriver 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 # must be the chromedriver file path specific to your machine
 chromepath = "C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe"
@@ -14,7 +15,6 @@ def test_login(app, client):
         password="password"
     ), follow_redirects=True)
     assert b'You are logged in as' in page.data
-
 
 #2
 def test_register(app, client):
@@ -31,7 +31,6 @@ def test_register(app, client):
     ), follow_redirects=True)
     assert b"You are logged in as" in page.data
 
-
 #3
 def test_register_fail(app, client):
     page = client.post('/register', data=dict(
@@ -44,7 +43,6 @@ def test_register_fail(app, client):
     ), follow_redirects=True)
     assert b'Please enter your first name' in page.data
 
-
 #4
 def test_logout(app, client):
         client.post('/login', data=dict(
@@ -53,7 +51,6 @@ def test_logout(app, client):
     ), follow_redirects=True)
         page = client.post('/logout', follow_redirects=True)
         assert b'You are signed out' in page.data
-
 
 #5
 def test_flowchart_name_fail(app, client):
@@ -65,7 +62,6 @@ def test_flowchart_name_fail(app, client):
         flowchartname="test"
     ))
     assert b'You already have a flowchart named test' in page.data
-
 
 #6
 def test_future_semesters(app, client):
@@ -115,7 +111,6 @@ def test_future_semesters(app, client):
     ))
     assert b'Your flowchart has been saved' in page.data
 
-
 #7
 def test_color(app, client):
     driver = webdriver.Chrome(chromepath)
@@ -144,8 +139,45 @@ def test_color(app, client):
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 128, 0, 1)"
 
-
 #8
+def test_completion_percentage(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    element = driver.find_element_by_id("taken")
+    element.click()
+    element = driver.find_element_by_id("1")
+    element.click()
+    element = driver.find_element_by_id("2")
+    element.click()
+    element = driver.find_element_by_id("3")
+    element.click()
+    element = driver.find_element_by_id("4")
+    element.click()
+    element = driver.find_element_by_id("5")
+    element.click()
+    element = driver.find_element(By.XPATH, "//button[@id='saveButton']")
+    element.click()
+    element = driver.find_element(By.XPATH, "//input[@id='returnButton']")
+    element.click()
+    element = driver.find_element(By.XPATH, "//p")
+    str = element.get_attribute("innerHTML")
+    if str == "14% Complete":
+        assert True
+    else:
+        assert False
+
+#9
 def test_deselect(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
@@ -179,8 +211,7 @@ def test_deselect(app, client):
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(255, 255, 255, 1)"
 
-
-#9
+#10
 def test_edit_elective(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
@@ -206,8 +237,7 @@ def test_edit_elective(app, client):
     value = element.get_attribute('innerHTML')
     assert value == "MUS 121 (3 hours)"
 
-
-#10
+#11
 def test_color_save(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
@@ -242,8 +272,7 @@ def test_color_save(app, client):
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 0, 0, 1)"
 
-
-#11
+#12
 def test_render_elective(app, client):
     """
     Test that the elective information still renders after website is saved
@@ -280,8 +309,7 @@ def test_render_elective(app, client):
     value = element.get_attribute('innerHTML')
     assert value == "MUS 121 (3 hours)"
 
-
-#12
+#13
 #Check if program marks invalid courses correctly, signified by having 0.5 opacity
 def test_invalid_mark(app, client):
     driver = webdriver.Chrome(chromepath)
@@ -297,7 +325,6 @@ def test_invalid_mark(app, client):
     element = driver.find_element_by_class_name("fc_edit")
     element.click()
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
-    
     element = driver.find_element_by_id("spring0")
     element.click()
     element = driver.find_element_by_id("1")
@@ -310,7 +337,7 @@ def test_invalid_mark(app, client):
     value = element.value_of_css_property("opacity")
     assert value == "0.5"
 
-#13
+#14
 def test_export(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
@@ -334,7 +361,6 @@ def test_export(app, client):
         assert False
     else:
         assert True
-
 
 #15
 def test_delete(app, client):
