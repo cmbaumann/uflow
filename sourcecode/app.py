@@ -807,7 +807,6 @@ def flowchart2(name):
                     testName = item['flowcharts'][i]["elective_names"]
                     testHours = item['flowcharts'][i]["elective_hours"]
                 
-        # FIXME: for troubleshooting
         print(f'\t**Arrays from DB\n\ttestName: {testName}\n\ttestHours: {testHours}\n')
 
         # check to see what elective information is already added

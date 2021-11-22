@@ -100,7 +100,7 @@
         padding: 10px 0px 5px 10px; /*top, right, bottom, left*/
         margin: 0px 0px 0px 10px;
         width: 205px;
-        height: 120px;
+        height: 150px;
         overflow: hidden;
     }
 
@@ -179,7 +179,7 @@
         <small id="flowchartname" class="form-text text-muted"></small>
         <table>
             <tr>
-                <td><button type="submit" class="btn btn-primary" onclick="enable()">Save</button></td>
+                <td><button type="submit" class="btn btn-primary" name="saveButton" id="saveButton" onclick="enable()">Save</button></td>
                 <td><input class="btn btn-primary" type="submit" value="Return to Flowcharts" form="landing"></td>
                 <td>
                     <div class="form-check">
@@ -208,6 +208,7 @@
 
 <div id="color-chooser" class="color-choose-section" style="display: none">
     <button type="button" class="btn-default" id="btn-default" onclick="colorDefault()">Set default colors</button><br>
+    <input type="checkbox" id="cb_default"> - Default chart color</input><br>
     <div class="ccs-1">
         <input type="range" class="c-picker c-red" min="0" max="255" value="0" oninput="colCanvasChange()"></input><br>
         <input type="range" class="c-picker c-green" min="0" max="255" value="0" oninput="colCanvasChange()"></input><br>
@@ -232,24 +233,24 @@
         <div class="column color" id="spring4" onclick="color('spring4')">Spring {{yearData[4]}}</div>
         <div class="column color" id="fall4" onclick="color('fall4')">Fall {{yearData[4]}}</div>
         <div class="column color" id="deselect" onclick="color('deselect')">Deselect</div>
-        <input type="text" name="c1" id="c1" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c2" id="c2" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c3" id="c3" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c4" id="c4" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c5" id="c5" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c6" id="c6" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c7" id="c7" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c8" id="c8" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c9" id="c9" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c10" id="c10" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c11" id="c11" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c12" id="c12" style="display:none" placeholder="CHICKEN"></input>
-        <input type="text" name="c13" id="c13" style="display:none" value="#F0D0A0" placeholder="CHICKEN"></input> <!--Fc list color-->
+        <input type="text" name="c1" id="c1" style="display:none" ></input>
+        <input type="text" name="c2" id="c2" style="display:none" ></input>
+        <input type="text" name="c3" id="c3" style="display:none" ></input>
+        <input type="text" name="c4" id="c4" style="display:none" ></input>
+        <input type="text" name="c5" id="c5" style="display:none" ></input>
+        <input type="text" name="c6" id="c6" style="display:none" ></input>
+        <input type="text" name="c7" id="c7" style="display:none" ></input>
+        <input type="text" name="c8" id="c8" style="display:none" ></input>
+        <input type="text" name="c9" id="c9" style="display:none" ></input>
+        <input type="text" name="c10" id="c10" style="display:none" ></input>
+        <input type="text" name="c11" id="c11" style="display:none" ></input>
+        <input type="text" name="c12" id="c12" style="display:none" ></input>
+        <input type="text" name="c13" id="c13" style="display:none" ></input> <!--Fc list color-->
 
     </div>
     <div class="row row1">
         <div class="column course" id="1" onclick="prereqCheck('1')">
-            EN 101<br>
+            <h4>EN 101</h4><br>
             <select hidden name="d1" class="form-select form-select-sm" id="d1" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -268,7 +269,7 @@
               </select>
         </div>
         <div class="column course" id="2" onclick="prereqCheck('2')">
-            ENGR 103<br>
+            <h4>ENGR 103</h4><br>
             <select hidden name="d2" class="form-select form-select-sm" id="d2" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -287,7 +288,7 @@
               </select>
         </div>
         <div class="column course" id="3" onclick="prereqCheck('3')">
-            MATH 125<br>
+            <h4>MATH 125</h4><br>
             <select hidden name="d3" class="form-select form-select-sm" id="d3" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -306,7 +307,7 @@
               </select>
         </div>
         <div class="column course" id="4" onclick="prereqCheck('4')">
-            CS 100<br>
+            <h4>CS 100</h4><br>
             <select hidden name="d4" class="form-select form-select-sm" id="d4" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -325,7 +326,7 @@
               </select>
         </div>
         <div class="column course" id="5" onclick="prereqCheck('5')">
-            CS 121<br>
+            <h4>CS 121</h4><br>
             <select hidden name="d5" class="form-select form-select-sm" id="d5" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -346,7 +347,7 @@
     </div>
     <div class="row row2">
         <div  class="column course" id="6" onclick="prereqCheck('6')">
-            EN 102<br>
+            <h4>EN 102</h4><br>
             <select hidden name="d6" class="form-select form-select-sm" id="d6" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -366,8 +367,8 @@
         </div>
         <div class="column course" id="7" onclick="prereqCheck('7')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HI/SB Elective</label>
-            <h3 id="7OutputElective"></h3>
+            <h4 for="fillOutElective">HI/SB Elective</h4>
+            <h5 id="7OutputElective"></h5>
             <script> document.getElementById("7OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="7Box" style="margin: 0 auto;">                
@@ -406,7 +407,7 @@
               </select>
         </div>
         <div class="column course" id="8" onclick="prereqCheck('8')">
-            MATH 126<br>
+            <h4>MATH 126</h4><br>
             <select hidden name="d8" class="form-select form-select-sm" id="d8" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -425,7 +426,7 @@
               </select>
         </div>
         <div  class="column course" id="9" onclick="prereqCheck('9')">
-            CS 101<br>
+            <h4>CS 101</h4><br>
             <select hidden name="d9" class="form-select form-select-sm" id="d9" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -447,8 +448,8 @@
     <div class="row row1">
         <div class="column course" id="10" onclick="prereqCheck('10')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HU/L/FA Elective #1 (sequence)</label>
-            <h3 id="10OutputElective"></h3>
+            <h4 for="fillOutElective">HU/L/FA Elective #1 (sequence)</h4>
+            <h5 id="10OutputElective"></h5>
             <script> document.getElementById("10OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="10Box" style="margin: 0 auto;">                
@@ -487,7 +488,7 @@
               </select>
         </div>
         <div class="column course" id="11" onclick="prereqCheck('11')">
-            MATH 301<br>
+            <h4>MATH 301</h4><br>
             <select hidden name="d11" class="form-select form-select-sm" id="d11" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -506,7 +507,7 @@
               </select>
         </div>
         <div class="column course" id="12" onclick="prereqCheck('12')">
-            CS 200<br>
+            <h4>CS 200</h4><br>
             <select hidden name="d12" class="form-select form-select-sm" id="d12" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -525,7 +526,7 @@
               </select>
         </div>
         <div class="column course" id="13" onclick="prereqCheck('13')">
-            ECE 380<br>
+            <h4>ECE 380</h4><br>
             <select hidden name="d13" class="form-select form-select-sm" id="d13" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -547,8 +548,8 @@
     <div class="row row2">
         <div class="column course" id="14" onclick="prereqCheck('14')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HU/L/FA Elective #2 (sequence)</label>
-            <h3 id="14OutputElective"></h3>
+            <h4 for="fillOutElective">HU/L/FA Elective #2 (sequence)</h4>
+            <h5 id="14OutputElective"></h5>
             <script> document.getElementById("7OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="14Box" style="margin: 0 auto;">                
@@ -588,8 +589,8 @@
         </div>
         <div class="column course" id="15" onclick="prereqCheck('15')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Nat Science Elective (N)</label>
-            <h3 id="15OutputElective"></h3>
+            <h4 for="fillOutElective">Nat Science Elective (N)</h4>
+            <h5 id="15OutputElective"></h5>
             <script> document.getElementById("15OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="15Box" style="margin: 0 auto;">                
@@ -628,7 +629,7 @@
               </select>
         </div>
         <div class="column course" id="16" onclick="prereqCheck('16')">
-            MATH 302<br>
+            <h4>MATH 302</h4><br>
             <select hidden name="d16" class="form-select form-select-sm" id="d16" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -647,7 +648,7 @@
               </select>
         </div>
         <div class="column course" id="17" onclick="prereqCheck('17')">
-            CS 201<br>
+            <h4>CS 201</h4><br>
             <select hidden name="d17" class="form-select form-select-sm" id="d17" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -666,7 +667,7 @@
               </select>
         </div>
         <div class="column course" id="18" onclick="prereqCheck('18')">
-            ECE 383<br>
+            <h4>ECE 383</h4><br>
             <select hidden name="d18" class="form-select form-select-sm" id="d18" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -688,8 +689,8 @@
     <div class="row row1">
         <div class="column course" id="19" onclick="prereqCheck('19')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="19OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="19OutputElective"></h5>
             <script> document.getElementById("19OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="19Box" style="margin: 0 auto;">                
@@ -729,8 +730,8 @@
         </div>
         <div class="column course" id="20" onclick="prereqCheck('20')">
            <!-- information needed for elective editing -->
-           <label for="fillOutElective">HI/SB Elective</label>
-           <h3 id="20OutputElective"></h3>
+           <h4 for="fillOutElective">HI/SB Elective</h4>
+           <h5 id="20OutputElective"></h5>
            <script> document.getElementById("20OutputElective").style.display="none" </script>
 
            <div class="row w-125 mb-4" id="20Box" style="margin: 0 auto;">                
@@ -769,7 +770,7 @@
               </select>
         </div>
         <div class="column course" id="21" onclick="prereqCheck('21')">
-            GES 255/ MATH 355<br>
+            <h4>GES 255/ MATH 355</h4><br>
             <select hidden name="d21" class="form-select form-select-sm" id="d21" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -788,7 +789,7 @@
               </select>
         </div>
         <div class="column course" id="22" onclick="prereqCheck('22')">
-            CS 300<br>
+            <h4>CS 300</h4><br>
             <select hidden name="d22" class="form-select form-select-sm" id="d22" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -807,7 +808,7 @@
               </select>
         </div>
         <div class="column course" id="23" onclick="prereqCheck('23')">
-            CS 301<br>
+            <h4>CS 301</h4><br>
             <select hidden name="d23" class="form-select form-select-sm" id="d23" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -829,8 +830,8 @@
     <div class="row row2">
         <div  class="column course" id="24" onclick="prereqCheck('24')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="24OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="24OutputElective"></h5>
             <script> document.getElementById("24OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="24Box" style="margin: 0 auto;">                
@@ -870,8 +871,8 @@
         </div>
         <div class="column course" id="25" onclick="prereqCheck('25')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HI/SB Elective</label>
-            <h3 id="25OutputElective"></h3>
+            <h4 for="fillOutElective">HI/SB Elective</h4>
+            <h5 id="25OutputElective"></h5>
             <script> document.getElementById("25OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="25Box" style="margin: 0 auto;">                
@@ -910,7 +911,7 @@
               </select>
         </div>
         <div class="column course" id="26" onclick="prereqCheck('26')">
-            MATH 237<br>
+            <h4>MATH 237</h4><br>
             <select hidden name="d26" class="form-select form-select-sm" id="d26" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -929,7 +930,7 @@
               </select>
         </div>
         <div class="column course" id="27" onclick="prereqCheck('27')">
-            CS 403<br>
+            <h4>CS 403</h4><br>
             <select hidden name="d27" class="form-select form-select-sm" id="d27" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -949,8 +950,8 @@
         </div>
         <div class="column course" id="28" onclick="prereqCheck('28')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">CS 4xx</label>
-            <h3 id="28OutputElective"></h3>
+            <h4 for="fillOutElective">CS 4xx</h4>
+            <h5 id="28OutputElective"></h5>
             <script> document.getElementById("28OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="28Box" style="margin: 0 auto;">                
@@ -992,8 +993,8 @@
     <div class="row row1">
         <div class="column course" id="29" onclick="prereqCheck('29')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="29OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="29OutputElective"></h5>
             <script> document.getElementById("29OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="29Box" style="margin: 0 auto;">                
@@ -1033,8 +1034,8 @@
         </div>
         <div class="column course" id="30" onclick="prereqCheck('30')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">HU/L/FA Elective</label>
-            <h3 id="30OutputElective"></h3>
+            <h4 for="fillOutElective">HU/L/FA Elective</h4>
+            <h5 id="30OutputElective"></h5>
             <script> document.getElementById("30OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="30Box" style="margin: 0 auto;">                
@@ -1074,8 +1075,8 @@
         </div>
         <div class="column course" id="31" onclick="prereqCheck('31')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Nat Science #1 (sequence, N)</label>
-            <h3 id="31OutputElective"></h3>
+            <h4 for="fillOutElective">Nat Science #1 (sequence, N)</h4>
+            <h5 id="31OutputElective"></h5>
             <script> document.getElementById("31OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="31Box" style="margin: 0 auto;">                
@@ -1114,7 +1115,7 @@
               </select>
         </div>
         <div class="column course" id="32" onclick="prereqCheck('32')">
-            CS 470/475<br>
+            <h4>CS 470/475</h4><br>
             <select hidden name="d32" class="form-select form-select-sm" id="d32" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
@@ -1134,8 +1135,8 @@
         </div>
         <div class="column course" id="33" onclick="prereqCheck('33')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">CS 4xx</label>
-            <h3 id="33OutputElective"></h3>
+            <h4 for="fillOutElective">CS 4xx</h4>
+            <h5 id="33OutputElective"></h5>
             <script> document.getElementById("33OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="33Box" style="margin: 0 auto;">                
@@ -1177,8 +1178,8 @@
     <div class="row row2">
         <div class="column course" id="34" onclick="prereqCheck('34')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="34OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="34OutputElective"></h5>
             <script> document.getElementById("34OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="34Box" style="margin: 0 auto;">                
@@ -1218,8 +1219,8 @@
         </div>
         <div class="column course" id="35" onclick="prereqCheck('35')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Free Elective</label>
-            <h3 id="35OutputElective"></h3>
+            <h4 for="fillOutElective">Free Elective</h4>
+            <h5 id="35OutputElective"></h5>
             <script> document.getElementById("35OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="35Box" style="margin: 0 auto;">                
@@ -1259,8 +1260,8 @@
         </div>
         <div class="column course" id="36" onclick="prereqCheck('36')">
             <!-- information needed for elective editing -->
-            <label for="fillOutElective">Nat Science #2 (sequence, N)</label>
-            <h3 id="36OutputElective"></h3>
+            <h4 for="fillOutElective">Nat Science #2 (sequence, N)</h4>
+            <h5 id="36OutputElective"></h5>
             <script> document.getElementById("36OutputElective").style.display="none" </script>
 
             <div class="row w-125 mb-4" id="36Box" style="margin: 0 auto;">                
@@ -1299,7 +1300,7 @@
               </select>
         </div>
         <div class="column course" id="37" onclick="prereqCheck('37')">
-            CS 495<br>
+            <h4>CS 495</h4><br>
             <select hidden name="d37" class="form-select form-select-sm" id="d37" aria-label=".form-select-sm example">
                 <option selected></option>
                 <option value="taken">Taken</option>
