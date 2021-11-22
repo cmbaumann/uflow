@@ -246,9 +246,34 @@ function colorDefault() {
 function change(id) {
 
     newid = "d" + id;
+    id2 = parseInt(id);
     if (curOption == 12) {  //deselect option
         document.getElementById(id).style.backgroundColor = "#ffffff";
         document.getElementById(newid).value="";
+        console.log("DESELECT");
+        if ((id2 == 7) || (id2 == 10) || (id2 == 14) || (id2 == 15) || (id2 == 19) || (id2 == 20) || (id2 == 24) || 
+            (id2 == 25) || (id2 == 28) || (id2 == 29) || (id2 == 30) || (id2 == 31) || (id2 == 10) || (id2 == 33) || 
+            (id2 == 34) || (id2 == 35) || (id2 == 36)) {
+                console.log("ELECTIVE");
+                var course_input = document.getElementById(id+"electiveText");
+                var course_hours = document.getElementById(id+"hours")
+                var course_text = document.getElementById(id+"courseText");
+                var hours_text = document.getElementById(id+"hoursText")
+                var button = document.getElementById(id+"Button");
+                var elective_help = document.getElementById(id+"ElectiveHelp");
+                var output_elective = document.getElementById(id+"OutputElective");
+
+                button.innerHTML = "Submit";
+            
+                output_elective.style.display = "none";
+                elective_help.style.display = "block";
+                course_input.style.display = "block";
+                course_input.value = "";
+                course_hours.style.display = "block";
+                course_hours.value = "";
+                course_text.style.display = "block";
+                hours_text.style.display = "block";
+            }
     } 
     else { 
         document.getElementById(id).style.backgroundColor = curColor;
