@@ -363,6 +363,26 @@ def test_export(app, client):
         assert True
 
 #15
+def test_hours(app, client):
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    element = driver.find_element_by_id("hoursTaken")
+    taken = element.get_attribute('innerHTML')
+    element = driver.find_element_by_id("hoursPlanned")
+    planned = element.get_attribute('innerHTML')
+    assert (taken == "Hours Taken: 12") and (planned == "Hours Planned: 12")
+
+#16
 def test_delete(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
