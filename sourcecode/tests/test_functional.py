@@ -140,7 +140,7 @@ def test_color(app, client):
     element.click()
     element = driver.find_element_by_class_name("btn")
     element.click()
-    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart'))
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
     element = driver.find_element_by_id("1")
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 128, 0, 1)"
@@ -297,7 +297,7 @@ def test_invalid_mark(app, client):
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
     element = driver.find_element_by_class_name("fc_edit")
     element.click()
-    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart'))
     
     element = driver.find_element_by_id("spring0")
     element.click()
