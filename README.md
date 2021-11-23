@@ -35,6 +35,9 @@
 <p>
   Clone project repository to your local machine. <br>
   &emsp;- One way to clone: <code>git clone https://github.com/cmbaumann/uflow.git</code> <br>
+  Create the virtual environment on your machine: <code>python3 -m venv env</code><br>
+  Activate the virtual environment: <code>source env/bin/activate</code><br>
+  Install the packages needed to run the application: <code>pip install -r requirements.txt</code><br>
   Navigate to the <code>uflow</code> directory. <br>
   Use the command <code>python run.py</code> to run the application. <br>
   Click on the provided hyperlink in your terminal to view the application from a local host. <br>
