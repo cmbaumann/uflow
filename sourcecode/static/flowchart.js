@@ -345,12 +345,7 @@ function getHours(id) {
 
 //increments the hours taken and hours planned by the correct amount when a course is clicked
 function incrementHours(id) {
-    if (chosen[id] != 0) {
-        return;
-    }
-    else {
-        chosen[id] = 1;
-    }
+    //If the course has been chosen and current option is not "taken"
     // if ((id != 7) &&  (id != 10) && (id != 14) && (id != 15) && (id != 19) && (id != 20) && (id != 24) && 
     //     (id != 25) && (id != 28) && (id != 29) && (id != 30) && (id != 31) && (id != 10) && (id != 33) && 
     //     (id != 34) && (id != 35) && (id != 36)) { //if not an elective (those are handled differently)
@@ -369,11 +364,20 @@ function incrementHours(id) {
             }
             hoursPlanned = parseInt(hours2);
             if (curOption == 0) {
-                hoursTaken += getHours(id);
-                hoursPlanned += getHours(id);
+                if (!chosen[id]) {
+                    hoursTaken += getHours(id);
+                    hoursPlanned += getHours(id);
+                } else if (document.getElementById("d"+id.toString()).value != "taken") {
+                    hoursTaken += getHours(id);
+                } else {
+                    return;
+                }
             }
             else {
-                hoursPlanned += getHours(id);
+                if (!chosen[id]) { hoursPlanned += getHours(id); }
+                else {
+                    if (document.getElementById("d"+id.toString()).value == "taken") { hoursTaken -= getHours(id); }
+                }
             }
             takenString = "Hours Taken: " + hoursTaken
             plannedString = "Hours Planned: " + hoursPlanned
@@ -381,6 +385,7 @@ function incrementHours(id) {
             document.getElementById("hoursPlanned").innerHTML = plannedString;
             document.getElementById("hoursTaken2").value = hoursTaken;
             document.getElementById("hoursPlanned2").value = hoursPlanned;
+            if (!chosen[id]) { chosen[id] = 1; }
     // }
 }
 
