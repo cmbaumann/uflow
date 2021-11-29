@@ -132,7 +132,7 @@ def test_color(app, client):
     element.click()
     element = driver.find_element_by_id("1")
     element.click()
-    element = driver.find_element_by_class_name("btn")
+    element = driver.find_element(By.XPATH, "//button[@id='saveButton']")
     element.click()
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
     element = driver.find_element_by_id("1")
