@@ -8,6 +8,16 @@
 
 <style>
     
+    .outer {
+        table-layout: fixed;
+        width: 400px;
+        margin: 10px 0px 0px 10px;
+    }
+
+    .form-group {
+        height: 55px;
+    }
+
     .course, .color, .color-pick, .chart-color {
         border: 2px solid grey;
         font-weight:initial;
@@ -26,7 +36,11 @@
         text-align: center;
     }
 
-    .btn-primary {
+    .hourTable {
+        width: 300px;
+    }
+
+    .btn-primary  {
         background-color: #0071fc !important;
         border-color: white !important;
         border-width: 2.5px !important;
@@ -141,19 +155,6 @@
         cursor: pointer;
     }
 
-    .outer {
-        width: 100%;
-        table-layout:fixed;
-    }
-
-    .data {
-        width: 50%;
-    }
-
-    .hours {
-        padding: 0px 20px 0px 50px;
-    }
-
 </style>
 
 {% endblock %}
@@ -172,31 +173,37 @@
 
     <table class="outer">
     <tr>
-    <td class="data">
-    <div class="form-group">
-        <label for="FlowchartName">Flowchart Name</label>
-        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder={{data[0]}} style="width: 85%" disabled>
-        <small id="flowchartname" class="form-text text-muted"></small>
-        <table>
-            <tr>
-                <td><button type="submit" class="btn btn-primary" name="saveButton" id="saveButton" onclick="enable()">Save</button></td>
-                <td><input class="btn btn-primary" id="returnButton" type="submit" value="Return to Flowcharts" form="landing"></td>
-                <td>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="export" id="export">
-                        <label class="form-check-label" for="exampleCheck1">Export Flowchart With Save</label>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    </td>
-    <td class="data, hours">
-        <p id="hoursTaken" align="right">Hours Taken: 0</p>
-        <input hidden name="hoursTaken" id="hoursTaken2" value="0">
-        <p id="hoursPlanned" align="right">Hours Planned: 0</p>
-        <input hidden name="hoursPlanned" id="hoursPlanned2" value="0">
-    </td>
+        <td class="data">
+            <section class="form-group">
+                <label for="FlowchartName">Flowchart Name</label>
+                <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" placeholder={{data[0]}} style="width: 300px" disabled>
+                <small id="flowchartname" class="form-text text-muted"></small>
+            </section>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table class="hourTable">
+                <tr>
+                    <td class="data, hours">
+                        <section id="hoursTaken" class="hour-tracker hours-taken" align="flex">Hours Taken: 0</section>
+                        <input hidden name="hoursTaken" id="hoursTaken2" value="0">
+                    </td>
+                    <td class="data, hours">
+                        <section id="hoursPlanned" class="hour-tracker hours-planned" align="flex">Hours Planned: 0</section>
+                        <input hidden name="hoursPlanned" id="hoursPlanned2" value="0">
+                    </td>
+                </tr>
+                
+            </table>
+            <button type="submit" class="btn btn-primary" name="saveButton" id="saveButton" onclick="enable()">Save</button>
+            <input class="btn btn-primary" id="returnButton" type="submit" value="Return to Flowcharts" form="landing">
+            
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="export" id="export">
+                <label class="form-check-label" for="exampleCheck1">Export Flowchart With Save</label>
+            </div>
+        </td>
     </tr>
   </table>
 <div>

@@ -10,6 +10,16 @@
 
 <style>
     
+    .outer {
+        table-layout: fixed;
+        width: 400px;
+        margin: 10px 0px 0px 10px;
+    }
+
+    .form-group {
+        height: 55px;
+    }
+
     .course, .color, .color-pick, .chart-color {
         border: 2px solid grey;
         font-weight:initial;
@@ -20,19 +30,19 @@
         padding: 10px 10px 10px 10px;
         margin: 10px 10px 10px 10px;
         text-align: center;
-        background-color: white;
     }
 
     .color, .color-pick, .chart-color {
         height: 30px;
         padding: 2px 2px 2px 2px;
+        text-align: center;
     }
 
-    .color-pick {
-        border: 2px solid rgb(0, 0, 0);
-        border-radius: 0px;
+    .hourTable {
+        width: 300px;
     }
-    .btn-primary {
+
+    .btn-primary  {
         background-color: #0071fc !important;
         border-color: white !important;
         border-width: 2.5px !important;
@@ -65,6 +75,11 @@
         border-color: white !important;
         border-width: 2.5px !important;
         border-style: solid !important;    
+    }
+
+    .color-pick {
+        border: 2px solid rgb(0, 0, 0);
+        border-radius: 0px;
     }
 
     .column:hover {
@@ -100,7 +115,7 @@
         border: 2px solid grey;
         padding: 10px 0px 5px 10px; /*top, right, bottom, left*/
         margin: 0px 0px 0px 10px;
-        width: 13em;
+        width: 205px;
         height: 150px;
         overflow: hidden;
     }
@@ -116,6 +131,14 @@
     .btn-default {
         width: 179px;
         text-align: center;
+    }
+
+    .row1 {
+        background-color: #E0E0E0;
+    }
+
+    .row2 {
+        background-color: #F0F0F0;
     }
 
     .c-picker::-webkit-slider-thumb {
@@ -134,17 +157,8 @@
         cursor: pointer;
     }
 
-    .outer {
-        width: 100%;
-        table-layout:fixed;
-    }
-
-    .data {
-        width: 50%;
-    }
-
-    .hours {
-        padding: 0px 20px 0px 50px;
+    .course {
+        background-color: white;
     }
 
 </style>
@@ -165,31 +179,40 @@
 
 <form id="landing" action="\logged_in"></form>
 <form action="" method="post">
-    
-    <table class="outer">
-    <tr>
-    <td class="data">
-    <div class="form-group">
-        <label for="FlowchartName">Flowchart Name</label>
-        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" style="width: 85%">
-        <small id="flowchartname" class="form-text text-muted"></small>
-        <table>
+
+        <table class="outer">
             <tr>
-                <td><button type="submit" class="btn btn-primary" onclick="enable()">Save</button></td>
-                <td><input class="btn btn-primary" type="submit" value="Return to Flowcharts" onclick="saveMessage()" form="landing"></td>
+                <td class="data">
+                    <section class="form-group">
+                        <label for="FlowchartName">Flowchart Name</label>
+                        <input name="flowchartname" class="form-control" id="inputFlowchartName" aria-describedby="emailHelp" style="width: 85%">
+                        <small id="flowchartname" class="form-text text-muted"></small>
+                    </section>
+                </td>
             </tr>
-        </table>
-    </div>
-    </td>
-    <td class="data, hours">
-        <p id="hoursTaken" align="right">Hours Taken: 0</p>
-        <p id="hoursPlanned" align="right">Hours Planned: 0</p>
-    </td>
-    </tr>
-  </table>
-<div>
-    <div class="column chart-color" id="fc-color" onclick="color('fc-color')">Chart color</div>
-</div>
+            <tr>
+                <td>
+                    <table class="hourTable">
+                        <tr>
+                            <td class="data, hours">
+                                <section id="hoursTaken" class="hour-tracker hours-taken" align="flex">Hours Taken: 0</section>
+                                <input hidden name="hoursTaken" id="hoursTaken2" value="0">
+                            </td>
+                            <td class="data, hours">
+                                <section id="hoursPlanned" class="hour-tracker hours-planned" align="flex">Hours Planned: 0</section>
+                                <input hidden name="hoursPlanned" id="hoursPlanned2" value="0">
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <button type="submit" class="btn btn-primary" onclick="enable()">Save</button>
+                    <input class="btn btn-primary" type="submit" value="Return to Flowcharts" onclick="saveMessage()" form="landing">
+                </td>
+            </tr>
+          </table>
+        <div>
+            <div class="column chart-color" id="fc-color" onclick="color('fc-color')">Chart color</div>
+        </div>
 <div>
     <button type="button" class="color-pick" id="btn-change" onclick="colorChange()">Change colors</button>
 </div>
