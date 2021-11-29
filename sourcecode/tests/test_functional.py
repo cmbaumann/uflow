@@ -294,11 +294,11 @@ def test_render_elective(app, client):
     element.click()
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
 
-    element = driver.find_element_by_id("7electiveText")
-    element.send_keys("MUS 121")
-    element = driver.find_element_by_id("7hours")
+    element = driver.find_element_by_id("10electiveText")
+    element.send_keys("AMS 250")
+    element = driver.find_element_by_id("10hours")
     element.send_keys("3")
-    element = driver.find_element_by_id("7Button")
+    element = driver.find_element_by_id("10Button")
     element.click()
 
     # save flowchart to DB
@@ -307,9 +307,9 @@ def test_render_elective(app, client):
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
 
     # Assert that the information still renders after the save
-    element = driver.find_element_by_id("7OutputElective")
+    element = driver.find_element_by_id("10OutputElective")
     value = element.get_attribute('innerHTML')
-    assert value == "MUS 121 (3 hours)"
+    assert value == "AMS 250 (3 hours)"
 
 #13
 #Check if program marks invalid courses correctly, signified by having 0.5 opacity
