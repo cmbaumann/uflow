@@ -6,9 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 # must be the chromedriver file path specific to your machine
-# chromepath = "C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe"
-chromepath = "/Users/bradywachs/Downloads/chromedriver" 
-
+chromepath = "C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe"
 
 #1
 def test_login(app, client):
@@ -134,9 +132,9 @@ def test_color(app, client):
     element.click()
     element = driver.find_element_by_id("1")
     element.click()
-    element = driver.find_element(By.XPATH, "//button[@id='saveButton']")
+    element = driver.find_element_by_class_name("btn")
     element.click()
-    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart'))
     element = driver.find_element_by_id("1")
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 128, 0, 1)"
