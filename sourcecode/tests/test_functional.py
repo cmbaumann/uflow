@@ -277,7 +277,7 @@ def test_render_elective(app, client):
     """
     Test that the elective information still renders after website is saved
     """
-    
+    # log in and open flowchart to edit
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
     element = driver.find_element_by_id("InputEmail")
@@ -292,11 +292,16 @@ def test_render_elective(app, client):
     element.click()
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
 
-    element = driver.find_element_by_id("10electiveText")
-    element.send_keys("AMS 250")
-    element = driver.find_element_by_id("10hours")
+    # make sure future semester is selected
+    element = driver.find_element_by_id("spring0")
+    element.click()
+
+    # edit elective information 
+    element = driver.find_element_by_id("7electiveText")
+    element.send_keys("MUS 121")
+    element = driver.find_element_by_id("7hours")
     element.send_keys("3")
-    element = driver.find_element_by_id("10Button")
+    element = driver.find_element_by_id("7Button")
     element.click()
 
     # save flowchart to DB
@@ -305,9 +310,9 @@ def test_render_elective(app, client):
     wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
 
     # Assert that the information still renders after the save
-    element = driver.find_element_by_id("10OutputElective")
+    element = driver.find_element_by_id("7OutputElective")
     value = element.get_attribute('innerHTML')
-    assert value == "AMS 250 (3 hours)"
+    assert value == "MUS 121 (3 hours)"
 
 #13
 #Check if program marks invalid courses correctly, signified by having 0.5 opacity
