@@ -274,7 +274,7 @@ def test_color_save(app, client):
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 0, 0, 1)"
 
-#13
+#12
 #Check if program marks invalid courses correctly, signified by having 0.5 opacity
 def test_invalid_mark(app, client):
     driver = webdriver.Chrome(chromepath)
@@ -302,7 +302,7 @@ def test_invalid_mark(app, client):
     value = element.value_of_css_property("opacity")
     assert value == "0.5"
 
-#14
+#13
 def test_export(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
@@ -327,7 +327,7 @@ def test_export(app, client):
     else:
         assert True
 
-#15
+#14
 def test_hours(app, client):
     driver = webdriver.Chrome(chromepath)
     driver.get("https://uflow-alabama.herokuapp.com/login")
@@ -347,7 +347,7 @@ def test_hours(app, client):
     planned = element.get_attribute('innerHTML')
     assert (taken == "Hours Taken: 12") and (planned == "Hours Planned: 12")
 
-#12
+#15
 def test_render_elective(app, client):
     """
     Test that the elective information still renders after website is saved
