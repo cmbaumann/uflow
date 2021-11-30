@@ -1447,7 +1447,6 @@ function click_button(id) {
 }
 </script>
 
-{% if data %}
 <script>
     /* data arry info.
     - index 0: name
@@ -1544,8 +1543,8 @@ function click_button(id) {
             // clean each string
             let temp = splitArray[i];
             temp = temp.slice(6,-5);
-            temp = temp.replace(/&/g, '');
-            // temp = temp.replace(/[^0-9a-zA-Z]/gi, '');
+            // temp = temp.replace(/&/g, '');
+            temp = temp.replace(/[^0-9a-zA-Z]/gi, '');
             returnArray.push(temp);
         }
         return returnArray;
@@ -1597,6 +1596,5 @@ function click_button(id) {
     }
 
 </script>
-{% endif %}
 
 {% endblock %}
