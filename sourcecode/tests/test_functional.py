@@ -6,7 +6,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 # must be the chromedriver file path specific to your machine
-chromepath = "C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe"
+# chromepath = "C:\\Users\\cassi\\Downloads\\chromedriver_win32\\chromedriver.exe"
+chromepath = "/Users/bradywachs/Downloads/chromedriver" 
+
 
 #1
 def test_login(app, client):
@@ -272,48 +274,6 @@ def test_color_save(app, client):
     value = element.value_of_css_property("backgroundColor")
     assert value == "rgba(0, 0, 0, 1)"
 
-#12
-def test_render_elective(app, client):
-    """
-    Test that the elective information still renders after website is saved
-    """
-    # log in and open flowchart to edit
-    driver = webdriver.Chrome(chromepath)
-    driver.get("https://uflow-alabama.herokuapp.com/login")
-    element = driver.find_element_by_id("InputEmail")
-    element.send_keys("test@crimson.ua.edu")
-    element = driver.find_element_by_id("InputPassword")
-    element.send_keys("password")
-    element = driver.find_element_by_class_name("btn")
-    element.click()
-    wait = WebDriverWait(driver, 10)
-    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
-    element = driver.find_element_by_class_name("fc_edit")
-    element.click()
-    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
-
-    # make sure future semester is selected
-    element = driver.find_element_by_id("spring0")
-    element.click()
-
-    # edit elective information 
-    element = driver.find_element_by_id("7electiveText")
-    element.send_keys("MUS 121")
-    element = driver.find_element_by_id("7hours")
-    element.send_keys("3")
-    element = driver.find_element_by_id("7Button")
-    element.click()
-
-    # save flowchart to DB
-    element = driver.find_element_by_name("saveButton")
-    element.click()
-    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
-
-    # Assert that the information still renders after the save
-    element = driver.find_element_by_id("7OutputElective")
-    value = element.get_attribute('innerHTML')
-    assert value == "MUS 121 (3 hours)"
-
 #13
 #Check if program marks invalid courses correctly, signified by having 0.5 opacity
 def test_invalid_mark(app, client):
@@ -386,6 +346,48 @@ def test_hours(app, client):
     element = driver.find_element_by_id("hoursPlanned")
     planned = element.get_attribute('innerHTML')
     assert (taken == "Hours Taken: 12") and (planned == "Hours Planned: 12")
+
+#12
+def test_render_elective(app, client):
+    """
+    Test that the elective information still renders after website is saved
+    """
+    # log in and open flowchart to edit
+    driver = webdriver.Chrome(chromepath)
+    driver.get("https://uflow-alabama.herokuapp.com/login")
+    element = driver.find_element_by_id("InputEmail")
+    element.send_keys("test@crimson.ua.edu")
+    element = driver.find_element_by_id("InputPassword")
+    element.send_keys("password")
+    element = driver.find_element_by_class_name("btn")
+    element.click()
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/logged_in'))
+    element = driver.find_element_by_class_name("fc_edit")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+
+    # make sure future semester is selected
+    element = driver.find_element_by_id("spring0")
+    element.click()
+
+    # edit elective information 
+    element = driver.find_element_by_id("7electiveText")
+    element.send_keys("MUS 121")
+    element = driver.find_element_by_id("7hours")
+    element.send_keys("3")
+    element = driver.find_element_by_id("7Button")
+    element.click()
+
+    # save flowchart to DB
+    element = driver.find_element_by_name("saveButton")
+    element.click()
+    wait.until(EC.url_to_be('https://uflow-alabama.herokuapp.com/flowchart-edit/testflowchart?'))
+
+    # Assert that the information still renders after the save
+    element = driver.find_element_by_id("7OutputElective")
+    value = element.get_attribute('innerHTML')
+    assert value == "MUS 121 (3 hours)"
 
 #16
 def test_delete(app, client):
